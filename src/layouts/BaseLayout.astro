@@ -57,5 +57,14 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 
     <PassportInterstitial />
     <VideoModal />
+
+    <script>
+      // Only load CloudCannon component re-rendering inside the Visual Editor.
+      if (typeof window !== "undefined" && (window as any).inEditorMode) {
+        import("../cloudcannon/registerComponents").catch((error) => {
+          console.warn("Failed to load CloudCannon component registration:", error);
+        });
+      }
+    </script>
   </body>
 </html>

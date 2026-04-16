@@ -2,42 +2,32 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
 import BookButton from "../components/BookButton.astro";
+import { getEntry, render } from "astro:content";
+
+const entry = await getEntry("pages", "private-group");
+if (!entry || entry.data._schema !== "page") {
+  throw new Error("src/content/pages/private-group.md is missing or has the wrong _schema");
+}
+const d = entry.data;
+const { Content } = await render(entry);
 ---
 
-<BaseLayout title="Private & group tours" description="Turn select Skagway Tours into a private 13-pax experience.">
+<BaseLayout title={d.title} description={d.description}>
   <PageHero
-    eyebrow="Make it yours"
-    title="Private &amp; group tours"
-    lead="Take over the Combo tour or Wild Adventure Yukon as a private 13-pax charter."
+    eyebrow={d.hero_eyebrow}
+    title={d.hero_title ?? d.title}
+    lead={d.hero_lead}
   />
 
   <section class="section">
     <div class="container prose">
-      <p>
-        Want your family, wedding party, or cruise group on its own bus? Two of our
-        core routes — the <strong>Combo tour</strong> and <strong>Wild Adventure
-        Yukon</strong> — are available as private 13-passenger charters. Your own
-        driver-guide, your own pace, your own memories.
-      </p>
-
-      <p class="muted">
-        Note: dogsled is not part of the private 13-pax offering.
-      </p>
-
-      <h2>How it works</h2>
-      <ol>
-        <li>Tell us your group size and date.</li>
-        <li>We confirm availability and the full-bus rate.</li>
-        <li>You book, we drive, you tell the story forever.</li>
-      </ol>
+      <div data-editable="text" data-type="block" data-prop="@content">
+        <Content />
+      </div>
 
       <p style="margin-top: 2rem;">
-        <BookButton label="Request a private tour" />
+        <BookButton label={d.book_button_label ?? "Request a private tour"} />
       </p>
     </div>
   </section>
 </BaseLayout>
-
-<style>
-  .muted { color: var(--c-ink-soft); font-style: italic; }
-</style>

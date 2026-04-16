@@ -17,25 +17,30 @@ const d = post.data;
   <article class="post">
     <header class="post__header container">
       <span class="eyebrow">Blog</span>
-      <h1>{d.title}</h1>
+      <h1 data-editable="text" data-prop="title">{d.title}</h1>
       <p class="post__meta">
         <time datetime={d.pubDate.toISOString()}>
           {d.pubDate.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
         </time>
         {" · "}
-        <span>{d.author}</span>
+        <span data-editable="text" data-prop="author">{d.author}</span>
       </p>
     </header>
 
     {
       d.cover && (
-        <div class="post__cover container">
+        <div class="post__cover container" data-editable="image" data-prop="cover">
           <Image src={d.cover} alt={d.title} widths={[800, 1200, 1800]} sizes="(max-width: 900px) 100vw, 900px" />
         </div>
       )
     }
 
-    <section class="container post__body prose">
+    <section
+      class="container post__body prose"
+      data-editable="text"
+      data-type="block"
+      data-prop="@content"
+    >
       <Content />
     </section>
   </article>

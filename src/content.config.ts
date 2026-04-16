@@ -38,11 +38,66 @@ const posts = defineCollection({
 const pages = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "src/content/pages" }),
   schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      description: z.string().optional(),
-      cover: image().optional(),
-    }),
+    z.discriminatedUnion("_schema", [
+      z.object({
+        _schema: z.literal("home"),
+        title: z.string(),
+        description: z.string().optional(),
+        cover: image().optional(),
+        tours_section: z
+          .object({
+            eyebrow: z.string().default("Our tours"),
+            title: z.string().default("A story you'll tell forever."),
+            empty_message: z
+              .string()
+              .default("Tours will appear here once content is added in CloudCannon."),
+          })
+          .default({}),
+        callouts: z
+          .array(
+            z.object({
+              variant: z.enum(["primary", "default"]).default("default"),
+              eyebrow: z.string().optional(),
+              title: z.string(),
+              body: z.string().optional(),
+              cta_label: z.string().optional(),
+              cta_href: z.string().optional(),
+            })
+          )
+          .default([]),
+        reviews_cta: z
+          .object({
+            eyebrow: z.string().optional(),
+            title: z.string(),
+            lead: z.string().optional(),
+            cta_label: z.string().default("Read our reviews"),
+            cta_href: z.string().default("/reviews/"),
+          })
+          .optional(),
+      }),
+      z.object({
+        _schema: z.literal("page").default("page"),
+        title: z.string(),
+        description: z.string().optional(),
+        cover: image().optional(),
+        hero_eyebrow: z.string().optional(),
+        hero_title: z.string().optional(),
+        hero_lead: z.string().optional(),
+        // Contact
+        reach_heading: z.string().optional(),
+        response_note: z.string().optional(),
+        newsletter_heading: z.string().optional(),
+        // Find us
+        pickup_heading: z.string().optional(),
+        pickup_details_heading: z.string().optional(),
+        pickup_details_note: z.string().optional(),
+        map_embed_url: z.string().optional(),
+        // Private group
+        book_button_label: z.string().optional(),
+        // Reviews
+        placeholder_text: z.string().optional(),
+      }),
+    ]),
 });
 
 const faqs = defineCollection({

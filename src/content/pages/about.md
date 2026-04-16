@@ -1,6 +1,9 @@
 ---
+_schema: page
 title: The crew behind Skagway Tours
 description: Locally owned, small-group Skagway tours into the Yukon.
+hero_eyebrow: About us
+hero_title: The crew behind Skagway Tours
 ---
 
 Skagway Tours is a small, locally owned operation running small-group bus tours
