@@ -1,6 +1,11 @@
 - id: default
   site_name: Skagway Tours
   tagline: Unforgettable small-group adventures from Skagway into the Yukon.
+  # Upload via CloudCannon -> Site settings. Paths should be served from
+  # public/ (e.g. /images/favicon.svg). Leave blank to fall back to the
+  # default /favicon.svg shipped with the site.
+  favicon: ""
+  default_og_image: ""
   phone: "+1-907-000-0000"
   phone_label: "Call or text"
   email: hello@skagway.tours

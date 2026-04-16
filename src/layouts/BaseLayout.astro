@@ -6,19 +6,34 @@ import PassportInterstitial from "../components/PassportInterstitial.astro";
 import VideoModal from "../components/VideoModal.astro";
 import { getEntry } from "astro:content";
 
+interface SEO {
+  meta_title?: string;
+  meta_description?: string;
+  og_image?: string;
+  noindex?: boolean;
+}
+
 interface Props {
   title?: string;
   description?: string;
   image?: string;
+  seo?: SEO;
   transparentHeader?: boolean;
 }
 
-const { title, description, image, transparentHeader = false } = Astro.props;
+const { title, description, image, seo, transparentHeader = false } = Astro.props;
 const site = await getEntry("site", "default");
 const siteName = site?.data.site_name ?? "Skagway Tours";
 const tagline = site?.data.tagline ?? "";
-const fullTitle = title ? `${title} · ${siteName}` : `${siteName} · ${tagline}`;
-const metaDescription = description ?? tagline;
+const favicon = site?.data.favicon || "/favicon.svg";
+const defaultOgImage = site?.data.default_og_image;
+
+// SEO overrides win over page-level defaults; page-level wins over site tagline.
+const pageTitle = seo?.meta_title ?? title;
+const fullTitle = pageTitle ? `${pageTitle} · ${siteName}` : `${siteName} · ${tagline}`;
+const metaDescription = seo?.meta_description ?? description ?? tagline;
+const ogImage = seo?.og_image ?? image ?? defaultOgImage;
+const ogImageUrl = ogImage ? new URL(ogImage, Astro.site).toString() : undefined;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
@@ -28,7 +43,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href={favicon} />
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -37,13 +52,15 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     />
     <title>{fullTitle}</title>
     <meta name="description" content={metaDescription} />
+    {seo?.noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonical} />
     <meta property="og:site_name" content={siteName} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={metaDescription} />
     <meta property="og:url" content={canonical} />
-    {image && <meta property="og:image" content={image} />}
+    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
     <meta name="twitter:card" content="summary_large_image" />
+    {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
 
     <!-- FareHarbor lightframe: intercepts links whose href matches fareharbor.com and opens the booking widget. -->
     <script src="https://fareharbor.com/embeds/api/v1/?autolightframe=yes" async></script>

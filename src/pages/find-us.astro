@@ -11,7 +11,7 @@ const d = entry.data;
 const { Content } = await render(entry);
 ---
 
-<BaseLayout title={d.title} description={d.description}>
+<BaseLayout title={d.title} description={d.description} seo={d.seo}>
   <PageHero
     eyebrow={d.hero_eyebrow}
     title={d.hero_title ?? d.title}

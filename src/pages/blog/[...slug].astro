@@ -13,7 +13,7 @@ const { Content } = await render(post);
 const d = post.data;
 ---
 
-<BaseLayout title={d.title} description={d.description}>
+<BaseLayout title={d.title} description={d.description} seo={d.seo}>
   <article class="post">
     <header class="post__header container">
       <span class="eyebrow">Blog</span>

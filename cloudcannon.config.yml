@@ -307,7 +307,33 @@ _inputs:
       allow_create: true
       values: [Booking, Cancellation, Passport, Pickup, Weather, General]
 
+  # --- SEO (grouped object shown on every page/tour/post) ---
+  seo:
+    type: object
+    comment: "Search engine + social preview overrides. Leave blank to fall back to the page title/description."
+    options:
+      preview:
+        icon: search
+  seo.meta_title:
+    type: text
+    comment: "Shown in browser tabs and Google search results. ~55-60 chars works best."
+  seo.meta_description:
+    type: textarea
+    comment: "Google search snippet. ~150-160 chars of click-copy."
+  seo.og_image:
+    type: image
+    comment: "Image used when the page is shared on social media (1200x630 recommended)."
+  seo.noindex:
+    type: switch
+    comment: "Hide this page from search engines (e.g. thanks pages, drafts)."
+
   # --- Site settings (YAML) ---
+  favicon:
+    type: image
+    comment: "Browser tab icon. SVG or PNG; 32x32 minimum."
+  default_og_image:
+    type: image
+    comment: "Fallback social preview image used when a page doesn't set its own."
   phone:
     type: tel
   phone_label:
