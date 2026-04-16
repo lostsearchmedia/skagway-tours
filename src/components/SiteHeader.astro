@@ -165,7 +165,7 @@ const phoneLabel = s?.phone_label ?? "Call";
     50% { opacity: 0.35; }
   }
 
-  .site-nav ul {
+  .site-nav > ul {
     display: flex;
     gap: 0.25rem;
     list-style: none;
@@ -199,6 +199,8 @@ const phoneLabel = s?.phone_label ?? "Call";
     background: var(--c-ink-soft);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius);
+    list-style: none;
+    margin: 0;
     padding: 0.4rem;
     flex-direction: column;
     display: none;
@@ -275,7 +277,7 @@ const phoneLabel = s?.phone_label ?? "Call";
       padding: 1rem;
     }
     .site-nav.is-open { display: block; }
-    .site-nav ul { flex-direction: column; align-items: stretch; }
+    .site-nav > ul { flex-direction: column; align-items: stretch; }
     .dropdown { position: static; display: none; background: transparent; border: none; box-shadow: none; padding-left: 1rem; }
     .has-dropdown.is-open .dropdown { display: flex; }
     .phone-cta { display: none; }
