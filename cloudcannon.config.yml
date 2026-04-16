@@ -1,74 +1,386 @@
 ### CloudCannon configuration
 # Docs: https://cloudcannon.com/documentation/articles/configuration-file-reference/
-# This file tells CloudCannon where editable content lives and how to present it.
+# Conventions in this file follow the CloudCannon migration skill at
+# .cloudcannon/agent-skills/ (see AGENTS.md at the repo root).
 
-source: ""
 paths:
   static: public
-  uploads: public/uploads
-  collections: src/content
+  uploads: public/images
+
+# Default Markdown engine + enable tables so Markdown pipe tables round-trip
+# cleanly through the rich text editor.
+markdown:
+  engine: commonmark
+  options:
+    table: true
+
+# Rich text toolbar for all `content` body fields. When any key is set here,
+# omitted keys default to false — so every button we want must be declared.
+_editables:
+  content:
+    bold: true
+    italic: true
+    underline: true
+    strike: true
+    link: true
+    blockquote: true
+    bulletedlist: true
+    numberedlist: true
+    image: true
+    removeformat: true
+    format: p h2 h3 h4
 
 collections_config:
   tours:
     path: src/content/tours
     url: "/tours/[slug]/"
-    output: true
     icon: hiking
     name: Tours
+    _enabled_editors:
+      - visual
+      - content
+      - data
     schemas:
       default:
         path: .cloudcannon/schemas/tour.md
-    _inputs:
-      featured_image:
-        type: image
-      gallery:
-        type: array
-      price_from:
-        type: number
-      duration_hours:
-        type: number
-      difficulty:
-        type: select
-        options:
-          values: [Easy, Moderate, Strenuous]
-      fareharbor_item_id:
-        comment: "The FareHarbor item ID. Leave blank to use the catalog-wide booking link."
+        name: Tour
+        new_preview_url: /tours/white-pass-yukon-combo/
+    add_options:
+      - name: New tour
+        schema: default
+        icon: hiking
+        # Drafts aren't built, so new tours open in the content editor which
+        # doesn't need a preview URL.
+        editor: content
+
   posts:
     path: src/content/posts
     url: "/blog/[slug]/"
-    output: true
-    icon: article
+    icon: post_add
     name: Blog
+    _enabled_editors:
+      - visual
+      - content
+      - data
     schemas:
       default:
         path: .cloudcannon/schemas/post.md
+        name: Blog post
+        new_preview_url: /blog/welcome/
+    add_options:
+      - name: New blog post
+        schema: default
+        icon: post_add
+        editor: content
+
   pages:
     path: src/content/pages
     url: "/[slug]/"
-    output: true
-    icon: description
+    icon: wysiwyg
     name: Pages
+    _enabled_editors:
+      - visual
+      - content
+      - data
+    schemas:
+      default:
+        path: .cloudcannon/schemas/page.md
+        name: Page
+        new_preview_url: /about/
+    add_options:
+      - name: New page
+        schema: default
+        icon: wysiwyg
+        editor: content
+
+  faqs:
+    # FAQ entries don't build their own pages — they're read and grouped by
+    # faqs.astro. Each entry has both frontmatter (question/category/order)
+    # and a markdown body (the answer), so editors get content + data.
+    path: src/content/faqs
+    icon: help
+    name: FAQs
+    disable_url: true
+    _enabled_editors:
+      - content
+      - data
+    add_options:
+      - name: New FAQ
+        icon: help
+        editor: content
+
   site:
+    # Single-file YAML data collection for site-wide settings, nav, and footer.
     path: src/content/site
-    output: false
     icon: settings
     name: Site settings
+    disable_url: true
     disable_add: true
     disable_add_folder: true
+    _enabled_editors:
+      - data
 
 collection_groups:
   - heading: Content
-    collections: [tours, posts, pages]
+    collections: [tours, posts, pages, faqs]
   - heading: Configuration
     collections: [site]
 
+# -------------------------------------------------------------------
+# Inputs — cover every field in src/content.config.ts so editors get
+# the right control for each key. Anything not listed here falls back
+# to CloudCannon's type inference, which is often wrong.
+# -------------------------------------------------------------------
 _inputs:
-  booking_url:
-    comment: "Fallback FareHarbor booking URL used when a tour has no fareharbor_item_id set."
+  # --- Shared / common ---
+  title:
+    type: text
+    comment: "Shown at the top of the page and used in page titles."
+  description:
+    type: textarea
+    comment: "Short summary used in listings and meta descriptions."
+  summary:
+    type: textarea
+  draft:
+    type: switch
+    comment: "Drafts are hidden from the built site."
+  order:
+    type: number
+    comment: "Lower numbers appear first."
+
+  # --- Images ---
+  cover:
+    type: image
+  featured_image:
+    type: image
+  gallery:
+    type: array
+    options:
+      structures: _structures.gallery
+  gallery[*]:
+    type: image
+
+  # --- Tours ---
+  price_from:
+    type: number
+  duration_hours:
+    type: number
+  difficulty:
+    type: select
+    options:
+      values: _select_data.difficulties
+  available_for_private_13pax:
+    type: switch
+    comment: "Show the Private 13-pax option for this tour."
+  video_url:
+    type: url
+    comment: "Optional YouTube / Vimeo URL for the tour detail video."
+  fareharbor_item_id:
+    type: text
+    comment: "The FareHarbor item ID. Leave blank to use the site-wide booking URL."
+  highlights:
+    type: array
+    options:
+      structures: _structures.highlights
+  highlights[*]:
+    type: text
+
+  # --- Posts ---
+  pubDate:
+    type: datetime
+    comment: "The publish date — controls post ordering on the blog."
+  updatedDate:
+    type: datetime
+  author:
+    type: text
+
+  # --- FAQs ---
+  question:
+    type: text
+  category:
+    type: select
+    options:
+      allow_create: true
+      values: [Booking, Cancellation, Passport, Pickup, Weather, General]
+
+  # --- Site settings (YAML) ---
   phone:
     type: tel
+  phone_label:
+    type: text
   email:
     type: email
+  fareharbor_shortname:
+    type: text
+    comment: "FareHarbor short-name — the part after /embeds/book/ in your widget URL."
+  booking_url:
+    type: url
+    comment: "Fallback FareHarbor URL used if fareharbor_shortname is empty."
+  passport_note:
+    type: text
+  site_name:
+    type: text
+  tagline:
+    type: text
+  id:
+    hidden: true
+
+  hero:
+    type: object
+    options:
+      preview:
+        icon: slideshow
+  hero.video_src:
+    type: file
+    comment: "MP4 hero video. Upload to /public/video/ or paste a URL."
+  hero.video_poster:
+    type: image
+    comment: "Poster image shown before the hero video plays."
+  hero.review_stat:
+    type: text
+  hero.primary_cta_label:
+    type: text
+  hero.primary_cta_href:
+    type: text
+
+  promo_banner:
+    type: object
+    options:
+      preview:
+        icon: campaign
+  promo_banner.enabled:
+    type: switch
+  promo_banner.text:
+    type: text
+  promo_banner.href:
+    type: text
+
+  social:
+    type: object
+    options:
+      preview:
+        icon: share
+  social.facebook:
+    type: url
+  social.instagram:
+    type: url
+  social.tripadvisor:
+    type: url
+
+  nav:
+    type: array
+    options:
+      structures: _structures.nav_items
+  children:
+    type: array
+    options:
+      structures: _structures.nav_children
+  label:
+    type: text
+  href:
+    type: text
+
+  footer_groups:
+    type: array
+    options:
+      structures: _structures.footer_groups
+  heading:
+    type: text
+  links:
+    type: array
+    options:
+      structures: _structures.footer_links
+
+# -------------------------------------------------------------------
+# Structures — every array input needs a matching structure so editors
+# can add new items. Without these, the + Add button on arrays is a no-op.
+# -------------------------------------------------------------------
+_structures:
+  highlights:
+    style: select
+    values:
+      - label: Highlight
+        icon: check_circle
+        value: "New highlight"
+        preview:
+          text:
+            - $
+
+  gallery:
+    style: select
+    values:
+      - label: Image
+        icon: image
+        value: ""
+
+  nav_items:
+    style: select
+    values:
+      - label: Link
+        icon: link
+        value:
+          label: New link
+          href: "/"
+        preview:
+          text:
+            - key: label
+          subtext:
+            - key: href
+      - label: Dropdown
+        icon: arrow_drop_down
+        value:
+          label: New dropdown
+          children:
+            - label: Item one
+              href: "/"
+        preview:
+          text:
+            - key: label
+          subtext:
+            - "Dropdown"
+
+  nav_children:
+    style: select
+    values:
+      - label: Link
+        icon: link
+        value:
+          label: New link
+          href: "/"
+        preview:
+          text:
+            - key: label
+          subtext:
+            - key: href
+
+  footer_groups:
+    style: select
+    values:
+      - label: Footer column
+        icon: view_column
+        value:
+          heading: New column
+          links:
+            - label: New link
+              href: "/"
+        preview:
+          text:
+            - key: heading
+          icon: view_column
+
+  footer_links:
+    style: select
+    values:
+      - label: Link
+        icon: link
+        value:
+          label: New link
+          href: "/"
+        preview:
+          text:
+            - key: label
+          subtext:
+            - key: href
 
 _select_data:
   difficulties:
