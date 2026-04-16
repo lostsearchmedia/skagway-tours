@@ -10,7 +10,7 @@ const lead = isNewsletter
   : "Your message is on its way. We aim to reply within one business day.";
 ---
 
-<BaseLayout title={title} description={lead}>
+<BaseLayout title={title} description={lead} seo={{ noindex: true }}>
   <section class="section">
     <div class="container thanks">
       <h1>{title}</h1>

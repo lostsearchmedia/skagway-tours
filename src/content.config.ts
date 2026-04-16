@@ -1,6 +1,20 @@
 import { defineCollection, z } from "astro:content";
 import { glob, file } from "astro/loaders";
 
+// Optional SEO overrides available on every content-driven page. The layout
+// prefers these over the visible title/description so editors can keep the
+// page's on-screen heading short while SEOs tune the meta tags for search.
+// og_image is a path string (e.g. /images/foo.jpg) so CloudCannon's image
+// uploader — which writes into public/images/ — round-trips cleanly.
+const seoSchema = z
+  .object({
+    meta_title: z.string().optional(),
+    meta_description: z.string().optional(),
+    og_image: z.string().optional(),
+    noindex: z.boolean().default(false),
+  })
+  .optional();
+
 const tours = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "src/content/tours" }),
   schema: ({ image }) =>
@@ -18,6 +32,7 @@ const tours = defineCollection({
       available_for_private_13pax: z.boolean().default(false),
       draft: z.boolean().default(false),
       order: z.number().default(100),
+      seo: seoSchema,
     }),
 });
 
@@ -32,6 +47,7 @@ const posts = defineCollection({
       cover: image().optional(),
       author: z.string().default("Skagway Tours"),
       draft: z.boolean().default(false),
+      seo: seoSchema,
     }),
 });
 
@@ -74,6 +90,7 @@ const pages = defineCollection({
             cta_href: z.string().default("/reviews/"),
           })
           .optional(),
+        seo: seoSchema,
       }),
       z.object({
         _schema: z.literal("page").default("page"),
@@ -96,6 +113,7 @@ const pages = defineCollection({
         book_button_label: z.string().optional(),
         // Reviews
         placeholder_text: z.string().optional(),
+        seo: seoSchema,
       }),
     ]),
 });
@@ -128,6 +146,11 @@ const site = defineCollection({
     id: z.string(),
     site_name: z.string(),
     tagline: z.string(),
+    // Favicon + default social image are stored as path strings (uploads
+    // land in public/images/, referenced as /images/...) rather than
+    // image() so Astro doesn't try to resolve them from the YAML file.
+    favicon: z.string().optional(),
+    default_og_image: z.string().optional(),
     phone: z.string().optional(),
     phone_label: z.string().default("Call"),
     email: z.string().optional(),

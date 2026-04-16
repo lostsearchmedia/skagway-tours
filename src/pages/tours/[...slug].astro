@@ -17,7 +17,7 @@ const { Content } = await render(tour);
 const d = tour.data;
 ---
 
-<BaseLayout title={d.title} description={d.summary}>
+<BaseLayout title={d.title} description={d.summary} seo={d.seo}>
   <article class="tour">
     <header class="tour__hero">
       {
