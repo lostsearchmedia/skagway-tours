@@ -15,8 +15,8 @@ Describe the tour here.
 
 ## What to bring
 
--
+- 
 
 ## What's included
 
--
+- 
