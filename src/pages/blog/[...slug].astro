@@ -1,0 +1,50 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts", (p) => !p.data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const d = post.data;
+---
+
+<BaseLayout title={d.title} description={d.description}>
+  <article class="post">
+    <header class="post__header container">
+      <span class="eyebrow">Blog</span>
+      <h1>{d.title}</h1>
+      <p class="post__meta">
+        <time datetime={d.pubDate.toISOString()}>
+          {d.pubDate.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+        </time>
+        {" · "}
+        <span>{d.author}</span>
+      </p>
+    </header>
+
+    {
+      d.cover && (
+        <div class="post__cover container">
+          <Image src={d.cover} alt={d.title} widths={[800, 1200, 1800]} sizes="(max-width: 900px) 100vw, 900px" />
+        </div>
+      )
+    }
+
+    <section class="container post__body prose">
+      <Content />
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .post__header { padding: 4rem 1rem 1rem; max-width: 820px; }
+  .post__meta { color: var(--c-ink-soft); }
+  .post__cover { max-width: 900px; padding: 1rem; }
+  .post__cover img { width: 100%; border-radius: 8px; }
+  .post__body { padding: 2rem 1rem 3rem; max-width: 760px; }
+</style>

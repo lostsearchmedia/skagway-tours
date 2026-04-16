@@ -1,0 +1,116 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+---
+
+<BaseLayout title="Find us" description="Pickup locations and directions for your Skagway Tours adventure.">
+  <PageHero
+    eyebrow="Meeting point"
+    title="Find us in Skagway"
+    lead="Cruise ship arrivals meet at the dock; independent travelers meet at Centennial Park. Send us your details and we'll confirm pickup."
+  />
+
+  <section class="section">
+    <div class="container find-us__grid">
+      <div class="find-us__map">
+        <!-- Replace this embed URL with the client's preferred map embed. -->
+        <iframe
+          title="Skagway Tours pickup map"
+          src="https://www.google.com/maps?q=Skagway%2C%20AK&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+
+      <div>
+        <h2>Pickup locations</h2>
+        <p>
+          <strong>Cruise passengers:</strong> we meet you at the dock — our driver
+          will be waiting with a Skagway Tours sign at your ship's gangway.
+        </p>
+        <p>
+          <strong>Independent travelers:</strong> pickup is at Centennial Park in
+          downtown Skagway.
+        </p>
+
+        <h3>Send us your arrival details</h3>
+        <p class="muted">v1 form: submissions email our team so we can confirm pickup.</p>
+
+        <form class="pickup-form" action="https://formspree.io/f/REPLACE_ME" method="POST">
+          <label>
+            <span>Ship name</span>
+            <input type="text" name="ship" required />
+          </label>
+          <label>
+            <span>Arrival date</span>
+            <input type="date" name="arrival_date" required />
+          </label>
+          <label>
+            <span>Arrival time</span>
+            <input type="time" name="arrival_time" required />
+          </label>
+          <label>
+            <span>Email</span>
+            <input type="email" name="email" required />
+          </label>
+          <label>
+            <span>Mobile phone</span>
+            <input type="tel" name="phone" />
+          </label>
+          <label class="full">
+            <span>Anything we should know?</span>
+            <textarea name="notes" rows="3"></textarea>
+          </label>
+          <button type="submit" class="button">Send pickup details</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .find-us__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  @media (max-width: 880px) {
+    .find-us__grid { grid-template-columns: 1fr; }
+  }
+  .find-us__map iframe {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border: 0;
+    border-radius: 8px;
+  }
+  .muted { color: var(--c-ink-soft); font-size: 0.9rem; }
+  .pickup-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .pickup-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.9rem;
+  }
+  .pickup-form label span { font-weight: 600; }
+  .pickup-form label.full { grid-column: 1 / -1; }
+  .pickup-form input,
+  .pickup-form textarea {
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--c-fog);
+    border-radius: 4px;
+    font: inherit;
+    background: #fff;
+  }
+  .pickup-form input:focus,
+  .pickup-form textarea:focus {
+    outline: 2px solid var(--c-ember);
+    outline-offset: 1px;
+  }
+  .pickup-form button { grid-column: 1 / -1; justify-self: start; }
+</style>

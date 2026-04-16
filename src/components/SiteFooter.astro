@@ -1,0 +1,115 @@
+---
+import { getEntry } from "astro:content";
+
+const site = await getEntry("site", "default");
+const s = site?.data;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div class="site-footer__brand">
+      <a href="/" class="brand brand--footer">
+        <span class="brand__mark">ST</span>
+        <span class="brand__name">{s?.site_name ?? "Skagway Tours"}</span>
+      </a>
+      <p class="site-footer__tagline">{s?.tagline}</p>
+      {
+        s?.phone && (
+          <p class="site-footer__contact">
+            <strong>{s.phone_label ?? "Call"}:</strong>{" "}
+            <a href={`tel:${s.phone.replace(/[^+\d]/g, "")}`}>{s.phone}</a>
+          </p>
+        )
+      }
+      {
+        s?.email && (
+          <p class="site-footer__contact">
+            <strong>Email:</strong> <a href={`mailto:${s.email}`}>{s.email}</a>
+          </p>
+        )
+      }
+    </div>
+
+    <nav class="site-footer__groups" aria-label="Footer">
+      {
+        (s?.footer_groups ?? []).map((group) => (
+          <div class="footer-group">
+            <h4>{group.heading}</h4>
+            <ul>
+              {group.links.map((l) => (
+                <li>
+                  <a href={l.href}>{l.label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </nav>
+  </div>
+
+  <div class="site-footer__base container">
+    <small>© {year} {s?.site_name ?? "Skagway Tours"}. All rights reserved.</small>
+    <small>Built with Astro · Edited in CloudCannon</small>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--c-spruce-deep);
+    color: var(--c-paper);
+    padding: 4rem 0 1.5rem;
+    margin-top: 4rem;
+  }
+  .site-footer__inner {
+    display: grid;
+    grid-template-columns: 1.1fr 2fr;
+    gap: 3rem;
+  }
+  @media (max-width: 780px) {
+    .site-footer__inner { grid-template-columns: 1fr; gap: 2rem; }
+  }
+  .site-footer__tagline { opacity: 0.8; max-width: 38ch; }
+  .site-footer__contact { margin: 0.25rem 0; }
+  .site-footer__contact a { color: var(--c-paper); }
+  .site-footer__contact a:hover { color: var(--c-ember-bright); }
+
+  .site-footer__groups {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+  }
+  .footer-group h4 {
+    font-size: 0.85rem;
+    letter-spacing: 0.22em;
+    color: var(--c-ember-bright);
+    margin-bottom: 0.75rem;
+  }
+  .footer-group ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .footer-group a {
+    color: var(--c-paper);
+    opacity: 0.85;
+  }
+  .footer-group a:hover { opacity: 1; color: var(--c-ember-bright); }
+
+  .site-footer__base {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    opacity: 0.65;
+    font-size: 0.85rem;
+  }
+  .brand--footer .brand__name { color: var(--c-paper); }
+</style>

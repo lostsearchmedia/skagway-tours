@@ -1,0 +1,111 @@
+---
+import { getEntry } from "astro:content";
+
+const site = await getEntry("site", "default");
+const hero = site?.data.hero;
+const videoSrc = hero?.video_src;
+const poster = hero?.video_poster;
+const ctaLabel = hero?.primary_cta_label ?? "Book a Tour";
+const ctaHref = hero?.primary_cta_href ?? "#tours";
+const stat = hero?.review_stat;
+---
+
+<section class="hero">
+  <div class="hero__media" aria-hidden="true">
+    {
+      videoSrc ? (
+        <video
+          src={videoSrc}
+          poster={poster}
+          autoplay
+          loop
+          muted
+          playsinline
+        />
+      ) : (
+        <div class="hero__placeholder">
+          <span class="eyebrow">[ hero video goes here ]</span>
+        </div>
+      )
+    }
+    <div class="hero__shade"></div>
+  </div>
+
+  <div class="hero__content container">
+    {
+      stat && (
+        <div class="hero__badge" aria-label={stat}>
+          <span class="hero__stars" aria-hidden="true">★★★★★</span>
+          <span class="hero__stat">{stat}</span>
+        </div>
+      )
+    }
+    <a href={ctaHref} class="button hero__cta">{ctaLabel}</a>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: clamp(520px, 80vh, 780px);
+    display: flex;
+    align-items: flex-end;
+    color: #fff;
+    overflow: hidden;
+  }
+  .hero__media {
+    position: absolute; inset: 0;
+  }
+  .hero__media video {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .hero__placeholder {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #0f2419 0%, #1d3b2a 50%, #4d7a8c 100%);
+    display: grid; place-items: center;
+  }
+  .hero__placeholder .eyebrow {
+    color: rgba(255, 255, 255, 0.55);
+    letter-spacing: 0.3em;
+  }
+  .hero__shade {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(15, 23, 32, 0.6) 0%, rgba(15, 23, 32, 0.2) 50%, rgba(15, 23, 32, 0.4) 100%);
+  }
+  .hero__content {
+    position: relative;
+    padding: 4rem 1rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 2rem;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .hero__cta {
+    font-size: 1.05rem;
+    padding: 1.1rem 2rem;
+  }
+  .hero__badge {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    background: rgba(15, 23, 32, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 0.9rem 1.25rem;
+    border-radius: 6px;
+    backdrop-filter: blur(3px);
+  }
+  .hero__stars {
+    color: #ffd15c;
+    letter-spacing: 0.3rem;
+    font-size: 1.05rem;
+  }
+  .hero__stat {
+    font-family: var(--font-display);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 1rem;
+  }
+</style>

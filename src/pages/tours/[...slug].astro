@@ -1,0 +1,130 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BookButton from "../../components/BookButton.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const tours = await getCollection("tours", (e) => !e.data.draft);
+  return tours.map((tour) => ({
+    params: { slug: tour.id },
+    props: { tour },
+  }));
+}
+
+const { tour } = Astro.props;
+const { Content } = await render(tour);
+const d = tour.data;
+---
+
+<BaseLayout title={d.title} description={d.summary}>
+  <article class="tour">
+    <header class="tour__hero">
+      {
+        d.featured_image && (
+          <Image
+            src={d.featured_image}
+            alt={d.title}
+            widths={[800, 1200, 1800]}
+            sizes="100vw"
+            class="tour__hero-img"
+          />
+        )
+      }
+      <div class="tour__hero-shade"></div>
+      <div class="container tour__hero-inner">
+        <span class="eyebrow">Skagway Tour</span>
+        <h1>{d.title}</h1>
+        <p class="tour__summary">{d.summary}</p>
+      </div>
+    </header>
+
+    <div class="container tour__layout">
+      <section class="tour__content prose">
+        <div class="meta-row">
+          {d.duration_hours && <span><strong>{d.duration_hours}h</strong> duration</span>}
+          {d.difficulty && <span><strong>{d.difficulty}</strong> level</span>}
+          {d.price_from && <span>from <strong>${d.price_from}</strong></span>}
+        </div>
+
+        {
+          d.highlights && d.highlights.length > 0 && (
+            <>
+              <h2>Highlights</h2>
+              <ul>
+                {d.highlights.map((h) => <li>{h}</li>)}
+              </ul>
+            </>
+          )
+        }
+
+        <Content />
+      </section>
+
+      <aside class="tour__sidebar">
+        <div class="booking-card">
+          <h3>Ready to go?</h3>
+          <p>
+            {d.price_from && <>From <strong>${d.price_from}</strong> per person.</>}
+          </p>
+          <BookButton itemId={d.fareharbor_item_id} label="Book now" fullWidth />
+          <p class="booking-card__note">
+            A valid passport is required — this tour crosses into Canada.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .tour__hero {
+    position: relative;
+    min-height: 440px;
+    display: flex;
+    align-items: flex-end;
+    color: #fff;
+    overflow: hidden;
+    background: var(--c-spruce-deep);
+  }
+  .tour__hero-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .tour__hero-shade {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(15,23,32,0.8), rgba(15,23,32,0.2));
+  }
+  .tour__hero-inner {
+    position: relative;
+    padding: 6rem 1rem 2.5rem;
+  }
+  .tour__summary { font-size: 1.15rem; max-width: 60ch; opacity: 0.95; }
+
+  .tour__layout {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 3rem;
+    padding: 3rem 1rem 1rem;
+  }
+  @media (max-width: 880px) {
+    .tour__layout { grid-template-columns: 1fr; }
+  }
+
+  .booking-card {
+    position: sticky;
+    top: 6rem;
+    background: #fff;
+    border: 1px solid var(--c-fog);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 30px -12px rgba(15,23,32,0.15);
+  }
+  .booking-card h3 { margin-top: 0; }
+  .booking-card__note {
+    margin: 1rem 0 0;
+    font-size: 0.85rem;
+    color: var(--c-ink-soft);
+  }
+</style>

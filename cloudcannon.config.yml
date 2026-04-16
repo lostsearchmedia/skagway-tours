@@ -1,0 +1,77 @@
+### CloudCannon configuration
+# Docs: https://cloudcannon.com/documentation/articles/configuration-file-reference/
+# This file tells CloudCannon where editable content lives and how to present it.
+
+source: ""
+paths:
+  static: public
+  uploads: public/uploads
+  collections: src/content
+
+collections_config:
+  tours:
+    path: src/content/tours
+    url: "/tours/[slug]/"
+    output: true
+    icon: hiking
+    name: Tours
+    schemas:
+      default:
+        path: .cloudcannon/schemas/tour.md
+    _inputs:
+      featured_image:
+        type: image
+      gallery:
+        type: array
+      price_from:
+        type: number
+      duration_hours:
+        type: number
+      difficulty:
+        type: select
+        options:
+          values: [Easy, Moderate, Strenuous]
+      fareharbor_item_id:
+        comment: "The FareHarbor item ID. Leave blank to use the catalog-wide booking link."
+  posts:
+    path: src/content/posts
+    url: "/blog/[slug]/"
+    output: true
+    icon: article
+    name: Blog
+    schemas:
+      default:
+        path: .cloudcannon/schemas/post.md
+  pages:
+    path: src/content/pages
+    url: "/[slug]/"
+    output: true
+    icon: description
+    name: Pages
+  site:
+    path: src/content/site
+    output: false
+    icon: settings
+    name: Site settings
+    disable_add: true
+    disable_add_folder: true
+
+collection_groups:
+  - heading: Content
+    collections: [tours, posts, pages]
+  - heading: Configuration
+    collections: [site]
+
+_inputs:
+  booking_url:
+    comment: "Fallback FareHarbor booking URL used when a tour has no fareharbor_item_id set."
+  phone:
+    type: tel
+  email:
+    type: email
+
+_select_data:
+  difficulties:
+    - Easy
+    - Moderate
+    - Strenuous

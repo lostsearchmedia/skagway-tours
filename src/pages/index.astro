@@ -1,0 +1,182 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import TourCard from "../components/TourCard.astro";
+import NoPassportPopup from "../components/NoPassportPopup.astro";
+import BookButton from "../components/BookButton.astro";
+import { getCollection, getEntry } from "astro:content";
+
+const tours = (await getCollection("tours", (e) => !e.data.draft)).sort(
+  (a, b) => a.data.order - b.data.order
+);
+const site = await getEntry("site", "default");
+const passportNote = site?.data.passport_note;
+---
+
+<BaseLayout transparentHeader>
+  <Hero />
+
+  <!-- Passport call-out note above tours -->
+  {
+    passportNote && (
+      <section class="passport-note">
+        <div class="container passport-note__inner">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="28" height="28">
+            <rect x="5" y="3" width="14" height="18" rx="2" fill="#c5562a" />
+            <circle cx="12" cy="10" r="3" fill="#fff" />
+            <rect x="8" y="15" width="8" height="1.5" fill="#fff" />
+            <rect x="8" y="17" width="8" height="1.5" fill="#fff" />
+          </svg>
+          <p>{passportNote}</p>
+          <a href="/passport-requirements/">Requirements →</a>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Tours section -->
+  <section id="tours" class="section tours-section">
+    <div class="container">
+      <div class="section__head">
+        <span class="eyebrow">Our tours</span>
+        <h2>A story you'll tell forever.</h2>
+      </div>
+
+      {
+        tours.length === 0 ? (
+          <p class="muted">Tours will appear here once content is added in CloudCannon.</p>
+        ) : (
+          <div class="grid grid--tours">
+            {tours.map((tour) => (
+              <TourCard
+                slug={tour.id}
+                title={tour.data.title}
+                summary={tour.data.summary}
+                image={tour.data.featured_image}
+                duration={tour.data.duration_hours}
+                difficulty={tour.data.difficulty}
+                priceFrom={tour.data.price_from}
+                videoUrl={tour.data.video_url}
+                fareharborItemId={tour.data.fareharbor_item_id}
+              />
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <!-- Private / Group / Trade callouts -->
+  <div class="divider" aria-hidden="true"></div>
+
+  <section class="callouts section">
+    <div class="container">
+      <div class="callouts__grid">
+        <article class="callout callout--primary">
+          <span class="eyebrow">Private tour</span>
+          <h3>Book our Combo or Wild Adventure Yukon as a private 13-pax tour.</h3>
+          <p>
+            Take over one of our core itineraries with your own group of up to 13.
+            Your crew, your pace, your memories.
+          </p>
+          <a href="/private-group/" class="button">Explore private tours</a>
+        </article>
+        <article class="callout">
+          <span class="eyebrow">Travel agents</span>
+          <h3>Plan Skagway itineraries for your clients.</h3>
+          <p>Commissionable rates, dependable operators, seamless booking.</p>
+          <a href="/travel-agents/">Read more →</a>
+        </article>
+        <article class="callout">
+          <span class="eyebrow">Group sales</span>
+          <h3>Large groups, cruise charters &amp; incentives.</h3>
+          <p>Tell us what you're planning — we'll build the right day.</p>
+          <a href="/groups/">Read more →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Review CTA -->
+  <section class="section reviews-cta section--dark">
+    <div class="container reviews-cta__inner">
+      <div>
+        <span class="eyebrow">Guest reviews</span>
+        <h2>Thousands of five-star days out.</h2>
+        <p>Read what past guests have to say — then come build your own story.</p>
+      </div>
+      <a href="/reviews/" class="button">Read our reviews</a>
+    </div>
+  </section>
+
+  <NoPassportPopup />
+</BaseLayout>
+
+<style>
+  .passport-note {
+    background: var(--c-paper-soft);
+    border-top: 1px solid var(--c-fog);
+    border-bottom: 1px solid var(--c-fog);
+    padding: 0.9rem 0;
+  }
+  .passport-note__inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .passport-note p { margin: 0; flex: 1; min-width: 0; }
+
+  .tours-section {
+    background: #eaf1f4; /* lighter brand blue per brief */
+    border-top: 1px solid #d6e1e6;
+  }
+  .section__head {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .muted { color: var(--c-ink-soft); text-align: center; }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--c-fog), transparent);
+    margin: 0 auto;
+    max-width: 80%;
+  }
+
+  .callouts__grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 1.5rem;
+  }
+  @media (max-width: 880px) {
+    .callouts__grid { grid-template-columns: 1fr; }
+  }
+  .callout {
+    background: #fff;
+    border: 1px solid var(--c-fog);
+    border-radius: 8px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .callout--primary {
+    background: var(--c-ink);
+    color: var(--c-paper);
+    border-color: var(--c-ink);
+  }
+  .callout--primary .eyebrow { color: var(--c-ember-bright); }
+  .callout h3 { color: inherit; }
+  .callout p { margin: 0 0 1rem; opacity: 0.9; }
+  .callout .button { align-self: flex-start; margin-top: auto; }
+
+  .reviews-cta__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .reviews-cta__inner h2 { margin: 0.25rem 0; }
+</style>

@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+---
+
+<BaseLayout title="Reviews" description="Read what past guests have said about their Skagway Tours experience.">
+  <PageHero
+    eyebrow="Guest stories"
+    title="What past guests say"
+    lead="Real reviews from guests who rode the rails, crossed the border, and came back with a story."
+  />
+
+  <section class="section">
+    <div class="container">
+      <!-- Embed TripAdvisor / Google reviews widget here once the widget ID is supplied. -->
+      <div class="reviews-placeholder">
+        <p>
+          Add a TripAdvisor, Google, or other review widget embed here. For
+          example, TripAdvisor's rated-review widget or a Google Places review
+          embed. This placeholder keeps the page live until that widget is
+          supplied.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .reviews-placeholder {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem;
+    border: 1px dashed var(--c-fog);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--c-ink-soft);
+    text-align: center;
+  }
+</style>

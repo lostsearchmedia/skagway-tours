@@ -1,0 +1,193 @@
+---
+// Passport interstitial: shows once per session when a user clicks
+// [data-passport-interstitial] (Details links) or [data-book-now] (Book buttons).
+// Dismissing with "Got it" proceeds to the original destination.
+// Honors prefers-reduced-motion and is fully keyboard-accessible.
+---
+
+<div
+  id="passport-interstitial"
+  class="pp"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="pp-title"
+  aria-describedby="pp-body"
+  hidden
+>
+  <div class="pp__backdrop" data-pp-close></div>
+
+  <div class="pp__panel" tabindex="-1">
+    <button class="pp__close" type="button" aria-label="Close" data-pp-close>×</button>
+
+    <div class="pp__art" aria-hidden="true">
+      <!-- Placeholder captain-with-speech-bubble art. Replace when client supplies source. -->
+      <svg viewBox="0 0 200 160" width="200" height="160">
+        <rect x="0" y="0" width="200" height="160" fill="#e8e1cd" rx="8" />
+        <circle cx="70" cy="80" r="34" fill="#1d3b2a" />
+        <circle cx="70" cy="72" r="22" fill="#f1d8b5" />
+        <rect x="44" y="50" width="52" height="16" fill="#0f1720" rx="2" />
+        <rect x="48" y="48" width="44" height="4" fill="#c5562a" />
+        <path d="M110 40 Q170 40 170 80 Q170 110 130 110 L115 130 L120 110 Q110 108 110 80 Z" fill="#fff" stroke="#0f1720" stroke-width="2" />
+        <text x="140" y="78" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="14" fill="#0f1720">NO PASSPORT,</text>
+        <text x="140" y="92" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="14" fill="#0f1720">NO TOUR,</text>
+        <text x="140" y="106" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="14" fill="#c5562a">NO KIDDING.</text>
+      </svg>
+    </div>
+
+    <h2 id="pp-title">Heads up — this tour crosses into Canada.</h2>
+    <p id="pp-body">
+      Every Skagway Tours route crosses the Canadian border. Every guest needs a valid
+      passport or an approved alternative document (like a NEXUS card or Enhanced
+      Driver's License where eligible). No passport, no tour, no kidding.
+    </p>
+    <p class="pp__links">
+      <a href="/passport-requirements/">Read full passport requirements →</a>
+    </p>
+    <button class="button pp__ack" type="button" data-pp-ack>Got it — continue</button>
+  </div>
+</div>
+
+<script>
+  const SESSION_KEY = "skagway:passport-ack";
+  const modal = document.getElementById("passport-interstitial")!;
+  const panel = modal.querySelector<HTMLElement>(".pp__panel")!;
+  const ackBtn = modal.querySelector<HTMLButtonElement>("[data-pp-ack]")!;
+
+  let pending: (() => void) | null = null;
+  let lastFocus: HTMLElement | null = null;
+
+  const openModal = () => {
+    lastFocus = document.activeElement as HTMLElement;
+    modal.hidden = false;
+    requestAnimationFrame(() => panel.focus());
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeModal = () => {
+    modal.hidden = true;
+    document.body.style.overflow = "";
+    lastFocus?.focus?.();
+  };
+
+  const acknowledge = () => {
+    try { sessionStorage.setItem(SESSION_KEY, "1"); } catch {}
+    closeModal();
+    if (pending) {
+      const fn = pending;
+      pending = null;
+      fn();
+    }
+  };
+
+  const alreadyAcked = () => {
+    try { return sessionStorage.getItem(SESSION_KEY) === "1"; } catch { return false; }
+  };
+
+  // Intercept clicks that need the passport gate
+  document.addEventListener("click", (e) => {
+    const target = (e.target as HTMLElement).closest<HTMLAnchorElement | HTMLElement>(
+      "[data-passport-interstitial], [data-book-now]"
+    );
+    if (!target) return;
+    if (alreadyAcked()) return;
+
+    e.preventDefault();
+
+    if (target.matches("a[href]")) {
+      const href = (target as HTMLAnchorElement).href;
+      const isFareHarbor = target.hasAttribute("data-book-now");
+      pending = () => {
+        if (isFareHarbor) {
+          // Let FareHarbor lightframe intercept the click on the original anchor
+          (target as HTMLAnchorElement).click();
+        } else {
+          window.location.href = href;
+        }
+      };
+    } else {
+      pending = () => (target as HTMLElement).click();
+    }
+
+    openModal();
+  });
+
+  ackBtn.addEventListener("click", acknowledge);
+  modal.querySelectorAll("[data-pp-close]").forEach((el) =>
+    el.addEventListener("click", () => {
+      pending = null;
+      closeModal();
+    })
+  );
+
+  document.addEventListener("keydown", (e) => {
+    if (modal.hidden) return;
+    if (e.key === "Escape") {
+      pending = null;
+      closeModal();
+    }
+    if (e.key === "Enter" && document.activeElement === panel) {
+      acknowledge();
+    }
+  });
+</script>
+
+<style>
+  .pp {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+  }
+  .pp[hidden] { display: none; }
+
+  .pp__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 32, 0.75);
+    backdrop-filter: blur(3px);
+  }
+
+  .pp__panel {
+    position: relative;
+    background: var(--c-paper);
+    color: var(--c-ink);
+    border-radius: 8px;
+    max-width: 520px;
+    width: 100%;
+    padding: 2rem;
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+    animation: pp-in 0.25s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pp__panel { animation: none; }
+  }
+
+  @keyframes pp-in {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .pp__close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.75rem;
+    background: transparent;
+    border: none;
+    font-size: 1.75rem;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--c-ink-soft);
+  }
+  .pp__close:hover { color: var(--c-ember); }
+
+  .pp__art { margin: 0 auto 1rem; }
+  .pp__art svg { margin: 0 auto; }
+
+  .pp__links { margin: 1rem 0 1.5rem; }
+
+  .pp__ack { margin-top: 0.5rem; }
+</style>

@@ -1,0 +1,111 @@
+---
+// First-visit popup on the homepage reinforcing the passport requirement.
+// Shown once per session on the homepage only.
+---
+
+<div
+  id="no-passport-popup"
+  class="npp"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="npp-title"
+  hidden
+>
+  <div class="npp__backdrop" data-npp-close></div>
+  <div class="npp__panel" tabindex="-1">
+    <button class="npp__close" type="button" aria-label="Close" data-npp-close>×</button>
+    <div class="npp__art" aria-hidden="true">
+      <svg viewBox="0 0 320 200" width="320" height="200">
+        <defs>
+          <linearGradient id="npp-g" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#1d3b2a" />
+            <stop offset="1" stop-color="#0f2419" />
+          </linearGradient>
+        </defs>
+        <rect width="320" height="200" fill="url(#npp-g)" rx="10" />
+        <circle cx="110" cy="105" r="50" fill="#0f1720" />
+        <circle cx="110" cy="96" r="32" fill="#f1d8b5" />
+        <rect x="72" y="70" width="76" height="22" fill="#0f1720" rx="2" />
+        <rect x="78" y="68" width="64" height="6" fill="#c5562a" />
+        <path d="M170 45 Q290 45 290 95 Q290 140 220 140 L205 170 L215 140 Q170 138 170 95 Z" fill="#fff" />
+        <text x="230" y="85" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="18" fill="#0f1720">NO PASSPORT,</text>
+        <text x="230" y="108" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="18" fill="#0f1720">NO TOUR,</text>
+        <text x="230" y="131" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="18" fill="#c5562a">NO KIDDING.</text>
+      </svg>
+    </div>
+    <p>
+      All Skagway Tours cross into Canada and require a valid passport or approved
+      alternative document. Please have yours ready before you book.
+    </p>
+    <div class="npp__actions">
+      <a href="/passport-requirements/" class="button button--dark">See requirements</a>
+      <button type="button" class="button" data-npp-ack>Got it</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const SESSION_KEY = "skagway:no-passport-popup";
+  const popup = document.getElementById("no-passport-popup")!;
+  const panel = popup.querySelector<HTMLElement>(".npp__panel")!;
+
+  const shown = () => {
+    try { return sessionStorage.getItem(SESSION_KEY) === "1"; } catch { return false; }
+  };
+  const mark = () => {
+    try { sessionStorage.setItem(SESSION_KEY, "1"); } catch {}
+  };
+  const close = () => {
+    popup.hidden = true;
+    document.body.style.overflow = "";
+    mark();
+  };
+
+  if (!shown()) {
+    window.setTimeout(() => {
+      popup.hidden = false;
+      document.body.style.overflow = "hidden";
+      panel.focus();
+    }, 1200);
+  }
+
+  popup.querySelectorAll("[data-npp-close], [data-npp-ack]").forEach((el) =>
+    el.addEventListener("click", close)
+  );
+  document.addEventListener("keydown", (e) => {
+    if (!popup.hidden && e.key === "Escape") close();
+  });
+</script>
+
+<style>
+  .npp {
+    position: fixed;
+    inset: 0;
+    z-index: 105;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+  }
+  .npp[hidden] { display: none; }
+  .npp__backdrop { position: absolute; inset: 0; background: rgba(15,23,32,0.7); }
+  .npp__panel {
+    position: relative;
+    background: var(--c-paper);
+    border-radius: 10px;
+    max-width: 540px;
+    padding: 1.75rem;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+  }
+  .npp__close {
+    position: absolute; top: 0.5rem; right: 0.75rem;
+    background: transparent; border: none; font-size: 1.75rem; cursor: pointer;
+    color: var(--c-ink-soft);
+  }
+  .npp__art { margin: 0 auto 1rem; }
+  .npp__art svg { margin: 0 auto; max-width: 100%; height: auto; }
+  .npp__actions {
+    display: flex; gap: 0.75rem; justify-content: center; margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+</style>
