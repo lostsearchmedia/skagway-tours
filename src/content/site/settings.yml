@@ -37,6 +37,8 @@
       href: "/about/"
     - label: More
       children:
+        - label: Contact
+          href: "/contact/"
         - label: Passport Requirements
           href: "/passport-requirements/"
         - label: Employment
