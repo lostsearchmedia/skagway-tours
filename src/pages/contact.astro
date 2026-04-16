@@ -12,6 +12,14 @@ const { Content } = await render(entry);
 
 const site = await getEntry("site", "default");
 const s = site?.data;
+
+const error = Astro.url.searchParams.get("error");
+const errorMessage =
+  error === "validation"
+    ? "Please fill in all required fields with a valid email."
+    : error
+    ? "Something went wrong sending your message. Please try again or email us directly."
+    : null;
 ---
 
 <BaseLayout title={d.title} description={d.description}>
@@ -44,14 +52,16 @@ const s = site?.data;
         )}
 
         {d.newsletter_heading && <h3 data-editable="text" data-prop="newsletter_heading">{d.newsletter_heading}</h3>}
-        <form class="newsletter" action="https://formspree.io/f/REPLACE_ME" method="POST">
+        <form class="newsletter" action="/api/newsletter" method="POST">
           <label class="sr-only" for="nl-email">Email</label>
           <input id="nl-email" type="email" name="email" placeholder="you@example.com" required />
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="honeypot" />
           <button type="submit" class="button">Subscribe</button>
         </form>
       </div>
 
-      <form class="contact-form" action="https://formspree.io/f/REPLACE_ME" method="POST">
+      <form class="contact-form" action="/api/contact" method="POST">
+        {errorMessage && <p class="form-error full" role="alert">{errorMessage}</p>}
         <label>
           <span>Name</span>
           <input type="text" name="name" required />
@@ -68,6 +78,7 @@ const s = site?.data;
           <span>Message</span>
           <textarea name="message" rows="6" required></textarea>
         </label>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="honeypot" />
         <button type="submit" class="button full">Send message</button>
       </form>
     </div>
@@ -120,5 +131,16 @@ const s = site?.data;
   .sr-only {
     position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
     overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+  .honeypot {
+    position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0;
+  }
+  .form-error {
+    background: #fdecea;
+    color: #a12a1f;
+    border: 1px solid #f5b5ad;
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    margin: 0;
   }
 </style>
