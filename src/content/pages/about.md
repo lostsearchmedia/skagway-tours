@@ -1,6 +1,9 @@
 ---
+_schema: page
 title: The crew behind Skagway Tours
 description: Locally owned, small-group Skagway tours into the Yukon.
+hero_eyebrow: About us
+hero_title: The crew behind Skagway Tours
 ---
 This is a test! Skagway Tours is a small, locally owned operation running small-group bus tours from Skagway across the White Pass and deep into Canada's Yukon Territory. We've been doing this long enough to know the best lunch stops, the best pullouts, and the stories that don't make it into the guidebooks.
 

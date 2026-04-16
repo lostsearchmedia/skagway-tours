@@ -34,8 +34,8 @@ const d = tour.data;
       <div class="tour__hero-shade"></div>
       <div class="container tour__hero-inner">
         <span class="eyebrow">Skagway Tour</span>
-        <h1>{d.title}</h1>
-        <p class="tour__summary">{d.summary}</p>
+        <h1 data-editable="text" data-prop="title">{d.title}</h1>
+        <p class="tour__summary" data-editable="text" data-prop="summary">{d.summary}</p>
       </div>
     </header>
 
@@ -51,14 +51,20 @@ const d = tour.data;
           d.highlights && d.highlights.length > 0 && (
             <>
               <h2>Highlights</h2>
-              <ul>
-                {d.highlights.map((h) => <li>{h}</li>)}
+              <ul data-editable="array" data-prop="highlights">
+                {d.highlights.map((h, i) => (
+                  <li data-editable="array-item">
+                    <span data-editable="text" data-prop={`highlights[${i}]`}>{h}</span>
+                  </li>
+                ))}
               </ul>
             </>
           )
         }
 
-        <Content />
+        <div data-editable="text" data-type="block" data-prop="@content">
+          <Content />
+        </div>
       </section>
 
       <aside class="tour__sidebar">

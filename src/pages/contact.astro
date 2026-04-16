@@ -1,23 +1,34 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
-import { getEntry } from "astro:content";
+import { getEntry, render } from "astro:content";
+
+const entry = await getEntry("pages", "contact");
+if (!entry || entry.data._schema !== "page") {
+  throw new Error("src/content/pages/contact.md is missing or has the wrong _schema");
+}
+const d = entry.data;
+const { Content } = await render(entry);
 
 const site = await getEntry("site", "default");
 const s = site?.data;
 ---
 
-<BaseLayout title="Contact" description="Start a conversation with the Skagway Tours team.">
+<BaseLayout title={d.title} description={d.description}>
   <PageHero
-    eyebrow="Get in touch"
-    title="Start a conversation"
-    lead="Questions, custom trips, or press inquiries — we're happy to help."
+    eyebrow={d.hero_eyebrow}
+    title={d.hero_title ?? d.title}
+    lead={d.hero_lead}
   />
 
   <section class="section">
     <div class="container contact__grid">
       <div>
-        <h2>Reach us directly</h2>
+        <div class="prose" data-editable="text" data-type="block" data-prop="@content">
+          <Content />
+        </div>
+
+        {d.reach_heading && <h2 data-editable="text" data-prop="reach_heading">{d.reach_heading}</h2>}
         {s?.phone && (
           <p>
             <strong>{s.phone_label ?? "Call"}:</strong> <a href={`tel:${s.phone.replace(/[^+\d]/g, "")}`}>{s.phone}</a>
@@ -28,11 +39,11 @@ const s = site?.data;
             <strong>Email:</strong> <a href={`mailto:${s.email}`}>{s.email}</a>
           </p>
         )}
-        <p class="muted">
-          We usually respond within a day during the summer season.
-        </p>
+        {d.response_note && (
+          <p class="muted" data-editable="text" data-prop="response_note">{d.response_note}</p>
+        )}
 
-        <h3>Stay in the loop</h3>
+        {d.newsletter_heading && <h3 data-editable="text" data-prop="newsletter_heading">{d.newsletter_heading}</h3>}
         <form class="newsletter" action="https://formspree.io/f/REPLACE_ME" method="POST">
           <label class="sr-only" for="nl-email">Email</label>
           <input id="nl-email" type="email" name="email" placeholder="you@example.com" required />

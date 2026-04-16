@@ -3,7 +3,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
 import TourCard from "../components/TourCard.astro";
 import NoPassportPopup from "../components/NoPassportPopup.astro";
-import BookButton from "../components/BookButton.astro";
 import { getCollection, getEntry } from "astro:content";
 
 const tours = (await getCollection("tours", (e) => !e.data.draft)).sort(
@@ -11,12 +10,19 @@ const tours = (await getCollection("tours", (e) => !e.data.draft)).sort(
 );
 const site = await getEntry("site", "default");
 const passportNote = site?.data.passport_note;
+
+const home = await getEntry("pages", "index");
+if (!home || home.data._schema !== "home") {
+  throw new Error("src/content/pages/index.md must exist with _schema: home");
+}
+const d = home.data;
+const toursSection = d.tours_section;
 ---
 
-<BaseLayout transparentHeader>
+<BaseLayout transparentHeader title={d.title} description={d.description}>
   <Hero />
 
-  <!-- Passport call-out note above tours -->
+  <!-- Passport call-out note above tours (edited in Site settings) -->
   {
     passportNote && (
       <section class="passport-note">
@@ -27,7 +33,7 @@ const passportNote = site?.data.passport_note;
             <rect x="8" y="15" width="8" height="1.5" fill="#fff" />
             <rect x="8" y="17" width="8" height="1.5" fill="#fff" />
           </svg>
-          <p>{passportNote}</p>
+          <p data-editable="text" data-prop="@data[default].passport_note">{passportNote}</p>
           <a href="/passport-requirements/">Requirements →</a>
         </div>
       </section>
@@ -38,13 +44,15 @@ const passportNote = site?.data.passport_note;
   <section id="tours" class="section tours-section">
     <div class="container">
       <div class="section__head">
-        <span class="eyebrow">Our tours</span>
-        <h2>A story you'll tell forever.</h2>
+        <span class="eyebrow" data-editable="text" data-prop="tours_section.eyebrow">
+          {toursSection.eyebrow}
+        </span>
+        <h2 data-editable="text" data-prop="tours_section.title">{toursSection.title}</h2>
       </div>
 
       {
         tours.length === 0 ? (
-          <p class="muted">Tours will appear here once content is added in CloudCannon.</p>
+          <p class="muted">{toursSection.empty_message}</p>
         ) : (
           <div class="grid grid--tours">
             {tours.map((tour) => (
@@ -66,48 +74,60 @@ const passportNote = site?.data.passport_note;
     </div>
   </section>
 
-  <!-- Private / Group / Trade callouts -->
+  <!-- Callouts -->
   <div class="divider" aria-hidden="true"></div>
 
   <section class="callouts section">
     <div class="container">
-      <div class="callouts__grid">
-        <article class="callout callout--primary">
-          <span class="eyebrow">Private tour</span>
-          <h3>Book our Combo or Wild Adventure Yukon as a private 13-pax tour.</h3>
-          <p>
-            Take over one of our core itineraries with your own group of up to 13.
-            Your crew, your pace, your memories.
-          </p>
-          <a href="/private-group/" class="button">Explore private tours</a>
-        </article>
-        <article class="callout">
-          <span class="eyebrow">Travel agents</span>
-          <h3>Plan Skagway itineraries for your clients.</h3>
-          <p>Commissionable rates, dependable operators, seamless booking.</p>
-          <a href="/travel-agents/">Read more →</a>
-        </article>
-        <article class="callout">
-          <span class="eyebrow">Group sales</span>
-          <h3>Large groups, cruise charters &amp; incentives.</h3>
-          <p>Tell us what you're planning — we'll build the right day.</p>
-          <a href="/groups/">Read more →</a>
-        </article>
+      <div class="callouts__grid" data-editable="array" data-prop="callouts">
+        {
+          d.callouts.map((c, index) => (
+            <article
+              class:list={["callout", c.variant === "primary" && "callout--primary"]}
+              data-editable="array-item"
+            >
+              {c.eyebrow && (
+                <span class="eyebrow" data-editable="text" data-prop={`callouts[${index}].eyebrow`}>
+                  {c.eyebrow}
+                </span>
+              )}
+              <h3 data-editable="text" data-prop={`callouts[${index}].title`}>{c.title}</h3>
+              {c.body && (
+                <p data-editable="text" data-prop={`callouts[${index}].body`}>{c.body}</p>
+              )}
+              {c.cta_label && c.cta_href && (
+                <a href={c.cta_href} class:list={["", c.variant === "primary" && "button"]}>
+                  {c.cta_label}
+                </a>
+              )}
+            </article>
+          ))
+        }
       </div>
     </div>
   </section>
 
-  <!-- Review CTA -->
-  <section class="section reviews-cta section--dark">
-    <div class="container reviews-cta__inner">
-      <div>
-        <span class="eyebrow">Guest reviews</span>
-        <h2>Thousands of five-star days out.</h2>
-        <p>Read what past guests have to say — then come build your own story.</p>
-      </div>
-      <a href="/reviews/" class="button">Read our reviews</a>
-    </div>
-  </section>
+  <!-- Reviews CTA -->
+  {
+    d.reviews_cta && (
+      <section class="section reviews-cta section--dark">
+        <div class="container reviews-cta__inner">
+          <div>
+            {d.reviews_cta.eyebrow && (
+              <span class="eyebrow" data-editable="text" data-prop="reviews_cta.eyebrow">
+                {d.reviews_cta.eyebrow}
+              </span>
+            )}
+            <h2 data-editable="text" data-prop="reviews_cta.title">{d.reviews_cta.title}</h2>
+            {d.reviews_cta.lead && (
+              <p data-editable="text" data-prop="reviews_cta.lead">{d.reviews_cta.lead}</p>
+            )}
+          </div>
+          <a href={d.reviews_cta.cta_href} class="button">{d.reviews_cta.cta_label}</a>
+        </div>
+      </section>
+    )
+  }
 
   <NoPassportPopup />
 </BaseLayout>
@@ -128,7 +148,7 @@ const passportNote = site?.data.passport_note;
   .passport-note p { margin: 0; flex: 1; min-width: 0; }
 
   .tours-section {
-    background: #eaf1f4; /* lighter brand blue per brief */
+    background: #eaf1f4;
     border-top: 1px solid #d6e1e6;
   }
   .section__head {
@@ -169,7 +189,7 @@ const passportNote = site?.data.passport_note;
   .callout--primary .eyebrow { color: var(--c-ember-bright); }
   .callout h3 { color: inherit; }
   .callout p { margin: 0 0 1rem; opacity: 0.9; }
-  .callout .button { align-self: flex-start; margin-top: auto; }
+  .callout a { align-self: flex-start; margin-top: auto; }
 
   .reviews-cta__inner {
     display: flex;

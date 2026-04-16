@@ -75,6 +75,9 @@ collections_config:
 
   pages:
     path: src/content/pages
+    # The homepage entry maps to the site root. The URL pattern uses {slug}
+    # (frontmatter) via a file-name override so `home.md` resolves to `/`
+    # through the filter on the catch-all route.
     url: "/[slug]/"
     icon: wysiwyg
     name: Pages
@@ -87,6 +90,11 @@ collections_config:
         path: .cloudcannon/schemas/page.md
         name: Page
         new_preview_url: /about/
+      home:
+        path: .cloudcannon/schemas/home.md
+        name: Homepage
+        new_preview_url: /
+    # Homepage is a one-off singleton; only allow editors to add regular pages.
     add_options:
       - name: New page
         schema: default
@@ -147,6 +155,102 @@ _inputs:
   order:
     type: number
     comment: "Lower numbers appear first."
+  _schema:
+    hidden: true
+
+  # --- Page hero (shared across simple pages) ---
+  hero_eyebrow:
+    type: text
+    comment: "Small label above the page title."
+  hero_title:
+    type: text
+    comment: "Main heading shown in the page hero. Falls back to the page title."
+  hero_lead:
+    type: textarea
+    comment: "Intro paragraph shown under the page hero title."
+
+  # --- Contact page ---
+  reach_heading:
+    type: text
+  response_note:
+    type: text
+  newsletter_heading:
+    type: text
+
+  # --- Find-us page ---
+  pickup_heading:
+    type: text
+  pickup_details_heading:
+    type: text
+  pickup_details_note:
+    type: text
+  map_embed_url:
+    type: url
+    comment: "Google Maps embed URL for the pickup-location map."
+
+  # --- Private group page ---
+  book_button_label:
+    type: text
+
+  # --- Reviews page ---
+  placeholder_text:
+    type: textarea
+
+  # --- Homepage (_schema: home) ---
+  tours_section:
+    type: object
+    options:
+      preview:
+        icon: hiking
+  tours_section.eyebrow:
+    type: text
+  tours_section.title:
+    type: text
+  tours_section.empty_message:
+    type: text
+    comment: "Shown when no tours have been published yet."
+
+  callouts:
+    type: array
+    options:
+      structures: _structures.callouts
+  callouts[*]:
+    options:
+      preview:
+        text:
+          - key: title
+          - key: eyebrow
+        icon: campaign
+  variant:
+    type: select
+    options:
+      values:
+        - default
+        - primary
+  body:
+    type: textarea
+  cta_label:
+    type: text
+  cta_href:
+    type: text
+  eyebrow:
+    type: text
+
+  reviews_cta:
+    type: object
+    options:
+      preview:
+        icon: reviews
+  reviews_cta.eyebrow:
+    type: text
+  reviews_cta.title:
+    type: text
+  reviews_cta.lead:
+    type: textarea
+  reviews_cta.cta_label:
+    type: text
+  reviews_cta.cta_href:
+    type: text
 
   # --- Images ---
   cover:
@@ -296,6 +400,40 @@ _inputs:
 # can add new items. Without these, the + Add button on arrays is a no-op.
 # -------------------------------------------------------------------
 _structures:
+  callouts:
+    style: select
+    values:
+      - label: Feature callout (dark)
+        icon: star
+        value:
+          variant: primary
+          eyebrow: New eyebrow
+          title: New callout title
+          body: Supporting copy for this callout.
+          cta_label: Call to action
+          cta_href: "/"
+        preview:
+          text:
+            - key: title
+          subtext:
+            - key: eyebrow
+          icon: star
+      - label: Link callout
+        icon: bookmark
+        value:
+          variant: default
+          eyebrow: New eyebrow
+          title: New callout title
+          body: Supporting copy for this callout.
+          cta_label: Read more →
+          cta_href: "/"
+        preview:
+          text:
+            - key: title
+          subtext:
+            - key: eyebrow
+          icon: bookmark
+
   highlights:
     style: select
     values:

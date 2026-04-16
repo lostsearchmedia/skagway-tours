@@ -1,6 +1,10 @@
 ---
+_schema: page
 title: Work a Skagway summer with us
 description: Seasonal driver-guide, dispatch, and ops openings at Skagway Tours.
+hero_eyebrow: Join the crew
+hero_title: Work a Skagway summer with us
+hero_lead: "Driver-guides, dispatch, and seasonal crew — see openings below."
 ---
 
 We hire driver-guides, dispatch, and seasonal crew each spring. If you know the

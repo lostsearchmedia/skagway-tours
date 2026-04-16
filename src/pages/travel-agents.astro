@@ -1,28 +1,25 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
+import { getEntry, render } from "astro:content";
+
+const entry = await getEntry("pages", "travel-agents");
+if (!entry || entry.data._schema !== "page") {
+  throw new Error("src/content/pages/travel-agents.md is missing or has the wrong _schema");
+}
+const d = entry.data;
+const { Content } = await render(entry);
 ---
 
-<BaseLayout title="Travel agents" description="Commissionable rates and reliable operations for Skagway itineraries.">
+<BaseLayout title={d.title} description={d.description}>
   <PageHero
-    eyebrow="For the trade"
-    title="Travel agents"
-    lead="Commissionable rates, dependable ops, and a local team your clients will thank you for."
+    eyebrow={d.hero_eyebrow}
+    title={d.hero_title ?? d.title}
+    lead={d.hero_lead}
   />
   <section class="section">
-    <div class="container prose">
-      <p>
-        Replace this copy with the trade-specific details (commission structure,
-        booking contact, tax ID, etc.) — client to supply.
-      </p>
-      <h2>Why partner with Skagway Tours</h2>
-      <ul>
-        <li>Locally owned and operated for [N] years.</li>
-        <li>Small-group buses (13 pax) with knowledgeable driver-guides.</li>
-        <li>Reliable cruise-ship pickup coordination.</li>
-      </ul>
-      <h2>Agent contact</h2>
-      <p>Email <a href="mailto:agents@skagway.tours">agents@skagway.tours</a> to set up an account.</p>
+    <div class="container prose" data-editable="text" data-type="block" data-prop="@content">
+      <Content />
     </div>
   </section>
 </BaseLayout>

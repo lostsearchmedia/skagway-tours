@@ -1,40 +1,47 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
+import { getEntry, render } from "astro:content";
+
+const entry = await getEntry("pages", "find-us");
+if (!entry || entry.data._schema !== "page") {
+  throw new Error("src/content/pages/find-us.md is missing or has the wrong _schema");
+}
+const d = entry.data;
+const { Content } = await render(entry);
 ---
 
-<BaseLayout title="Find us" description="Pickup locations and directions for your Skagway Tours adventure.">
+<BaseLayout title={d.title} description={d.description}>
   <PageHero
-    eyebrow="Meeting point"
-    title="Find us in Skagway"
-    lead="Cruise ship arrivals meet at the dock; independent travelers meet at Centennial Park. Send us your details and we'll confirm pickup."
+    eyebrow={d.hero_eyebrow}
+    title={d.hero_title ?? d.title}
+    lead={d.hero_lead}
   />
 
   <section class="section">
     <div class="container find-us__grid">
       <div class="find-us__map">
-        <!-- Replace this embed URL with the client's preferred map embed. -->
         <iframe
           title="Skagway Tours pickup map"
-          src="https://www.google.com/maps?q=Skagway%2C%20AK&output=embed"
+          src={d.map_embed_url ?? "https://www.google.com/maps?q=Skagway%2C%20AK&output=embed"}
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
       </div>
 
       <div>
-        <h2>Pickup locations</h2>
-        <p>
-          <strong>Cruise passengers:</strong> we meet you at the dock — our driver
-          will be waiting with a Skagway Tours sign at your ship's gangway.
-        </p>
-        <p>
-          <strong>Independent travelers:</strong> pickup is at Centennial Park in
-          downtown Skagway.
-        </p>
+        {d.pickup_heading && <h2 data-editable="text" data-prop="pickup_heading">{d.pickup_heading}</h2>}
 
-        <h3>Send us your arrival details</h3>
-        <p class="muted">v1 form: submissions email our team so we can confirm pickup.</p>
+        <div class="prose" data-editable="text" data-type="block" data-prop="@content">
+          <Content />
+        </div>
+
+        {d.pickup_details_heading && (
+          <h3 data-editable="text" data-prop="pickup_details_heading">{d.pickup_details_heading}</h3>
+        )}
+        {d.pickup_details_note && (
+          <p class="muted" data-editable="text" data-prop="pickup_details_note">{d.pickup_details_note}</p>
+        )}
 
         <form class="pickup-form" action="https://formspree.io/f/REPLACE_ME" method="POST">
           <label>

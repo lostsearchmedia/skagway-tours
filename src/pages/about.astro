@@ -3,45 +3,36 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
 import { getEntry, render } from "astro:content";
 
-// Body content is driven by src/content/pages/about.md so it's editable in CloudCannon.
 const entry = await getEntry("pages", "about");
-const Content = entry ? (await render(entry)).Content : null;
-const data = entry?.data;
+if (!entry || entry.data._schema !== "page") {
+  throw new Error("src/content/pages/about.md is missing or has the wrong _schema");
+}
+const d = entry.data;
+const { Content } = await render(entry);
 ---
 
-<BaseLayout title={data?.title ?? "About"} description={data?.description}>
+<BaseLayout title={d.title} description={d.description}>
   <section class="about-hero">
     <div class="about-hero__media" aria-hidden="true">
-      <!-- Embed the client-supplied About video here (staff + buses at the docks). -->
-      <!-- Replace the src below with the actual file once supplied. -->
       <div class="about-hero__placeholder">
         <span class="eyebrow">[ staff & buses video — client-supplied ]</span>
       </div>
       <div class="about-hero__shade"></div>
     </div>
     <div class="container about-hero__inner">
-      <span class="eyebrow">About us</span>
-      <h1>{data?.title ?? "The crew behind Skagway Tours"}</h1>
-      {data?.description && <p>{data.description}</p>}
+      {d.hero_eyebrow && (
+        <span class="eyebrow" data-editable="text" data-prop="hero_eyebrow">{d.hero_eyebrow}</span>
+      )}
+      <h1 data-editable="text" data-prop="hero_title">{d.hero_title ?? d.title}</h1>
+      {d.description && (
+        <p data-editable="text" data-prop="description">{d.description}</p>
+      )}
     </div>
   </section>
 
   <section class="section">
-    <div class="container prose">
-      {Content ? <Content /> : (
-        <>
-          <p>
-            Add your About copy in <code>src/content/pages/about.md</code> (or
-            via CloudCannon once the repo is connected). This is placeholder
-            copy so you can see the layout.
-          </p>
-          <p>
-            We're a small team of Alaska and Yukon locals who've been showing
-            visitors the White Pass, Emerald Lake, and the old Gold Rush trails
-            since before GPS worked up here.
-          </p>
-        </>
-      )}
+    <div class="container prose" data-editable="text" data-type="block" data-prop="@content">
+      <Content />
     </div>
   </section>
 </BaseLayout>
