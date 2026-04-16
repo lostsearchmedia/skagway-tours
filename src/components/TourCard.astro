@@ -1,0 +1,161 @@
+---
+import { Image } from "astro:assets";
+import BookButton from "./BookButton.astro";
+
+interface Props {
+  slug: string;
+  title: string;
+  summary: string;
+  image?: ImageMetadata;
+  duration?: number;
+  difficulty?: string;
+  priceFrom?: number;
+  videoUrl?: string;
+  fareharborItemId?: string;
+}
+
+const {
+  slug,
+  title,
+  summary,
+  image,
+  duration,
+  difficulty,
+  priceFrom,
+  videoUrl,
+  fareharborItemId,
+} = Astro.props;
+---
+
+<article class="tour-card">
+  <a
+    class="tour-card__media"
+    href={`/tours/${slug}/`}
+    data-passport-interstitial
+    aria-label={`See ${title} details`}
+  >
+    {image && <Image src={image} alt={title} widths={[400, 600, 800]} sizes="(max-width: 700px) 100vw, 33vw" />}
+    {!image && <div class="tour-card__media-fallback" aria-hidden="true"></div>}
+    {
+      videoUrl && (
+        <button
+          class="tour-card__video"
+          type="button"
+          data-video-src={videoUrl}
+          aria-label={`Watch ${title} video`}
+        >
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <path d="M8 5 L19 12 L8 19 Z" fill="currentColor" />
+          </svg>
+          Watch
+        </button>
+      )
+    }
+  </a>
+
+  <div class="tour-card__body">
+    <h3 class="tour-card__title">{title}</h3>
+    <p class="tour-card__summary">{summary}</p>
+
+    <ul class="tour-card__meta">
+      {duration && <li><strong>{duration}h</strong> tour</li>}
+      {difficulty && <li>{difficulty}</li>}
+      {priceFrom && <li>from <strong>${priceFrom}</strong></li>}
+    </ul>
+
+    <div class="tour-card__actions">
+      <a
+        class="button button--dark"
+        href={`/tours/${slug}/`}
+        data-passport-interstitial
+      >
+        Details
+      </a>
+      <BookButton itemId={fareharborItemId} label="Book" />
+    </div>
+  </div>
+</article>
+
+<style>
+  .tour-card {
+    background: #fff;
+    border: 1px solid var(--c-fog);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 1px 2px rgba(15, 23, 32, 0.04);
+  }
+  .tour-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px -20px rgba(15, 23, 32, 0.25);
+  }
+
+  .tour-card__media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    display: block;
+    overflow: hidden;
+    background: var(--c-fog);
+  }
+  .tour-card__media:hover { text-decoration: none; }
+  .tour-card__media img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.45s ease;
+  }
+  .tour-card:hover .tour-card__media img { transform: scale(1.04); }
+
+  .tour-card__media-fallback {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--c-spruce), var(--c-glacier));
+  }
+
+  .tour-card__video {
+    position: absolute;
+    bottom: 0.75rem;
+    left: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.7rem;
+    background: rgba(15, 23, 32, 0.85);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    font-family: var(--font-display);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    cursor: pointer;
+  }
+  .tour-card__video:hover { background: var(--c-ember); }
+
+  .tour-card__body {
+    padding: 1.25rem 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    flex: 1;
+  }
+  .tour-card__title { margin: 0; color: var(--c-ink); }
+  .tour-card__summary { margin: 0; color: var(--c-ink-soft); flex: 1; }
+  .tour-card__meta {
+    list-style: none;
+    padding: 0; margin: 0.25rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    font-size: 0.85rem;
+    color: var(--c-ink-soft);
+  }
+  .tour-card__meta li strong { color: var(--c-ink); }
+  .tour-card__actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .tour-card__actions .button { flex: 1; justify-content: center; }
+</style>

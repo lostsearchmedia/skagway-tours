@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import BookButton from "../components/BookButton.astro";
+---
+
+<BaseLayout title="Private & group tours" description="Turn select Skagway Tours into a private 13-pax experience.">
+  <PageHero
+    eyebrow="Make it yours"
+    title="Private &amp; group tours"
+    lead="Take over the Combo tour or Wild Adventure Yukon as a private 13-pax charter."
+  />
+
+  <section class="section">
+    <div class="container prose">
+      <p>
+        Want your family, wedding party, or cruise group on its own bus? Two of our
+        core routes — the <strong>Combo tour</strong> and <strong>Wild Adventure
+        Yukon</strong> — are available as private 13-passenger charters. Your own
+        driver-guide, your own pace, your own memories.
+      </p>
+
+      <p class="muted">
+        Note: dogsled is not part of the private 13-pax offering.
+      </p>
+
+      <h2>How it works</h2>
+      <ol>
+        <li>Tell us your group size and date.</li>
+        <li>We confirm availability and the full-bus rate.</li>
+        <li>You book, we drive, you tell the story forever.</li>
+      </ol>
+
+      <p style="margin-top: 2rem;">
+        <BookButton label="Request a private tour" />
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .muted { color: var(--c-ink-soft); font-style: italic; }
+</style>

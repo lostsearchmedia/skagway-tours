@@ -1,0 +1,186 @@
+:root {
+  --c-ink: #0f1720;
+  --c-ink-soft: #2a3542;
+  --c-paper: #f6f1e7;
+  --c-paper-soft: #ece4d2;
+  --c-fog: #d8d1c1;
+  --c-spruce: #1d3b2a;
+  --c-spruce-deep: #0f2419;
+  --c-ember: #c5562a;
+  --c-ember-bright: #e06f3d;
+  --c-glacier: #4d7a8c;
+
+  --font-display: "Bebas Neue", "Oswald", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  --container: 1200px;
+  --radius: 4px;
+  --shadow-lg: 0 30px 60px -20px rgba(15, 23, 32, 0.35);
+
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--c-ink);
+  background: var(--c-paper);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--c-ember);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+  margin: 0 0 0.5em;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: clamp(2.4rem, 5vw + 1rem, 4.8rem);
+}
+h2 {
+  font-size: clamp(1.8rem, 2.5vw + 1rem, 3rem);
+}
+h3 {
+  font-size: 1.35rem;
+  letter-spacing: 0.04em;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+.container {
+  width: min(100% - 2rem, var(--container));
+  margin-inline: auto;
+}
+
+.eyebrow {
+  font-family: var(--font-display);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: var(--c-ember);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.5rem;
+  font-family: var(--font-display);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  background: var(--c-ember);
+  color: #fff;
+  border: 2px solid var(--c-ember);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+.button:hover {
+  background: var(--c-ember-bright);
+  border-color: var(--c-ember-bright);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+.button--ghost {
+  background: transparent;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.7);
+}
+.button--ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #fff;
+  color: #fff;
+}
+.button--dark {
+  background: var(--c-ink);
+  border-color: var(--c-ink);
+}
+.button--dark:hover {
+  background: var(--c-spruce);
+  border-color: var(--c-spruce);
+}
+
+.section {
+  padding: clamp(3rem, 6vw, 6rem) 0;
+}
+.section--dark {
+  background: var(--c-spruce-deep);
+  color: var(--c-paper);
+}
+.section--ink {
+  background: var(--c-ink);
+  color: var(--c-paper);
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+.grid--tours {
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.prose {
+  max-width: 70ch;
+}
+.prose p,
+.prose ul,
+.prose ol {
+  font-size: 1.05rem;
+}
+.prose a {
+  text-decoration: underline;
+  text-decoration-color: var(--c-ember);
+  text-underline-offset: 3px;
+}
+
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  font-family: var(--font-display);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  color: var(--c-ink-soft);
+}
+.meta-row span strong {
+  display: block;
+  color: var(--c-ink);
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+}

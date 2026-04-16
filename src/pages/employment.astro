@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import { getEntry, render } from "astro:content";
+
+const entry = await getEntry("pages", "employment");
+const Content = entry ? (await render(entry)).Content : null;
+const data = entry?.data;
+---
+
+<BaseLayout title={data?.title ?? "Employment"} description={data?.description ?? "Work a Skagway summer with us."}>
+  <PageHero
+    eyebrow="Join the crew"
+    title={data?.title ?? "Work a Skagway summer with us"}
+    lead="Driver-guides, dispatch, and seasonal crew — see openings below."
+  />
+
+  <section class="section">
+    <div class="container prose">
+      {Content ? <Content /> : (
+        <>
+          <p>
+            Replace this copy in <code>src/content/pages/employment.md</code>
+            (or through CloudCannon once connected). Below is placeholder
+            structure for current openings and how to apply.
+          </p>
+          <h2>Current openings</h2>
+          <p>Positions and details to be provided by the client.</p>
+          <h2>How to apply</h2>
+          <p>Email a resume and a short note to <a href="mailto:hello@skagway.tours">hello@skagway.tours</a>.</p>
+        </>
+      )}
+    </div>
+  </section>
+</BaseLayout>

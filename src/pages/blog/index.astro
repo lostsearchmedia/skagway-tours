@@ -1,0 +1,78 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/PageHero.astro";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("posts", (p) => !p.data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<BaseLayout title="Blog" description="Field notes, trip reports, and Skagway stories.">
+  <PageHero
+    eyebrow="Field notes"
+    title="Blog"
+    lead="Trip reports, local lore, and what the crew's been up to."
+  />
+
+  <section class="section">
+    <div class="container">
+      {posts.length === 0 ? (
+        <p class="muted">Posts will appear here once added in CloudCannon.</p>
+      ) : (
+        <div class="post-grid">
+          {posts.map((post) => (
+            <a class="post-card" href={`/blog/${post.id}/`}>
+              {post.data.cover && (
+                <Image src={post.data.cover} alt={post.data.title} widths={[400, 600, 800]} sizes="(max-width: 700px) 100vw, 33vw" />
+              )}
+              <div class="post-card__body">
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {post.data.pubDate.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+                </time>
+                <h3>{post.data.title}</h3>
+                {post.data.description && <p>{post.data.description}</p>}
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .post-card {
+    background: #fff;
+    border: 1px solid var(--c-fog);
+    border-radius: 8px;
+    overflow: hidden;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .post-card:hover {
+    text-decoration: none;
+    transform: translateY(-3px);
+    box-shadow: 0 16px 30px -16px rgba(15,23,32,0.2);
+  }
+  .post-card img {
+    width: 100%; aspect-ratio: 3/2; object-fit: cover;
+  }
+  .post-card__body { padding: 1.25rem; }
+  .post-card time {
+    font-size: 0.8rem;
+    color: var(--c-ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .post-card h3 { margin: 0.35rem 0 0.5rem; color: var(--c-ink); }
+  .muted { color: var(--c-ink-soft); text-align: center; }
+</style>

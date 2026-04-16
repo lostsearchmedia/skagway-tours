@@ -1,0 +1,10 @@
+# 301 redirects for legacy WordPress URLs that no longer exist in the Astro rebuild.
+# This file is consumed by Cloudflare Pages and Netlify. On other hosts (e.g. Vercel)
+# add equivalent rules to the platform's redirect config.
+
+/browse-tours        /#tours                  301
+/browse-tours/       /#tours                  301
+/testimonials        /reviews/                301
+/testimonials/       /reviews/                301
+/cancellation-policy /faqs/#cancellation      301
+/cancellation-policy/ /faqs/#cancellation      301

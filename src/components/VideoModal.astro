@@ -1,0 +1,109 @@
+---
+// Video lightbox. Any element with [data-video-src="..."] opens a modal player.
+// Only one video plays at a time (player is torn down on close).
+---
+
+<div id="video-modal" class="vm" hidden role="dialog" aria-modal="true" aria-label="Video player">
+  <div class="vm__backdrop" data-vm-close></div>
+  <div class="vm__panel" tabindex="-1">
+    <button class="vm__close" type="button" aria-label="Close video" data-vm-close>×</button>
+    <div class="vm__frame" id="vm-frame"></div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById("video-modal")!;
+  const frame = document.getElementById("vm-frame")!;
+  let lastFocus: HTMLElement | null = null;
+
+  const toEmbed = (src: string): string => {
+    try {
+      const url = new URL(src);
+      if (/(?:^|\.)youtube\.com$/.test(url.hostname) && url.searchParams.get("v")) {
+        return `https://www.youtube.com/embed/${url.searchParams.get("v")}?autoplay=1&rel=0`;
+      }
+      if (url.hostname === "youtu.be") {
+        return `https://www.youtube.com/embed/${url.pathname.slice(1)}?autoplay=1&rel=0`;
+      }
+      if (/(?:^|\.)vimeo\.com$/.test(url.hostname)) {
+        return `https://player.vimeo.com/video/${url.pathname.split("/").filter(Boolean).pop()}?autoplay=1`;
+      }
+    } catch {}
+    return src;
+  };
+
+  const open = (src: string) => {
+    lastFocus = document.activeElement as HTMLElement;
+    const isFile = /\.(mp4|webm|mov)(\?|$)/i.test(src);
+    frame.innerHTML = isFile
+      ? `<video src="${src}" controls autoplay playsinline></video>`
+      : `<iframe src="${toEmbed(src)}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+    modal.hidden = false;
+    document.body.style.overflow = "hidden";
+    (modal.querySelector(".vm__panel") as HTMLElement)?.focus();
+  };
+
+  const close = () => {
+    frame.innerHTML = "";
+    modal.hidden = true;
+    document.body.style.overflow = "";
+    lastFocus?.focus?.();
+  };
+
+  document.addEventListener("click", (e) => {
+    const trigger = (e.target as HTMLElement).closest<HTMLElement>("[data-video-src]");
+    if (trigger) {
+      e.preventDefault();
+      const src = trigger.getAttribute("data-video-src");
+      if (src) open(src);
+    }
+  });
+
+  modal.querySelectorAll("[data-vm-close]").forEach((el) =>
+    el.addEventListener("click", close)
+  );
+
+  document.addEventListener("keydown", (e) => {
+    if (!modal.hidden && e.key === "Escape") close();
+  });
+</script>
+
+<style>
+  .vm {
+    position: fixed;
+    inset: 0;
+    z-index: 110;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+  }
+  .vm[hidden] { display: none; }
+  .vm__backdrop {
+    position: absolute; inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+  }
+  .vm__panel {
+    position: relative;
+    width: min(100%, 960px);
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+  .vm__frame, .vm__frame iframe, .vm__frame video {
+    width: 100%; height: 100%;
+    border: 0;
+  }
+  .vm__close {
+    position: absolute;
+    top: -44px;
+    right: 0;
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #fff;
+  }
+</style>

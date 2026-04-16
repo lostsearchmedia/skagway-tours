@@ -1,0 +1,49 @@
+---
+// Renders a "Book Now" button that opens the FareHarbor widget.
+// Requires the FareHarbor lightframe script to be loaded on the page (included in BaseLayout).
+// The passport interstitial intercepts this click (once per session) before FareHarbor opens.
+import { getEntry } from "astro:content";
+
+interface Props {
+  itemId?: string;
+  label?: string;
+  variant?: "primary" | "ghost" | "dark";
+  fullWidth?: boolean;
+}
+const { itemId, label = "Book Now", variant = "primary", fullWidth = false } = Astro.props;
+
+const site = await getEntry("site", "default");
+const shortname = site?.data.fareharbor_shortname;
+const fallback = site?.data.booking_url;
+
+const href = shortname
+  ? itemId
+    ? `https://fareharbor.com/embeds/book/${shortname}/items/${itemId}/?full-items=yes&flow=no`
+    : `https://fareharbor.com/embeds/book/${shortname}/?full-items=yes&flow=no`
+  : fallback || "#";
+
+const classList = [
+  "button",
+  variant === "ghost" && "button--ghost",
+  variant === "dark" && "button--dark",
+  fullWidth && "button--full",
+]
+  .filter(Boolean)
+  .join(" ");
+---
+
+<a
+  href={href}
+  class={classList}
+  data-fareharbor
+  data-book-now
+>
+  {label}
+  <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14">
+    <path d="M1 7 H12 M7 2 L12 7 L7 12" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+  </svg>
+</a>
+
+<style>
+  .button--full { width: 100%; justify-content: center; }
+</style>

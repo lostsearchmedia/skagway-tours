@@ -1,0 +1,67 @@
+- id: default
+  site_name: Skagway Tours
+  tagline: Unforgettable small-group adventures from Skagway into the Yukon.
+  phone: "+1-907-000-0000"
+  phone_label: "Call or text"
+  email: hello@skagway.tours
+  # FareHarbor short-name (the part after /embeds/book/ in your widget URL).
+  # Example: if your embed URL is https://fareharbor.com/embeds/book/skagwaytours/
+  # then fareharbor_shortname = "skagwaytours"
+  fareharbor_shortname: example
+  # Fallback FareHarbor URL used if fareharbor_shortname is empty.
+  booking_url: ""
+  hero:
+    # Drop the homepage hero video into /public/video/ and reference it here.
+    video_src: ""
+    video_poster: ""
+    # Overlaid review graphic text. Final wording to be confirmed.
+    review_stat: "3,000+ five-star reviews in 2025"
+    primary_cta_label: "Book a Tour"
+    # Scrolls to homepage Tours anchor, not FareHarbor.
+    primary_cta_href: "#tours"
+  promo_banner:
+    enabled: true
+    text: "Use code WELCOME5 for $5 off your first tour"
+    href: "#tours"
+  passport_note: "All our tours cross into Canada. A valid passport or approved document is required — no passport, no tour."
+  social:
+    facebook: ""
+    instagram: ""
+    tripadvisor: ""
+  nav:
+    - label: Tours
+      href: "/#tours"
+    - label: Find us
+      href: "/find-us/"
+    - label: About
+      href: "/about/"
+    - label: More
+      children:
+        - label: Passport Requirements
+          href: "/passport-requirements/"
+        - label: Employment
+          href: "/employment/"
+        - label: Blog
+          href: "/blog/"
+        - label: FAQs
+          href: "/faqs/"
+  footer_groups:
+    - heading: Tours
+      links:
+        - { label: Browse tours, href: "/#tours" }
+        - { label: Private & group, href: "/private-group/" }
+        - { label: Travel agents, href: "/travel-agents/" }
+    - heading: Visit
+      links:
+        - { label: Find us, href: "/find-us/" }
+        - { label: Passport requirements, href: "/passport-requirements/" }
+        - { label: FAQs, href: "/faqs/" }
+    - heading: Company
+      links:
+        - { label: About, href: "/about/" }
+        - { label: Blog, href: "/blog/" }
+        - { label: Employment, href: "/employment/" }
+    - heading: More
+      links:
+        - { label: Reviews, href: "/reviews/" }
+        - { label: Contact, href: "/contact/" }

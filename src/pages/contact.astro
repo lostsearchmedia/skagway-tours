@@ -1,0 +1,113 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import { getEntry } from "astro:content";
+
+const site = await getEntry("site", "default");
+const s = site?.data;
+---
+
+<BaseLayout title="Contact" description="Start a conversation with the Skagway Tours team.">
+  <PageHero
+    eyebrow="Get in touch"
+    title="Start a conversation"
+    lead="Questions, custom trips, or press inquiries — we're happy to help."
+  />
+
+  <section class="section">
+    <div class="container contact__grid">
+      <div>
+        <h2>Reach us directly</h2>
+        {s?.phone && (
+          <p>
+            <strong>{s.phone_label ?? "Call"}:</strong> <a href={`tel:${s.phone.replace(/[^+\d]/g, "")}`}>{s.phone}</a>
+          </p>
+        )}
+        {s?.email && (
+          <p>
+            <strong>Email:</strong> <a href={`mailto:${s.email}`}>{s.email}</a>
+          </p>
+        )}
+        <p class="muted">
+          We usually respond within a day during the summer season.
+        </p>
+
+        <h3>Stay in the loop</h3>
+        <form class="newsletter" action="https://formspree.io/f/REPLACE_ME" method="POST">
+          <label class="sr-only" for="nl-email">Email</label>
+          <input id="nl-email" type="email" name="email" placeholder="you@example.com" required />
+          <button type="submit" class="button">Subscribe</button>
+        </form>
+      </div>
+
+      <form class="contact-form" action="https://formspree.io/f/REPLACE_ME" method="POST">
+        <label>
+          <span>Name</span>
+          <input type="text" name="name" required />
+        </label>
+        <label>
+          <span>Email</span>
+          <input type="email" name="email" required />
+        </label>
+        <label class="full">
+          <span>Subject</span>
+          <input type="text" name="subject" />
+        </label>
+        <label class="full">
+          <span>Message</span>
+          <textarea name="message" rows="6" required></textarea>
+        </label>
+        <button type="submit" class="button full">Send message</button>
+      </form>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  @media (max-width: 880px) {
+    .contact__grid { grid-template-columns: 1fr; }
+  }
+  .contact-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    background: #fff;
+    border: 1px solid var(--c-fog);
+    border-radius: 8px;
+    padding: 1.75rem;
+  }
+  .contact-form label { display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.9rem; }
+  .contact-form label span { font-weight: 600; }
+  .contact-form .full { grid-column: 1 / -1; }
+  .contact-form input,
+  .contact-form textarea {
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--c-fog);
+    border-radius: 4px;
+    font: inherit;
+  }
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    outline: 2px solid var(--c-ember);
+    outline-offset: 1px;
+  }
+  .newsletter { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+  .newsletter input {
+    flex: 1;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--c-fog);
+    border-radius: 4px;
+    font: inherit;
+  }
+  .muted { color: var(--c-ink-soft); }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+</style>

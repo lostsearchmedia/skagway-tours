@@ -1,0 +1,61 @@
+---
+import "../styles/global.css";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import PassportInterstitial from "../components/PassportInterstitial.astro";
+import VideoModal from "../components/VideoModal.astro";
+import { getEntry } from "astro:content";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  transparentHeader?: boolean;
+}
+
+const { title, description, image, transparentHeader = false } = Astro.props;
+const site = await getEntry("site", "default");
+const siteName = site?.data.site_name ?? "Skagway Tours";
+const tagline = site?.data.tagline ?? "";
+const fullTitle = title ? `${title} · ${siteName}` : `${siteName} · ${tagline}`;
+const metaDescription = description ?? tagline;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{fullTitle}</title>
+    <meta name="description" content={metaDescription} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:url" content={canonical} />
+    {image && <meta property="og:image" content={image} />}
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- FareHarbor lightframe: intercepts links whose href matches fareharbor.com and opens the booking widget. -->
+    <script src="https://fareharbor.com/embeds/api/v1/?autolightframe=yes" async></script>
+  </head>
+  <body>
+    <SiteHeader transparent={transparentHeader} />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+
+    <PassportInterstitial />
+    <VideoModal />
+  </body>
+</html>
