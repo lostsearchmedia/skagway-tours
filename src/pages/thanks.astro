@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const form = Astro.url.searchParams.get("form");
+const isNewsletter = form === "newsletter";
+
+const title = isNewsletter ? "You're subscribed" : "Thanks — we'll be in touch";
+const lead = isNewsletter
+  ? "Thanks for subscribing. We'll send occasional updates about tours, availability, and Skagway."
+  : "Your message is on its way. We aim to reply within one business day.";
+---
+
+<BaseLayout title={title} description={lead}>
+  <section class="section">
+    <div class="container thanks">
+      <h1>{title}</h1>
+      <p>{lead}</p>
+      <p><a href="/" class="button">Back to home</a></p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .thanks {
+    max-width: 560px;
+    text-align: center;
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+  }
+  .thanks h1 { margin-top: 0; }
+  .thanks p { margin-bottom: 1.5rem; }
+</style>
