@@ -207,6 +207,14 @@ const phoneLabel = s?.phone_label ?? "Call";
     box-shadow: var(--shadow-lg);
   }
   .has-dropdown.is-open .dropdown { display: flex; }
+
+  @media (hover: hover) and (min-width: 961px) {
+    .has-dropdown:hover .dropdown,
+    .has-dropdown:focus-within .dropdown { display: flex; }
+    .has-dropdown:hover > button,
+    .has-dropdown:focus-within > button { color: var(--c-ember-bright); }
+  }
+
   .dropdown li { width: 100%; }
   .dropdown a {
     display: block;
