@@ -267,6 +267,10 @@ _inputs:
   # --- Tours ---
   price_from:
     type: number
+    comment: "Adult price (USD) shown as 'from $X'."
+  price_child:
+    type: number
+    comment: "Child price (ages 2-11). Infants under 2 ride free."
   duration_hours:
     type: number
   difficulty:
