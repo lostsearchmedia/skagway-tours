@@ -226,7 +226,13 @@ p {
   gap: 1.5rem;
 }
 .grid--tours {
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
+}
+@media (max-width: 960px) {
+  .grid--tours { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .grid--tours { grid-template-columns: 1fr; }
 }
 
 .prose {
