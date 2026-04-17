@@ -5,6 +5,16 @@ change should keep the editing experience working — not just make the build
 pass. Before making CloudCannon-related changes, read the relevant skill docs
 vendored into this repo.
 
+## Start of every session
+
+1. Read [`TODO.md`](./TODO.md) for the current state of in-progress,
+   blocked, and open work. Session context is isolated, so this file is the
+   source of truth for what's been decided and what's still pending.
+2. When you finish a task, close it out in `TODO.md` in the same PR that
+   ships the code. Move it to "Recently completed" with a date + PR link.
+3. When a new open item comes up mid-session, add it to `TODO.md` before
+   moving on so it doesn't get lost.
+
 ## CloudCannon agent skills (vendored from tomrcc/agent-tooling)
 
 The `.cloudcannon/agent-skills/` directory is a mirror of the
