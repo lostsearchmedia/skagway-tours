@@ -1,21 +1,23 @@
 :root {
-  --c-ink: #0f1720;
-  --c-ink-soft: #2a3542;
+  --c-ink: #292546;
+  --c-ink-soft: #4a4670;
   --c-paper: #f6f1e7;
   --c-paper-soft: #ece4d2;
   --c-fog: #d8d1c1;
   --c-spruce: #1d3b2a;
   --c-spruce-deep: #0f2419;
-  --c-ember: #c5562a;
-  --c-ember-bright: #e06f3d;
+  --c-ember: #dd5154;
+  --c-ember-bright: #e36a6d;
   --c-glacier: #4d7a8c;
 
   --font-display: "Montserrat", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-body: "Montserrat", ui-sans-serif, system-ui, -apple-system, sans-serif;
 
   --container: 1200px;
-  --radius: 4px;
-  --shadow-lg: 0 30px 60px -20px rgba(15, 23, 32, 0.35);
+  --radius: 16px;
+  --radius-sm: 8px;
+  --radius-pill: 999px;
+  --shadow-lg: 0 30px 60px -20px rgba(41, 37, 70, 0.35);
 
   color-scheme: light;
 }
@@ -102,7 +104,7 @@ p {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.9rem 1.5rem;
+  padding: 0.9rem 1.75rem;
   font-family: var(--font-display);
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -110,7 +112,7 @@ p {
   background: var(--c-ember);
   color: #fff;
   border: 2px solid var(--c-ember);
-  border-radius: var(--radius);
+  border-radius: var(--radius-pill);
   cursor: pointer;
   transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
 }
