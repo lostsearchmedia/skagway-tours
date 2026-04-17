@@ -16,9 +16,14 @@ const phoneLabel = s?.phone_label ?? "Call";
 
 <header class:list={["site-header", { transparent }]} data-sticky>
   <div class="site-header__topbar container">
-    <a href="/" class="brand">
-      <span class="brand__mark">ST</span>
-      <span class="brand__name">{s?.site_name ?? "Skagway Tours"}</span>
+    <a href="/" class="brand" aria-label={s?.site_name ?? "Skagway Tours"}>
+      <img
+        class="brand__logo"
+        src="https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_webp/skagway.tours/wp-content/uploads/2024/02/skagwaytours_logo.svg"
+        alt={s?.site_name ?? "Skagway Tours"}
+        width="180"
+        height="48"
+      />
     </a>
 
     {
@@ -126,21 +131,18 @@ const phoneLabel = s?.phone_label ?? "Call";
   .brand {
     display: inline-flex;
     align-items: center;
-    gap: 0.65rem;
     color: inherit;
-    font-family: var(--font-display);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
   }
   .brand:hover { text-decoration: none; }
-  .brand__mark {
-    background: var(--c-ember);
-    color: #fff;
-    padding: 0.25rem 0.55rem;
-    border-radius: var(--radius);
-    font-weight: 700;
+  .brand__logo {
+    height: 40px;
+    width: auto;
+    display: block;
+    /* The header is always on a dark background (navy or hero image).
+       Invert non-white logos so they stay readable. If the source logo
+       is already white, this becomes a no-op in practice. */
+    filter: brightness(0) invert(1);
   }
-  .brand__name { font-size: 1.15rem; }
 
   .promo-bar {
     grid-column: 2;

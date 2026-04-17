@@ -21,13 +21,20 @@ const d = tour.data;
   <article class="tour">
     <header class="tour__hero">
       {
-        d.featured_image && (
+        d.featured_image ? (
           <Image
             src={d.featured_image}
             alt={d.title}
             widths={[800, 1200, 1800]}
             sizes="100vw"
             class="tour__hero-img"
+          />
+        ) : (
+          <img
+            class="tour__hero-img"
+            src="https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_webp,p_h/skagway.tours/wp-content/uploads/2024/02/st_wide.jpg"
+            alt=""
+            loading="eager"
           />
         )
       }
@@ -63,7 +70,7 @@ const d = tour.data;
           )
         }
 
-        <div data-editable="text" data-type="block" data-prop="@content">
+        <div id="tour-body" data-editable="text" data-type="block" data-prop="@content">
           <Content />
         </div>
 
@@ -94,6 +101,48 @@ const d = tour.data;
     </div>
   </article>
 </BaseLayout>
+
+<script>
+  // Transform each <h2> + its following siblings inside #tour-body into a
+  // <details>/<summary> accordion. Skip inside the CloudCannon visual
+  // editor so editors see the flat, expanded content.
+  if (!(window as any).inEditorMode) {
+    const root = document.getElementById("tour-body");
+    if (root) {
+      const children = Array.from(root.children);
+      type Group = { heading: Element; content: Element[] };
+      const groups: Group[] = [];
+      let current: Group | null = null;
+
+      for (const el of children) {
+        if (el.tagName === "H2") {
+          current = { heading: el, content: [] };
+          groups.push(current);
+        } else if (current) {
+          current.content.push(el);
+        }
+        // Elements before the first h2 stay in place as intro prose.
+      }
+
+      groups.forEach((g, i) => {
+        const details = document.createElement("details");
+        details.className = "tour-accordion";
+        if (i === 0) details.open = true;
+
+        const summary = document.createElement("summary");
+        summary.textContent = g.heading.textContent;
+        details.appendChild(summary);
+
+        const body = document.createElement("div");
+        body.className = "tour-accordion__body";
+        for (const el of g.content) body.appendChild(el);
+        details.appendChild(body);
+
+        g.heading.replaceWith(details);
+      });
+    }
+  }
+</script>
 
 <style>
   .tour__hero {
@@ -169,4 +218,48 @@ const d = tour.data;
   .tour__before h3 { margin-top: 0; }
   .tour__before ul { margin: 0; padding-left: 1.1rem; }
   .tour__before li { margin-bottom: 0.4rem; }
+
+  /* Accordion treatment for #tour-body — JS below transforms each <h2> +
+     following content into a <details>. Progressive enhancement: content
+     renders fully without JS, accordions activate once JS runs. */
+  :global(.tour-accordion) {
+    border-top: 1px solid var(--c-fog);
+    margin: 0;
+  }
+  :global(.tour-accordion:last-of-type) {
+    border-bottom: 1px solid var(--c-fog);
+  }
+  :global(.tour-accordion > summary) {
+    cursor: pointer;
+    padding: 1.1rem 0;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    color: var(--c-ink);
+  }
+  :global(.tour-accordion > summary::-webkit-details-marker) { display: none; }
+  :global(.tour-accordion > summary::after) {
+    content: "+";
+    font-weight: 400;
+    font-size: 1.6rem;
+    color: var(--c-ember);
+    line-height: 1;
+    transition: transform 0.2s ease;
+  }
+  :global(.tour-accordion[open] > summary::after) {
+    content: "−";
+  }
+  :global(.tour-accordion__body) {
+    padding: 0 0 1.25rem;
+  }
+  :global(.tour-accordion__body > :first-child) {
+    margin-top: 0;
+  }
 </style>
