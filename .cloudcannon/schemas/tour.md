@@ -2,6 +2,7 @@
 title: New tour
 summary:
 price_from: 0
+price_child: 0
 duration_hours: 0
 difficulty: Easy
 order: 100

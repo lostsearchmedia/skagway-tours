@@ -44,7 +44,8 @@ const d = tour.data;
         <div class="meta-row">
           {d.duration_hours && <span><strong>{d.duration_hours}h</strong> duration</span>}
           {d.difficulty && <span><strong>{d.difficulty}</strong> level</span>}
-          {d.price_from && <span>from <strong>${d.price_from}</strong></span>}
+          {d.price_from && <span>adults from <strong>${d.price_from}</strong></span>}
+          {d.price_child && <span>kids from <strong>${d.price_child}</strong></span>}
         </div>
 
         {
@@ -65,14 +66,25 @@ const d = tour.data;
         <div data-editable="text" data-type="block" data-prop="@content">
           <Content />
         </div>
+
+        <aside class="tour__before">
+          <h3>Before your tour</h3>
+          <ul>
+            <li><a href="/find-us/">Dock pickup details</a> — we pick up at all three cruise docks in Skagway.</li>
+            <li><a href="/passport-requirements/">Passport requirements</a> — every tour crosses into Canada.</li>
+            <li><a href="/faqs/">FAQs, accessibility, and our All Aboard guarantee</a>.</li>
+          </ul>
+        </aside>
       </section>
 
       <aside class="tour__sidebar">
         <div class="booking-card">
           <h3>Ready to go?</h3>
-          <p>
-            {d.price_from && <>From <strong>${d.price_from}</strong> per person.</>}
-          </p>
+          <ul class="booking-card__prices">
+            {d.price_from && <li><span>Adults (13+)</span><strong>${d.price_from}</strong></li>}
+            {d.price_child && <li><span>Children (2–11)</span><strong>${d.price_child}</strong></li>}
+            {(d.price_from || d.price_child) && <li><span>Infants under 2</span><strong>Free</strong></li>}
+          </ul>
           <BookButton itemId={d.fareharbor_item_id} label="Book now" fullWidth />
           <p class="booking-card__note">
             A valid passport is required — this tour crosses into Canada.
@@ -128,9 +140,33 @@ const d = tour.data;
     box-shadow: 0 10px 30px -12px rgba(41, 37, 70,0.15);
   }
   .booking-card h3 { margin-top: 0; }
+  .booking-card__prices {
+    list-style: none;
+    margin: 0 0 1.25rem;
+    padding: 0;
+    display: grid;
+    gap: 0.35rem;
+    font-size: 0.95rem;
+  }
+  .booking-card__prices li {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .booking-card__prices span { color: var(--c-ink-soft); }
   .booking-card__note {
     margin: 1rem 0 0;
     font-size: 0.85rem;
     color: var(--c-ink-soft);
   }
+
+  .tour__before {
+    margin-top: 2.5rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--c-paper-soft);
+    border-radius: 16px;
+  }
+  .tour__before h3 { margin-top: 0; }
+  .tour__before ul { margin: 0; padding-left: 1.1rem; }
+  .tour__before li { margin-bottom: 0.4rem; }
 </style>
