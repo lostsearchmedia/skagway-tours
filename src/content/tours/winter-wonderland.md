@@ -11,6 +11,11 @@ highlights:
   - "Snow-draped White Pass"
   - "Fewer crowds, bigger silences"
   - "Hot drinks en route"
+seo:
+  meta_title: ""
+  meta_description: ""
+  og_image: ""
+  noindex: false
 ---
 
 A shoulder-season tour for travelers visiting Skagway outside the main cruise

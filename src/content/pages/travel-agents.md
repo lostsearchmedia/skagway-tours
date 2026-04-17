@@ -5,6 +5,11 @@ description: Commissionable rates and reliable operations for Skagway itinerarie
 hero_eyebrow: For the trade
 hero_title: Travel agents
 hero_lead: Commissionable rates, dependable ops, and a local team your clients will thank you for.
+seo:
+  meta_title: ""
+  meta_description: ""
+  og_image: ""
+  noindex: false
 ---
 
 Replace this copy with the trade-specific details (commission structure,

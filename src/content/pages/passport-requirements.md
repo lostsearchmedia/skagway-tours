@@ -4,6 +4,11 @@ title: All our tours cross the Canadian border
 description: A valid passport or approved alternative document is required for every Skagway Tours route.
 hero_eyebrow: Border crossing
 hero_title: All our tours cross the Canadian border
+seo:
+  meta_title: ""
+  meta_description: ""
+  og_image: ""
+  noindex: false
 ---
 
 ## Short version

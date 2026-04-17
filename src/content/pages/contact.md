@@ -8,6 +8,11 @@ hero_lead: Questions, custom trips, or press inquiries — we're happy to help.
 reach_heading: Reach us directly
 response_note: We usually respond within a day during the summer season.
 newsletter_heading: Stay in the loop
+seo:
+  meta_title: ""
+  meta_description: ""
+  og_image: ""
+  noindex: false
 ---
 
 Have a question about an upcoming tour, or want to plan something custom?
