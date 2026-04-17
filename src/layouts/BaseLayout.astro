@@ -29,10 +29,12 @@ const favicon = site?.data.favicon || "/favicon.svg";
 const defaultOgImage = site?.data.default_og_image;
 
 // SEO overrides win over page-level defaults; page-level wins over site tagline.
-const pageTitle = seo?.meta_title ?? title;
+// Using || (not ??) so empty strings in the editor fall through to the next
+// option — CloudCannon writes "" for unset text fields.
+const pageTitle = seo?.meta_title || title;
 const fullTitle = pageTitle ? `${pageTitle} · ${siteName}` : `${siteName} · ${tagline}`;
-const metaDescription = seo?.meta_description ?? description ?? tagline;
-const ogImage = seo?.og_image ?? image ?? defaultOgImage;
+const metaDescription = seo?.meta_description || description || tagline;
+const ogImage = seo?.og_image || image || defaultOgImage;
 const ogImageUrl = ogImage ? new URL(ogImage, Astro.site).toString() : undefined;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---

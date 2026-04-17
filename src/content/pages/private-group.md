@@ -6,6 +6,11 @@ hero_eyebrow: Make it yours
 hero_title: "Private & group tours"
 hero_lead: Take over the Combo tour or Wild Adventure Yukon as a private 13-pax charter.
 book_button_label: Request a private tour
+seo:
+  meta_title: ""
+  meta_description: ""
+  og_image: ""
+  noindex: false
 ---
 
 Want your family, wedding party, or cruise group on its own bus? Two of our

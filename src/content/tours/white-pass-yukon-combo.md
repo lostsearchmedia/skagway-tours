@@ -12,6 +12,11 @@ highlights:
   - "Emerald Lake &amp; Carcross Desert in the Yukon"
   - "Border crossing stamp at the summit"
   - "Lunch stop in Carcross"
+seo:
+  meta_title: ""
+  meta_description: ""
+  og_image: ""
+  noindex: false
 ---
 
 Our flagship day out combines the legendary White Pass railway with a Yukon bus

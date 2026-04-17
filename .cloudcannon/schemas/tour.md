@@ -9,6 +9,11 @@ available_for_private_13pax: false
 fareharbor_item_id: ""
 highlights: []
 draft: true
+seo:
+  meta_title: ""
+  meta_description: ""
+  og_image: ""
+  noindex: false
 ---
 
 Describe the tour here.

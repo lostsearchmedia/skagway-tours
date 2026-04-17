@@ -31,4 +31,9 @@ reviews_cta:
   lead: Read what past guests have to say — then come build your own story.
   cta_label: Read our reviews
   cta_href: /reviews/
+seo:
+  meta_title: ""
+  meta_description: ""
+  og_image: ""
+  noindex: false
 ---

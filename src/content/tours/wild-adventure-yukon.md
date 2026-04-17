@@ -12,6 +12,11 @@ highlights:
   - "Emerald Lake &amp; Carcross Desert"
   - "Small-group 13-pax bus"
   - "Driver-guide narration"
+seo:
+  meta_title: ""
+  meta_description: ""
+  og_image: ""
+  noindex: false
 ---
 
 Our most complete Yukon day. We leave the cruise ship traffic behind, climb the
