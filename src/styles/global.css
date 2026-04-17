@@ -9,9 +9,17 @@
   --c-ember: #dd5154;
   --c-ember-bright: #e36a6d;
   --c-glacier: #4d7a8c;
+  /* Deep forest block-color for moss-green sections (Why us, storytelling). */
+  --c-moss: #234a3a;
+  --c-moss-deep: #162f26;
+  /* Soft color-card backgrounds for feature callouts. */
+  --c-sky-soft: #d6e5ef;
+  --c-sun-soft: #e7e98f;
 
   --font-display: "Montserrat", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-body: "Montserrat", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  /* Handwritten accent used for decorative callouts ("Adventures", "Wildlife"). */
+  --font-accent: "Caveat", ui-serif, cursive;
 
   --container: 1200px;
   --radius: 16px;
@@ -151,6 +159,66 @@ p {
 .section--ink {
   background: var(--c-ink);
   color: var(--c-paper);
+}
+.section--moss {
+  background: var(--c-moss);
+  color: var(--c-paper);
+}
+.section--moss .eyebrow { color: var(--c-sun-soft); }
+.section--moss a { color: var(--c-sun-soft); }
+.section--paper-soft {
+  background: var(--c-paper-soft);
+}
+
+/* Handwritten accent for decorative labels and callouts. Pair with a bold
+   uppercase heading for the Wildmark-style rhythm. */
+.script {
+  font-family: var(--font-accent);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  line-height: 1;
+}
+.script--accent { color: var(--c-ember); }
+.script--moss { color: var(--c-moss); }
+
+/* Oversized headline that bleeds past the container edge. Pair with
+   `overflow: hidden` on the wrapping section to clip cleanly. */
+.splash-heading {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  font-size: clamp(3rem, 12vw, 10rem);
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* Soft color-card used for callouts ("For Families", "Private Groups"). */
+.feature-card {
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.feature-card--sky { background: var(--c-sky-soft); }
+.feature-card--sun { background: var(--c-sun-soft); }
+.feature-card__eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--c-ink-soft);
+}
+.feature-card__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1.1;
 }
 
 .grid {
