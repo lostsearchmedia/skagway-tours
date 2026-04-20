@@ -40,6 +40,40 @@ const toursSection = d.tours_section;
     )
   }
 
+  <!-- Tours section -->
+  <section id="tours" class="section tours-section">
+    <div class="container">
+      <div class="section__head">
+        <span class="script script--accent section__script" data-editable="text" data-prop="tours_section.eyebrow">
+          {toursSection.eyebrow}
+        </span>
+        <h2 data-editable="text" data-prop="tours_section.title">{toursSection.title}</h2>
+      </div>
+
+      {
+        tours.length === 0 ? (
+          <p class="muted">{toursSection.empty_message}</p>
+        ) : (
+          <div class="grid grid--tours">
+            {tours.map((tour) => (
+              <TourCard
+                slug={tour.id}
+                title={tour.data.title}
+                summary={tour.data.summary}
+                image={tour.data.featured_image}
+                duration={tour.data.duration_hours}
+                difficulty={tour.data.difficulty}
+                priceFrom={tour.data.price_from}
+                videoUrl={tour.data.video_url}
+                fareharborItemId={tour.data.fareharbor_item_id}
+              />
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </section>
+
   <!-- Why travel with us — moss-green block -->
   <section class="section section--moss why-us">
     <div class="container">
@@ -86,40 +120,6 @@ const toursSection = d.tours_section;
           <p>Year after year, cruise guests and families keep choosing us for their Skagway day out.</p>
         </article>
       </div>
-    </div>
-  </section>
-
-  <!-- Tours section -->
-  <section id="tours" class="section tours-section">
-    <div class="container">
-      <div class="section__head">
-        <span class="script script--accent section__script" data-editable="text" data-prop="tours_section.eyebrow">
-          {toursSection.eyebrow}
-        </span>
-        <h2 data-editable="text" data-prop="tours_section.title">{toursSection.title}</h2>
-      </div>
-
-      {
-        tours.length === 0 ? (
-          <p class="muted">{toursSection.empty_message}</p>
-        ) : (
-          <div class="grid grid--tours">
-            {tours.map((tour) => (
-              <TourCard
-                slug={tour.id}
-                title={tour.data.title}
-                summary={tour.data.summary}
-                image={tour.data.featured_image}
-                duration={tour.data.duration_hours}
-                difficulty={tour.data.difficulty}
-                priceFrom={tour.data.price_from}
-                videoUrl={tour.data.video_url}
-                fareharborItemId={tour.data.fareharbor_item_id}
-              />
-            ))}
-          </div>
-        )
-      }
     </div>
   </section>
 
