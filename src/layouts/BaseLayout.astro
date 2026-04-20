@@ -64,8 +64,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:card" content="summary_large_image" />
     {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
 
-    <!-- FareHarbor lightframe: intercepts links whose href matches fareharbor.com and opens the booking widget. -->
-    <script src="https://fareharbor.com/embeds/api/v1/?autolightframe=yes" async></script>
+    <!-- FareHarbor Lightframe API - do not remove - see: https://fareharbor.com/help/website/resources/lightframe-api/ -->
+    <script is:inline src="https://fareharbor.com/embeds/api/v1/?autolightframe=yes"></script>
   </head>
   <body>
     <SiteHeader transparent={transparentHeader} />
