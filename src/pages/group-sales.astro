@@ -1,0 +1,391 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import { getEntry } from "astro:content";
+
+const entry = await getEntry("pages", "group-sales");
+if (!entry || entry.data._schema !== "page") {
+  throw new Error("src/content/pages/group-sales.md is missing or has the wrong _schema");
+}
+const d = entry.data;
+
+const error = Astro.url.searchParams.get("error");
+const errorMessage =
+  error === "validation"
+    ? "Please fill in all required fields with a valid email."
+    : error
+    ? "Something went wrong. Please try again or call us directly."
+    : null;
+---
+
+<BaseLayout title={d.title} description={d.description} seo={d.seo}>
+  <PageHero
+    eyebrow={d.hero_eyebrow}
+    title={d.hero_title ?? d.title}
+    lead={d.hero_lead}
+  />
+
+  <!-- Vehicles section -->
+  <section class="section section--paper-soft vehicles-section">
+    <div class="container">
+      <h2 class="section-heading">Our Fleet</h2>
+      <p class="section-lead">Choose from a variety of vehicles designed for comfort, views, and convenience.</p>
+      <div class="vehicles-grid">
+        <article class="vehicle-card">
+          <div class="vehicle-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 48 28" width="48" height="28" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="2" y="7" width="40" height="16" rx="3"/>
+              <rect x="42" y="11" width="4" height="8" rx="1"/>
+              <circle cx="10" cy="25" r="3"/>
+              <circle cx="36" cy="25" r="3"/>
+            </svg>
+          </div>
+          <h3>MCI Coach</h3>
+          <p class="vehicle-card__capacity">Up to 58 passengers</p>
+          <p>Onboard bathroom for longer trips — ideal for full-day excursions.</p>
+        </article>
+        <article class="vehicle-card">
+          <div class="vehicle-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 48 28" width="48" height="28" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="2" y="7" width="40" height="16" rx="3"/>
+              <rect x="42" y="11" width="4" height="8" rx="1"/>
+              <circle cx="10" cy="25" r="3"/>
+              <circle cx="36" cy="25" r="3"/>
+              <path d="M6 7 V5 Q6 3 8 3 H30 Q34 3 36 7"/>
+            </svg>
+          </div>
+          <h3>VIP Coach</h3>
+          <p class="vehicle-card__capacity">Up to 44 passengers</p>
+          <p>Spacious interiors with onboard bathroom and premium comfort.</p>
+        </article>
+        <article class="vehicle-card">
+          <div class="vehicle-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 42 28" width="42" height="28" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="2" y="8" width="34" height="14" rx="3"/>
+              <rect x="36" y="11" width="4" height="8" rx="1"/>
+              <circle cx="9" cy="24" r="3"/>
+              <circle cx="31" cy="24" r="3"/>
+              <rect x="6" y="10" width="6" height="5" rx="1"/>
+              <rect x="15" y="10" width="6" height="5" rx="1"/>
+              <rect x="24" y="10" width="6" height="5" rx="1"/>
+            </svg>
+          </div>
+          <h3>Passenger Tour Bus</h3>
+          <p class="vehicle-card__capacity">30 – 40 passengers</p>
+          <p>Wide windows for 360-degree views of the White Pass scenery.</p>
+        </article>
+        <article class="vehicle-card">
+          <div class="vehicle-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 36 24" width="36" height="24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="2" y="6" width="28" height="13" rx="3"/>
+              <rect x="30" y="9" width="4" height="7" rx="1"/>
+              <circle cx="8" cy="21" r="3"/>
+              <circle cx="24" cy="21" r="3"/>
+            </svg>
+          </div>
+          <h3>Luxury Passenger Van</h3>
+          <p class="vehicle-card__capacity">Up to 13 passengers</p>
+          <p>Premium seating and modern amenities for small, private group travel.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Info + Form section -->
+  <section class="section">
+    <div class="container group-layout">
+
+      <!-- Left: info blocks -->
+      <div class="group-info">
+        <div class="info-block">
+          <h2>Group Capacity</h2>
+          <p>We can accommodate up to <strong>160 passengers</strong> in a single departure across multiple vehicles.</p>
+        </div>
+
+        <div class="info-block">
+          <h2>Reservations</h2>
+          <p>Private tours or charters departing on <strong>Wednesday or Thursday</strong> require reservations <strong>6 months in advance</strong> — availability is limited on those days.</p>
+        </div>
+
+        <div class="info-block">
+          <h2>Tour Options</h2>
+          <div class="option-cards">
+            <article class="option-card">
+              <h3>Private Tours</h3>
+              <ul>
+                <li>Choose from <strong>5 tour options</strong> for your group</li>
+                <li>Pricing is <strong>per bus</strong>, including applicable admission fees</li>
+              </ul>
+            </article>
+            <article class="option-card">
+              <h3>Charters</h3>
+              <ul>
+                <li>Priced <strong>by the hour</strong> (4-hour minimum)</li>
+                <li>You choose the route, timing, stops, and return</li>
+                <li>Local catering available — order picked up and onboard at departure</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <h2>What to Expect</h2>
+          <ul class="check-list">
+            <li>Onboard driver-guide with narration throughout</li>
+            <li>Photo stops and wildlife spotting included</li>
+            <li>Guaranteed return to your ship on time</li>
+            <li>Pick-up and drop-off at your ship; option to be dropped off in town after your tour</li>
+            <li>Morning or afternoon departures available</li>
+          </ul>
+        </div>
+
+        <div class="info-block call-block">
+          <p class="call-label">Ready to talk rates?</p>
+          <a href="tel:+19079214344" class="button button--dark">Call (907) 921-4344</a>
+        </div>
+      </div>
+
+      <!-- Right: inquiry form -->
+      <div>
+        <div class="form-card">
+          <h2 class="form-card__heading">Book Your Group Tour</h2>
+          <p class="form-card__lead">Tell us about your group and we'll get back to you with availability and rates.</p>
+
+          {errorMessage && <p class="form-error" role="alert">{errorMessage}</p>}
+
+          <form class="group-form" action="/api/contact" method="POST">
+            <input type="hidden" name="subject" value="Group Tour Inquiry" />
+
+            <label>
+              <span>Name <abbr title="required">*</abbr></span>
+              <input type="text" name="name" required />
+            </label>
+
+            <label>
+              <span>Email Address <abbr title="required">*</abbr></span>
+              <input type="email" name="email" required />
+            </label>
+
+            <label>
+              <span>Arrival Date <abbr title="required">*</abbr></span>
+              <input type="date" name="arrival_date" required />
+            </label>
+
+            <label>
+              <span>Ship / Hotel Name</span>
+              <input type="text" name="ship_hotel" />
+            </label>
+
+            <label class="full">
+              <span>Number of Passengers <abbr title="required">*</abbr></span>
+              <input type="number" name="passengers" min="1" required />
+            </label>
+
+            <label class="full">
+              <span>How Can We Help?</span>
+              <textarea name="message" rows="5" placeholder="Tell us about your group, preferred tour, or any special requests…"></textarea>
+            </label>
+
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="honeypot" />
+
+            <button type="submit" class="button full">Send Inquiry</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ── Vehicles section ─────────────────────────────────────── */
+  .vehicles-section { border-top: 1px solid var(--c-fog); }
+  .section-heading {
+    text-align: center;
+    font-size: clamp(1.6rem, 2.5vw + 0.5rem, 2.25rem);
+    margin-bottom: 0.5rem;
+  }
+  .section-lead {
+    text-align: center;
+    color: var(--c-ink-soft);
+    margin: 0 auto 2.5rem;
+    max-width: 55ch;
+  }
+  .vehicles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+  }
+  .vehicle-card {
+    background: #fff;
+    border: 1px solid var(--c-fog);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .vehicle-card__icon {
+    color: var(--c-ember);
+    margin-bottom: 0.25rem;
+  }
+  .vehicle-card h3 {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+  .vehicle-card__capacity {
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--c-ember);
+    margin: 0;
+  }
+  .vehicle-card p:last-child {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--c-ink-soft);
+  }
+
+  /* ── Two-column layout ──────────────────────────────────────── */
+  .group-layout {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 3rem;
+    align-items: start;
+  }
+  @media (max-width: 960px) {
+    .group-layout { grid-template-columns: 1fr; }
+  }
+
+  /* ── Info blocks ────────────────────────────────────────────── */
+  .group-info { display: flex; flex-direction: column; gap: 2rem; }
+  .info-block h2 {
+    font-size: 1.25rem;
+    margin: 0 0 0.5rem;
+    letter-spacing: 0.01em;
+  }
+  .info-block p { margin: 0; color: var(--c-ink-soft); }
+
+  .option-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+  @media (max-width: 600px) {
+    .option-cards { grid-template-columns: 1fr; }
+  }
+  .option-card {
+    background: var(--c-paper-soft);
+    border: 1px solid var(--c-fog);
+    border-radius: 12px;
+    padding: 1.1rem 1.25rem;
+  }
+  .option-card h3 {
+    margin: 0 0 0.5rem;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--c-ink);
+  }
+  .option-card ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    font-size: 0.9rem;
+    color: var(--c-ink-soft);
+  }
+  .option-card li { margin-bottom: 0.3rem; }
+
+  .check-list {
+    margin: 0.25rem 0 0;
+    padding-left: 1.1rem;
+    color: var(--c-ink-soft);
+    font-size: 0.95rem;
+  }
+  .check-list li { margin-bottom: 0.35rem; }
+
+  .call-block {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    padding: 1.25rem 1.5rem;
+    background: var(--c-paper-soft);
+    border: 1px solid var(--c-fog);
+    border-radius: 12px;
+  }
+  .call-label {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--c-ink);
+    margin: 0;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── Form card ──────────────────────────────────────────────── */
+  .form-card {
+    position: sticky;
+    top: 6rem;
+    background: #fff;
+    border: 1px solid var(--c-fog);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px -12px rgba(41, 37, 70, 0.12);
+  }
+  @media (max-width: 960px) {
+    .form-card { position: static; }
+  }
+  .form-card__heading { margin: 0 0 0.4rem; font-size: 1.3rem; }
+  .form-card__lead { margin: 0 0 1.5rem; color: var(--c-ink-soft); font-size: 0.9rem; }
+
+  .group-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.9rem;
+  }
+  .group-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.88rem;
+  }
+  .group-form label span { font-weight: 600; color: var(--c-ink); }
+  .group-form label abbr { text-decoration: none; color: var(--c-ember); }
+  .group-form .full { grid-column: 1 / -1; }
+  .group-form input,
+  .group-form textarea {
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--c-fog);
+    border-radius: var(--radius-sm);
+    font: inherit;
+    font-size: 0.9rem;
+    background: #fff;
+    transition: border-color 0.15s ease, outline 0.15s ease;
+  }
+  .group-form input:focus,
+  .group-form textarea:focus {
+    outline: 2px solid var(--c-ember);
+    outline-offset: 1px;
+    border-color: transparent;
+  }
+  .group-form .button.full {
+    grid-column: 1 / -1;
+    justify-content: center;
+    margin-top: 0.25rem;
+  }
+  .form-error {
+    grid-column: 1 / -1;
+    background: #fdecea;
+    color: #a12a1f;
+    border: 1px solid #f5b5ad;
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    font-size: 0.88rem;
+    margin-bottom: 0.25rem;
+  }
+  .honeypot {
+    position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0;
+  }
+</style>
