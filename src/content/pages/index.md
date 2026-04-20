@@ -12,7 +12,7 @@ callouts:
     title: "Book our Combo or Wild Adventure Yukon as a private 13-pax tour."
     body: Take over one of our core itineraries with your own group of up to 13. Your crew, your pace, your memories.
     cta_label: Explore private tours
-    cta_href: /private-group/
+    cta_href: /private-luxury-tours/
   - variant: default
     eyebrow: Travel agents
     title: Plan Skagway itineraries for your clients.
@@ -24,7 +24,7 @@ callouts:
     title: "Large groups, cruise charters & incentives."
     body: Tell us what you're planning — we'll build the right day.
     cta_label: Read more →
-    cta_href: /groups/
+    cta_href: /group-sales/
 reviews_cta:
   eyebrow: Guest reviews
   title: Thousands of five-star days out.

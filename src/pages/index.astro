@@ -65,9 +65,9 @@ const toursSection = d.tours_section;
                 priceFrom={tour.data.price_from}
                 videoUrl={tour.data.video_url}
                 fareharborItemId={tour.data.fareharbor_item_id}
-                featured={tour.id === "group-tours" || tour.id === "private-luxury-tours"}
-                featuredColor={tour.id === "group-tours" ? "#234a3a" : "#292546"}
-                featuredIcon={tour.id === "group-tours" ? "group" : "luxury"}
+                featured={tour.id === "private-luxury-tours"}
+                featuredColor="#292546"
+                featuredIcon="luxury"
               />
             ))}
           </div>
@@ -140,7 +140,7 @@ const toursSection = d.tours_section;
           <span class="script script--moss feature-card__script">Private groups</span>
           <h3 class="feature-card__title">Your day, your way</h3>
           <p>Charter the whole 13-passenger van for your group. Custom routes, your pacing, our local guide.</p>
-          <a href="/private-group/" class="button button--dark">Plan a private tour</a>
+          <a href="/private-luxury-tours/" class="button button--dark">Plan a private tour</a>
         </article>
       </div>
     </div>

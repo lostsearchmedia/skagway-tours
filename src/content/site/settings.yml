@@ -56,7 +56,7 @@
     - heading: Tours
       links:
         - { label: Browse tours, href: "/#tours" }
-        - { label: Private & group, href: "/private-group/" }
+        - { label: Private & group, href: "/private-luxury-tours/" }
         - { label: Travel agents, href: "/travel-agents/" }
     - heading: Visit
       links:
