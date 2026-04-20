@@ -1,10 +1,7 @@
 ---
-question: Where do I meet the tour?
-category: Logistics
+question: "Where do we find you?"
+category: Finding Us
 order: 10
 ---
 
-Cruise passengers meet at the dock — our driver-guide will be waiting at your
-ship's gangway with a Skagway Tours sign. Independent travelers meet at
-Centennial Park in downtown Skagway. Send us your ship and arrival time via
-the [Find us](/find-us/) form and we'll confirm.
+Cruise guests will meet your awesome guide at the end of the dock/parking lot from your ship, look for the **red** bus and/or **red** Skagway Tours sign. Sometimes Barley may even make an appearance. Guests who are already in Skagway can be picked up at a variety of spots around town.

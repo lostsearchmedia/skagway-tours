@@ -25,13 +25,16 @@ const renderedMap = new Map(rendered.map(({ faq, Content }) => [faq.id, Content]
 
 <BaseLayout title="FAQs" description="Frequently asked questions about Skagway Tours — booking, cancellation, passports, and more.">
   <PageHero
-    eyebrow="Questions"
-    title="Frequently asked questions"
-    lead="Booking, cancellation policy, passports, and everything else."
+    eyebrow="FAQs"
+    title="Got Questions?"
+    lead="We've got answers."
   />
 
   <section class="section">
     <div class="container">
+      <p class="faq-intro">
+        For your convenience, below are our most frequently asked questions at <a href="https://skagway.tours/">Skagway Tours</a>. If there is anything else you wish to query, please contact us. Please call OR text on <a href="tel:+19079214344">1-907-921-4344</a>. Alternatively, feel free to email us at <a href="mailto:mike@skagway.tours">info@skagway.tours</a> or fill in the <a href="/contact/">contact form</a> and one of our customer service representatives will aim to respond within 24 hours or less.
+      </p>
       {sorted.length === 0 ? (
         <p class="muted">FAQs will appear here once added in CloudCannon.</p>
       ) : (
@@ -93,6 +96,13 @@ const renderedMap = new Map(rendered.map(({ faq, Content }) => [faq.id, Content]
   .faq__body {
     padding: 0 1.25rem 1.25rem;
     color: var(--c-ink-soft);
+  }
+  .faq-intro {
+    max-width: 820px;
+    margin-bottom: 2.5rem;
+    color: var(--c-ink-soft);
+    font-size: 0.97rem;
+    line-height: 1.7;
   }
   .muted { color: var(--c-ink-soft); text-align: center; }
 </style>

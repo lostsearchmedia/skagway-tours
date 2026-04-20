@@ -1,9 +1,7 @@
 ---
-question: What if the weather is bad?
-category: Logistics
-order: 20
+question: "What If The Weather Is Bad, Is The Tour Still On?"
+category: On Tour
+order: 50
 ---
 
-We run in most weather — you'll see Alaska and the Yukon at their most dramatic.
-If Skagway Tours cancels a departure due to unsafe conditions, you receive a
-full refund. See also our [cancellation policy](#cancellation).
+Wonderfully, we never cancel due to bad weather. We tough it out! This is Alaska not California..! One area we stop at in the Yukon only gets 6" of rain a year – which is amazing considering we feel like we get 6" a day in Skagway sometimes!
