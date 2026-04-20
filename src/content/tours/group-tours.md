@@ -11,7 +11,7 @@ highlights:
   - Competitive group pricing available
 available_for_private_13pax: false
 draft: false
-order: 70
+order: 900
 seo:
   meta_title: ""
   meta_description: ""

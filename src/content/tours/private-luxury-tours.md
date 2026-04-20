@@ -9,7 +9,7 @@ highlights:
   - Premium pickup and drop-off at your convenience
 available_for_private_13pax: true
 draft: false
-order: 80
+order: 910
 seo:
   meta_title: ""
   meta_description: ""

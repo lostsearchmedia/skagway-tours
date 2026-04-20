@@ -65,6 +65,9 @@ const toursSection = d.tours_section;
                 priceFrom={tour.data.price_from}
                 videoUrl={tour.data.video_url}
                 fareharborItemId={tour.data.fareharbor_item_id}
+                featured={tour.id === "group-tours" || tour.id === "private-luxury-tours"}
+                featuredColor={tour.id === "group-tours" ? "#234a3a" : "#292546"}
+                featuredIcon={tour.id === "group-tours" ? "group" : "luxury"}
               />
             ))}
           </div>

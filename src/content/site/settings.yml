@@ -17,7 +17,7 @@
   booking_url: ""
   hero:
     # Drop the homepage hero video into /public/video/ and reference it here.
-    video_src: ""
+    video_src: "https://skagway.tours/wp-content/uploads/2026/03/HEROBANER2.mp4"
     video_poster: ""
     # Overlaid review graphic text. Final wording to be confirmed.
     review_stat: "3,000+ five-star reviews in 2025"
