@@ -1,17 +1,12 @@
 ---
 _schema: page
-title: The crew behind Skagway Tours
-description: Locally owned, small-group Skagway tours into the Yukon.
+title: About Skagway Tours
+description: Locally owned and operated by Mike Vondette, a 25-year Skagway resident and lead driver. Small-group tours into the Yukon since 2014.
 hero_eyebrow: About us
-hero_title: The crew behind Skagway Tours
+hero_title: The Crew Behind Skagway Tours
 seo:
   meta_title: ""
   meta_description: ""
   og_image: ""
   noindex: false
 ---
-This is a test! Skagway Tours is a small, locally owned operation running small-group bus tours from Skagway across the White Pass and deep into Canada's Yukon Territory. We've been doing this long enough to know the best lunch stops, the best pullouts, and the stories that don't make it into the guidebooks.
-
-Our 13-passenger buses keep the experience intimate. Our driver-guides are Alaskan and Yukon locals — most of them have been narrating these drives for years.
-
-*This is placeholder copy — client to supply final copy.*

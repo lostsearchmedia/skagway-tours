@@ -1,67 +1,601 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import PageHero from "../components/PageHero.astro";
-import { getEntry, render } from "astro:content";
+import { getEntry } from "astro:content";
 
 const entry = await getEntry("pages", "about");
-if (!entry || entry.data._schema !== "page") {
-  throw new Error("src/content/pages/about.md is missing or has the wrong _schema");
-}
-const d = entry.data;
-const { Content } = await render(entry);
+const d = entry?.data;
+
+const FALLBACK = "https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_webp,p_h/skagway.tours/wp-content/uploads/2024/02/st_wide.jpg";
+
+const values = [
+  {
+    icon: "fun",
+    title: "Fun",
+    body: "We create memorable experiences filled with joy and excitement, ensuring every moment of your tour is enjoyable.",
+  },
+  {
+    icon: "knowledge",
+    title: "Knowledgeable",
+    body: "Our guides provide insightful and accurate information, enriching your understanding of Skagway's history and natural beauty.",
+  },
+  {
+    icon: "genuine",
+    title: "Genuine",
+    body: "We offer authentic and sincere experiences, connecting you with the true spirit of Alaska.",
+  },
+  {
+    icon: "engaging",
+    title: "Engaging",
+    body: "Our tours are designed to be interactive and captivating, keeping you involved and entertained throughout your adventure.",
+  },
+  {
+    icon: "professional",
+    title: "Professional",
+    body: "We deliver high-quality, reliable service with a commitment to excellence and your utmost satisfaction.",
+  },
+];
+
+const testimonials = [
+  {
+    quote: "I can say with absolute conviction that this is the best tour I have ever, ever been on. Skagway Tours, you are simply amazing. Thank you for helping me/us to make the most unforgettable, wonderful, magical lifelong memories.",
+    name: "Cathy Clements",
+    location: "Liverpool, England",
+  },
+  {
+    quote: "We had Noah as our driver on the White Pass and Yukon Suspension Bridge tour, and it was beyond worth it.",
+    name: "Reiland E",
+    location: "Google Review",
+  },
+  {
+    quote: "My family LOVED this excursion. Our tour guide, Epaul, was incredible. We were debating between this and the train, but the bus tour let us get out and take pictures — and it's way cheaper!",
+    name: "Joell Tam",
+    location: "Google Review",
+  },
+  {
+    quote: "We had a group of 17 who really enjoyed our tour with Daniel! He knew we loved to take photos and knew exactly where to stop. Planning and booking was easy thanks to Jessica.",
+    name: "Szymon Krasucki",
+    location: "Google Review",
+  },
+];
+
+const expectations = [
+  {
+    icon: "guide",
+    title: "Knowledgeable & Engaging Guides",
+    body: "Our local guides know Skagway's history — particularly the 1898 Klondike Gold Rush — and have the gift of making it come alive for every passenger.",
+  },
+  {
+    icon: "camera",
+    title: "Stunning Scenery & Photo Stops",
+    body: "6–8 stops on most tours at iconic spots like the 'Welcome to Alaska' sign, Pitchfork Falls, and Tormented Valley. Shots that train tours simply can't match.",
+  },
+  {
+    icon: "value",
+    title: "Outstanding Value",
+    body: "More ground, more stops, more activities than the railroad — at a fraction of the price. Suspension bridge walks, musher camps, and BBQ lunches included on select tours.",
+  },
+  {
+    icon: "service",
+    title: "Exceptional Service",
+    body: "Direct booking, local ownership. We answer the phone, resolve issues fast, and have never missed a ship departure — that's our All Aboard guarantee.",
+  },
+];
 ---
 
-<BaseLayout title={d.title} description={d.description} seo={d.seo}>
-  <section class="about-hero">
-    <div class="about-hero__media" aria-hidden="true">
-      <div class="about-hero__placeholder">
-        <span class="eyebrow">[ staff & buses video — client-supplied ]</span>
-      </div>
-      <div class="about-hero__shade"></div>
+<BaseLayout title={d?.title} description={d?.description} seo={d?.seo}>
+
+  <!-- ── Hero ─────────────────────────────────────────────────── -->
+  <section class="ab-hero">
+    <div class="ab-hero__media" aria-hidden="true">
+      <img src={FALLBACK} alt="" />
+      <div class="ab-hero__shade"></div>
     </div>
-    <div class="container about-hero__inner">
-      {d.hero_eyebrow && (
-        <span class="eyebrow" data-editable="text" data-prop="hero_eyebrow">{d.hero_eyebrow}</span>
-      )}
-      <h1 data-editable="text" data-prop="hero_title">{d.hero_title ?? d.title}</h1>
-      {d.description && (
-        <p data-editable="text" data-prop="description">{d.description}</p>
-      )}
+    <div class="ab-hero__inner container">
+      <span class="ab-eyebrow ab-eyebrow--light">About Us</span>
+      <h1 class="ab-hero__title">The Crew Behind<br />Skagway Tours</h1>
+      <p class="ab-hero__lead">Locally owned and led by Mike Vondette — Skagway resident, 25-year guide, and the guy whose business card says "Lead Driver."</p>
+      <a href="#our-story" class="button">Our Story</a>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container prose" data-editable="text" data-type="block" data-prop="@content">
-      <Content />
+  <!-- ── Story ─────────────────────────────────────────────────── -->
+  <section id="our-story" class="ab-section ab-story">
+    <div class="container ab-story__grid">
+      <div class="ab-story__text">
+        <span class="ab-eyebrow">Our Story</span>
+        <h2>Built on 25 Years<br />in the Klondike</h2>
+        <p>Skagway Tours is an Alaskan company, locally owned and operated by Mike Vondette, a long-time resident of Skagway, AK. For 25+ years, Mike has been sharing his love of Alaska as a tour guide. His business card doesn't say owner — it says <strong>"Lead Driver."</strong></p>
+        <p>Skagway Tours launched in 2014, built on a simple idea: <em>"Combine affordability with excellence, the flexibility to stop when we spot something interesting, and a guarantee you'll get back to your ship on time."</em></p>
+        <p>Mike infuses his guides with the know-how, local knowledge, and passion that make every tour more than a bus ride — it's a story you'll tell when you get home.</p>
+      </div>
+      <div class="ab-story__stats">
+        <div class="ab-stat">
+          <span class="ab-stat__number">25+</span>
+          <span class="ab-stat__label">Years guiding</span>
+        </div>
+        <div class="ab-stat">
+          <span class="ab-stat__number">2014</span>
+          <span class="ab-stat__label">Founded</span>
+        </div>
+        <div class="ab-stat">
+          <span class="ab-stat__number">13</span>
+          <span class="ab-stat__label">Passengers max</span>
+        </div>
+        <div class="ab-stat">
+          <span class="ab-stat__number">3,000+</span>
+          <span class="ab-stat__label">Five-star reviews</span>
+        </div>
+        <div class="ab-stat ab-stat--wide">
+          <span class="ab-stat__number">100%</span>
+          <span class="ab-stat__label">All Aboard guarantee — never missed a ship</span>
+        </div>
+      </div>
     </div>
   </section>
+
+  <!-- ── Core Values ────────────────────────────────────────────── -->
+  <section class="ab-section ab-values">
+    <div class="container">
+      <div class="ab-section-head">
+        <span class="ab-eyebrow ab-eyebrow--light">What drives us</span>
+        <h2 class="ab-section-head__title">Our Core Values</h2>
+      </div>
+      <div class="ab-values__grid">
+        {values.map((v) => (
+          <article class="ab-value">
+            <div class="ab-value__icon" aria-hidden="true">
+              {v.icon === "fun" && (
+                <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="20" cy="20" r="15"/>
+                  <path d="M14 24 Q17 28 23 28 Q26 28 26 24"/>
+                  <circle cx="15" cy="17" r="1.5" fill="currentColor" stroke="none"/>
+                  <circle cx="25" cy="17" r="1.5" fill="currentColor" stroke="none"/>
+                </svg>
+              )}
+              {v.icon === "knowledge" && (
+                <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M8 10 Q20 6 32 10 L32 28 Q20 24 8 28 Z"/>
+                  <path d="M20 6 V34"/>
+                  <path d="M26 13 Q29 14 32 13"/>
+                  <path d="M26 18 Q29 19 32 18"/>
+                </svg>
+              )}
+              {v.icon === "genuine" && (
+                <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 34 C20 34 6 26 6 16 C6 11 10 8 14 8 C16.5 8 18.5 9 20 11 C21.5 9 23.5 8 26 8 C30 8 34 11 34 16 C34 26 20 34 20 34Z"/>
+                </svg>
+              )}
+              {v.icon === "engaging" && (
+                <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="20" cy="14" r="6"/>
+                  <path d="M8 34 Q10 26 20 26 Q30 26 32 34"/>
+                  <path d="M30 12 C32 10 36 12 34 16 C33 18 30 18 29 17"/>
+                  <path d="M10 12 C8 10 4 12 6 16 C7 18 10 18 11 17"/>
+                </svg>
+              )}
+              {v.icon === "professional" && (
+                <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 6 L24 16 L36 16 L26 22 L30 32 L20 26 L10 32 L14 22 L4 16 L16 16 Z"/>
+                </svg>
+              )}
+            </div>
+            <h3 class="ab-value__title">{v.title}</h3>
+            <p class="ab-value__body">{v.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Testimonials ───────────────────────────────────────────── -->
+  <section class="ab-section ab-reviews">
+    <div class="container">
+      <div class="ab-section-head">
+        <span class="ab-eyebrow ab-eyebrow--ember">What our guests say</span>
+        <h2 class="ab-section-head__title">Stories From the Road</h2>
+      </div>
+      <div class="ab-reviews__grid">
+        {testimonials.map((t) => (
+          <blockquote class="ab-review">
+            <svg class="ab-review__mark" aria-hidden="true" viewBox="0 0 32 24" width="32" height="24" fill="currentColor">
+              <path d="M0 24 L0 14 Q0 4 12 0 L14 4 Q8 6 8 14 L14 14 L14 24 Z"/>
+              <path d="M18 24 L18 14 Q18 4 30 0 L32 4 Q26 6 26 14 L32 14 L32 24 Z"/>
+            </svg>
+            <p class="ab-review__text">{t.quote}</p>
+            <footer class="ab-review__footer">
+              <span class="ab-review__name">{t.name}</span>
+              <span class="ab-review__location">{t.location}</span>
+            </footer>
+          </blockquote>
+        ))}
+      </div>
+      <div class="ab-reviews__cta">
+        <a href="/reviews/" class="button button--dark">Read all reviews</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── What to Expect ─────────────────────────────────────────── -->
+  <section class="ab-section ab-expect">
+    <div class="container">
+      <div class="ab-section-head">
+        <span class="ab-eyebrow">Before you book</span>
+        <h2 class="ab-section-head__title">What to Expect</h2>
+      </div>
+      <div class="ab-expect__grid">
+        {expectations.map((e) => (
+          <article class="ab-expect-item">
+            <div class="ab-expect-item__icon" aria-hidden="true">
+              {e.icon === "guide" && (
+                <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="20" cy="14" r="6"/>
+                  <path d="M8 36 Q10 26 20 26 Q30 26 32 36"/>
+                  <path d="M26 10 L34 6 M26 14 L34 18" opacity="0.5"/>
+                </svg>
+              )}
+              {e.icon === "camera" && (
+                <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 14 Q6 12 8 12 L14 12 L16 8 L24 8 L26 12 L32 12 Q34 12 34 14 L34 32 Q34 34 32 34 L8 34 Q6 34 6 32 Z"/>
+                  <circle cx="20" cy="23" r="6"/>
+                  <circle cx="20" cy="23" r="2.5" fill="currentColor" stroke="none" opacity="0.4"/>
+                </svg>
+              )}
+              {e.icon === "value" && (
+                <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="20" cy="20" r="15"/>
+                  <path d="M20 10 V13 M20 27 V30"/>
+                  <path d="M15 15 Q15 12 20 12 Q25 12 25 16 Q25 20 20 20 Q25 20 25 24 Q25 28 20 28 Q15 28 15 25"/>
+                </svg>
+              )}
+              {e.icon === "service" && (
+                <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 10 Q7 8 9.5 12 L12 17 Q12.5 18 11 19.5 L9.5 21 Q13 27 18 31 L19.5 29.5 Q21 28 22 28.5 L27 31 Q31 33 30 34 Q28 36 24 34 Q12 28 6 16 Q3 12 6 10Z"/>
+                  <path d="M24 8 Q30 8 34 14 Q34 20 28 22 M28 26 L28 22 M28 8 V12" opacity="0.5"/>
+                </svg>
+              )}
+            </div>
+            <div class="ab-expect-item__text">
+              <h3 class="ab-expect-item__title">{e.title}</h3>
+              <p class="ab-expect-item__body">{e.body}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ──────────────────────────────────────────────────── -->
+  <section class="ab-section ab-cta">
+    <div class="container ab-cta__inner">
+      <img src={FALLBACK} alt="" class="ab-cta__img" aria-hidden="true" />
+      <div class="ab-cta__text">
+        <span class="ab-eyebrow ab-eyebrow--light">Ready to go?</span>
+        <h2>Come ride with Mike's crew.</h2>
+        <p>Small groups. Local guides. A guarantee you'll never miss your ship.</p>
+        <div class="ab-cta__actions">
+          <a href="/#tours" class="button">Browse Tours</a>
+          <a href="/contact/" class="button button--ghost-light">Get in Touch</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </BaseLayout>
 
 <style>
-  .about-hero {
+  /* ── Shared ──────────────────────────────────────────────────── */
+  .ab-section { padding: clamp(3.5rem, 7vw, 6rem) 0; }
+
+  .ab-eyebrow {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--c-ember);
+    margin-bottom: 0.6rem;
+  }
+  .ab-eyebrow--light  { color: var(--c-ember-bright); }
+  .ab-eyebrow--ember  { color: var(--c-ember); }
+
+  .ab-section-head { margin-bottom: 2.5rem; }
+  .ab-section-head__title {
+    font-size: clamp(1.6rem, 3vw + 0.5rem, 2.5rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin: 0;
+    line-height: 1.05;
+  }
+
+  /* ── Hero ────────────────────────────────────────────────────── */
+  .ab-hero {
     position: relative;
-    min-height: 460px;
+    min-height: 80vh;
     display: flex;
-    align-items: flex-end;
-    overflow: hidden;
+    align-items: center;
     color: #fff;
-    background: var(--c-spruce-deep);
+    overflow: hidden;
   }
-  .about-hero__media { position: absolute; inset: 0; }
-  .about-hero__placeholder {
+  .ab-hero__media { position: absolute; inset: 0; }
+  .ab-hero__media img { width: 100%; height: 100%; object-fit: cover; }
+  .ab-hero__shade {
     position: absolute; inset: 0;
-    background: linear-gradient(135deg, #0f2419, #1d3b2a 60%, #4d7a8c);
-    display: grid; place-items: center;
+    background: linear-gradient(105deg,
+      rgba(15, 36, 25, 0.85) 0%,
+      rgba(41, 37, 70, 0.65) 60%,
+      rgba(41, 37, 70, 0.3) 100%);
   }
-  .about-hero__placeholder .eyebrow {
-    color: rgba(255, 255, 255, 0.6);
-  }
-  .about-hero__shade {
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(41, 37, 70,0.75), rgba(41, 37, 70,0.15));
-  }
-  .about-hero__inner {
+  .ab-hero__inner {
     position: relative;
-    padding: 6rem 1rem 2.5rem;
+    max-width: 680px;
+    padding-top: 6rem;
+    padding-bottom: 4rem;
+  }
+  .ab-hero__title {
+    font-size: clamp(2.4rem, 5vw + 1rem, 4.5rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.0;
+    margin: 0 0 1.25rem;
+    color: #fff;
+  }
+  .ab-hero__lead {
+    font-size: clamp(1rem, 1.5vw + 0.5rem, 1.2rem);
+    max-width: 50ch;
+    opacity: 0.9;
+    margin: 0 0 2rem;
+    line-height: 1.65;
+  }
+
+  /* ── Story ───────────────────────────────────────────────────── */
+  .ab-story { background: #fff; }
+  .ab-story__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  @media (max-width: 800px) {
+    .ab-story__grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+  .ab-story__text h2 {
+    font-size: clamp(1.75rem, 3vw + 0.5rem, 2.75rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    line-height: 1.05;
+    margin: 0 0 1.25rem;
+  }
+  .ab-story__text p {
+    color: var(--c-ink-soft);
+    font-size: 0.98rem;
+    line-height: 1.75;
+    margin: 0 0 1rem;
+  }
+  .ab-story__text strong { color: var(--c-ink); }
+  .ab-story__text em { color: var(--c-ink); font-style: italic; }
+
+  .ab-story__stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .ab-stat {
+    background: var(--c-paper-soft);
+    border: 1px solid var(--c-fog);
+    border-radius: 14px;
+    padding: 1.5rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .ab-stat--wide { grid-column: span 2; }
+  .ab-stat__number {
+    font-family: var(--font-display);
+    font-size: 2.25rem;
+    font-weight: 900;
+    color: var(--c-ember);
+    line-height: 1;
+  }
+  .ab-stat__label {
+    font-size: 0.82rem;
+    color: var(--c-ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: var(--font-display);
+    font-weight: 600;
+  }
+
+  /* ── Values ──────────────────────────────────────────────────── */
+  .ab-values {
+    background: var(--c-ink);
+    color: #fff;
+  }
+  .ab-values .ab-section-head__title { color: #fff; }
+  .ab-values__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.25rem;
+  }
+  .ab-value {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 1.75rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .ab-value:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-3px);
+  }
+  .ab-value__icon { color: var(--c-ember-bright); margin-bottom: 0.25rem; }
+  .ab-value__title {
+    font-size: 1rem;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #fff;
+  }
+  .ab-value__body {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ── Reviews ─────────────────────────────────────────────────── */
+  .ab-reviews { background: var(--c-spruce); color: #fff; }
+  .ab-reviews .ab-section-head__title { color: #fff; }
+  .ab-reviews__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .ab-review {
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    padding: 1.75rem 1.5rem 1.5rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .ab-review__mark {
+    color: var(--c-ember-bright);
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+  .ab-review__text {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.88);
+    margin: 0;
+    flex: 1;
+  }
+  .ab-review__footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding-top: 0.9rem;
+  }
+  .ab-review__name {
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .ab-review__location {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+  }
+  .ab-reviews__cta {
+    text-align: center;
+    margin-top: 2.5rem;
+  }
+
+  /* ── Expect ──────────────────────────────────────────────────── */
+  .ab-expect { background: var(--c-paper-soft); }
+  .ab-expect__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .ab-expect-item {
+    background: #fff;
+    border: 1px solid var(--c-fog);
+    border-radius: 14px;
+    padding: 1.75rem 1.5rem;
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+  }
+  .ab-expect-item__icon {
+    color: var(--c-ember);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .ab-expect-item__title {
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin: 0 0 0.5rem;
+    color: var(--c-ink);
+  }
+  .ab-expect-item__body {
+    font-size: 0.9rem;
+    color: var(--c-ink-soft);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ── CTA ─────────────────────────────────────────────────────── */
+  .ab-cta {
+    background: var(--c-spruce-deep);
+    color: #fff;
+    padding: 0;
+    overflow: hidden;
+  }
+  .ab-cta__inner {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    min-height: 400px;
+  }
+  @media (max-width: 760px) {
+    .ab-cta__inner { grid-template-columns: 1fr; }
+    .ab-cta__img { height: 240px; }
+  }
+  .ab-cta__img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .ab-cta__text {
+    padding: clamp(2.5rem, 5vw, 5rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+  .ab-cta__text h2 {
+    font-size: clamp(1.6rem, 3vw + 0.5rem, 2.5rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0;
+    color: #fff;
+    line-height: 1.1;
+  }
+  .ab-cta__text p {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 44ch;
+    margin: 0;
+  }
+  .ab-cta__actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+  :global(.button--ghost-light) {
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+  }
+  :global(.button--ghost-light:hover) {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #fff;
+    text-decoration: none;
   }
 </style>
