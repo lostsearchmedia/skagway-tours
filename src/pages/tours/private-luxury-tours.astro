@@ -1,0 +1,534 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getEntry } from "astro:content";
+
+const city    = await getEntry("tours", "skagway-city-summit-excursion");
+const triple  = await getEntry("tours", "bridge-puppies-summit-triple-combo");
+const wild    = await getEntry("tours", "wild-adventure-yukon-emerald-lake");
+
+const FALLBACK = "https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_webp,p_h/skagway.tours/wp-content/uploads/2024/02/st_wide.jpg";
+
+const routes = [
+  {
+    title: "Skagway City & Summit Excursion",
+    body: "Explore Skagway's historic false-front streets and ascend to the breathtaking White Pass Summit for panoramic views of the coastal mountains and Gold Rush history.",
+    image: city?.data.featured_image,
+  },
+  {
+    title: "Bridge, Puppies & Summit Triple Combo",
+    body: "Three iconic experiences in one day — cross the suspension bridge, visit sled-dog puppies, and take in the summit's alpine grandeur with your private group.",
+    image: triple?.data.featured_image,
+  },
+  {
+    title: "Wild Adventure Yukon Emerald Lake Tour",
+    body: "A full-day journey into Canada's Yukon Territory featuring glacier-fed turquoise lakes, sweeping alpine valleys, and unforgettable wilderness scenery.",
+    image: wild?.data.featured_image,
+  },
+];
+---
+
+<BaseLayout
+  title="Private Luxury Tours | Skagway Tours"
+  description="Make your tour private and exclusive. For groups of 6–13, claim your own slice of the Klondike with a private small-group adventure designed just for you."
+>
+
+  <!-- ── Hero ─────────────────────────────────────────────────── -->
+  <section class="plt-hero">
+    <div class="plt-hero__media" aria-hidden="true">
+      <img src={FALLBACK} alt="" />
+      <div class="plt-hero__shade"></div>
+    </div>
+    <div class="plt-hero__inner">
+      <span class="plt-chip">For Groups of 6 or More</span>
+      <h1 class="plt-hero__title">Private Luxury Tours</h1>
+      <p class="plt-hero__lead">Make your tour private and exclusive! Claim your own slice of the Klondike with a private small-group adventure designed just for you.</p>
+      <a href="#experience" class="button">Learn How</a>
+    </div>
+  </section>
+
+  <!-- ── Experience ────────────────────────────────────────────── -->
+  <section id="experience" class="plt-section plt-experience">
+    <div class="plt-container plt-experience__grid">
+      <div class="plt-experience__img">
+        <img src={FALLBACK} alt="Luxury limo van on the Klondike Highway" loading="lazy" />
+      </div>
+      <div class="plt-experience__text">
+        <span class="plt-eyebrow">The Experience</span>
+        <h2>Your Vehicle.<br />Your Guide.<br />Your Day.</h2>
+        <p>In our luxury limo van for 6–13 guests, your crew has the vehicle, the guide, and the day to yourselves as you explore the very best of Skagway and the Yukon at your own pace.</p>
+        <p>Choose from our most popular routes: the Skagway City Summit Excursion, the Bridge, Puppies, Summit Triple Combo, or the full-day Wild Adventure Yukon Emerald Lake Tour. Each option blends big scenery and Gold Rush history, from Skagway's false-front streets and White Pass Summit to Canada's glacier-fed lakes and sweeping alpine valleys, brought to life by a local guide who knows the Klondike Highway, the best stops, and how to keep the day guest-focused, relaxed, and fun for families, friends, and affinity groups.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Choose Your Route ────────────────────────────────────── -->
+  <section class="plt-section plt-routes">
+    <div class="plt-container">
+      <span class="plt-eyebrow plt-eyebrow--light">Choose Your Route</span>
+      <h2 class="plt-routes__heading">Our Most Popular Private Tour Options</h2>
+      <p class="plt-routes__lead">Each option blends big scenery and Gold Rush history, from Skagway's false-front streets and White Pass Summit to Canada's glacier-fed lakes and sweeping alpine valleys, brought to life by a local guide who keeps the day guest-focused, relaxed, and fun.</p>
+
+      <div class="plt-routes__grid">
+        {routes.map((r) => (
+          <article class="plt-route-card">
+            <div class="plt-route-card__img">
+              {r.image
+                ? <Image src={r.image} alt={r.title} widths={[400, 700]} sizes="(max-width: 760px) 100vw, 33vw" />
+                : <img src={FALLBACK} alt={r.title} loading="lazy" />
+              }
+            </div>
+            <div class="plt-route-card__body">
+              <h3>{r.title}</h3>
+              <p>{r.body}</p>
+              <a href="/contact/" class="button button--dark">Contact Us</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Gallery ───────────────────────────────────────────────── -->
+  <section class="plt-section plt-gallery">
+    <div class="plt-container">
+      <span class="plt-eyebrow plt-eyebrow--light">Gallery</span>
+      <h2 class="plt-gallery__heading">Moments From the Road</h2>
+      <div class="plt-gallery__grid">
+        <div class="plt-gallery__item plt-gallery__item--tall">
+          <img src={FALLBACK} alt="Group tour moments" loading="lazy" />
+        </div>
+        <div class="plt-gallery__item">
+          <img src={FALLBACK} alt="White Pass scenery" loading="lazy" />
+        </div>
+        <div class="plt-gallery__item">
+          <img src={FALLBACK} alt="Yukon wilderness" loading="lazy" />
+        </div>
+        <div class="plt-gallery__item plt-gallery__item--wide">
+          <img src={FALLBACK} alt="Klondike adventure" loading="lazy" />
+        </div>
+        <div class="plt-gallery__item">
+          <img src={FALLBACK} alt="Local guide with guests" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Details ───────────────────────────────────────────────── -->
+  <section class="plt-section plt-details">
+    <div class="plt-container">
+      <h2 class="plt-details__heading">Details That Make the Difference</h2>
+      <div class="plt-details__grid">
+        <article class="plt-detail">
+          <div class="plt-detail__icon" aria-hidden="true">
+            <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M8 28 Q20 14 32 28" />
+              <circle cx="20" cy="16" r="5" />
+              <path d="M12 32 H28" stroke-linecap="round" />
+            </svg>
+          </div>
+          <h3>Refreshments &amp; Logistics</h3>
+          <p>Along the way, enjoy an assortment of water and snacks in the vehicle, plus easy pick up and drop off at your ship or in town so you can focus on the views instead of the logistics.</p>
+        </article>
+        <article class="plt-detail">
+          <div class="plt-detail__icon" aria-hidden="true">
+            <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8">
+              <ellipse cx="20" cy="28" rx="14" ry="5" />
+              <path d="M10 28 Q10 18 20 16 Q30 18 30 28" />
+              <path d="M20 16 V10 M17 12 Q20 8 23 12" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <h3>Catered Food Options</h3>
+          <p>Want to cater food for your trip? Email us for a list of local options — you place the order and we'll pick it up before departure.</p>
+        </article>
+        <article class="plt-detail">
+          <div class="plt-detail__icon" aria-hidden="true">
+            <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M20 8 L23 15 L31 15 L25 20 L27 28 L20 23 L13 28 L15 20 L9 15 L17 15 Z" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <h3>Celebrate Something Special</h3>
+          <p>Celebrating a birthday, anniversary, or reunion? Tell us what you're celebrating so we can help make it feel special.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Larger Parties banner ─────────────────────────────────── -->
+  <section class="plt-section plt-larger">
+    <div class="plt-container plt-larger__inner">
+      <span class="plt-eyebrow plt-eyebrow--light">Larger Parties</span>
+      <h2>Have More Than 13 Guests?</h2>
+      <p>We have options for a private limo bus for up to 44 passengers, depending on availability. Want a fully custom experience? Call us and we'll discuss options that fit your timing, interests, and group.</p>
+      <a href="tel:+19079214344" class="button button--dark">Call (907) 921-4344</a>
+    </div>
+  </section>
+
+  <!-- ── Book CTA ──────────────────────────────────────────────── -->
+  <section class="plt-section plt-book">
+    <div class="plt-container plt-book__grid">
+      <div class="plt-book__img">
+        <img src={FALLBACK} alt="Private tour van interior" loading="lazy" />
+      </div>
+      <div class="plt-book__text">
+        <span class="plt-eyebrow">Book Your Private Tour</span>
+        <h2>Private Tour Options Available for Groups of Six or More Upon Request</h2>
+        <p>Reach out with your group details and we'll craft the perfect Klondike adventure for you.</p>
+        <div class="plt-book__ctas">
+          <a href="tel:+19079214344" class="button">
+            <svg aria-hidden="true" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 3 Q4 2 5.5 4.5 L7 7 Q7.5 8 6.5 9 L5.5 10 Q7 13 10 15.5 L11 14.5 Q12 13.5 13 14 L15.5 15.5 Q18 17 17 18 Q15 20 12 18 Q5 14 2 7 Q0 4 3 3 Z"/>
+            </svg>
+            (907) 921-4344
+          </a>
+          <a href="mailto:info@skagway.tours" class="button button--dark">
+            <svg aria-hidden="true" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="16" height="12" rx="2"/>
+              <path d="M2 6 L10 12 L18 6"/>
+            </svg>
+            info@skagway.tours
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ── Shared ──────────────────────────────────────────────────── */
+  .plt-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+  }
+  .plt-section { padding: clamp(3.5rem, 7vw, 6rem) 0; }
+
+  .plt-eyebrow {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--c-ember);
+    margin-bottom: 0.6rem;
+  }
+  .plt-eyebrow--light { color: var(--c-ember-bright); }
+
+  .plt-chip {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: var(--c-ember);
+    color: #fff;
+    padding: 0.35rem 0.9rem;
+    border-radius: var(--radius-pill);
+    margin-bottom: 1.25rem;
+  }
+
+  /* ── Hero ────────────────────────────────────────────────────── */
+  .plt-hero {
+    position: relative;
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+  }
+  .plt-hero__media {
+    position: absolute; inset: 0;
+  }
+  .plt-hero__media img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .plt-hero__shade {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom,
+      rgba(15, 10, 30, 0.55) 0%,
+      rgba(15, 10, 30, 0.75) 100%);
+  }
+  .plt-hero__inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem 1.25rem;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .plt-hero__title {
+    font-size: clamp(2.5rem, 6vw + 1rem, 5rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.0;
+    margin: 0 0 1.25rem;
+    color: #fff;
+  }
+  .plt-hero__lead {
+    font-size: clamp(1rem, 1.5vw + 0.5rem, 1.2rem);
+    max-width: 52ch;
+    opacity: 0.9;
+    margin: 0 0 2rem;
+    line-height: 1.6;
+  }
+
+  /* ── Experience ──────────────────────────────────────────────── */
+  .plt-experience { background: #fff; }
+  .plt-experience__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  @media (max-width: 760px) {
+    .plt-experience__grid { grid-template-columns: 1fr; gap: 2rem; }
+  }
+  .plt-experience__img img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 16px;
+    display: block;
+  }
+  .plt-experience__text h2 {
+    font-size: clamp(1.75rem, 3vw + 0.5rem, 2.75rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    line-height: 1.05;
+    margin: 0 0 1.25rem;
+  }
+  .plt-experience__text p {
+    color: var(--c-ink-soft);
+    font-size: 0.98rem;
+    line-height: 1.7;
+    margin: 0 0 0.9rem;
+  }
+
+  /* ── Routes ──────────────────────────────────────────────────── */
+  .plt-routes {
+    background: var(--c-ink);
+    color: #fff;
+  }
+  .plt-routes__heading {
+    font-size: clamp(1.4rem, 2.5vw + 0.5rem, 2.25rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0 0 0.75rem;
+    color: #fff;
+  }
+  .plt-routes__lead {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.95rem;
+    max-width: 70ch;
+    margin: 0 0 2.5rem;
+    line-height: 1.65;
+  }
+  .plt-routes__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .plt-route-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .plt-route-card__img {
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+  }
+  .plt-route-card__img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .plt-route-card:hover .plt-route-card__img img { transform: scale(1.04); }
+  .plt-route-card__body {
+    padding: 1.25rem 1.4rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    flex: 1;
+  }
+  .plt-route-card__body h3 {
+    font-size: 1.05rem;
+    margin: 0;
+    color: var(--c-ink);
+    line-height: 1.2;
+  }
+  .plt-route-card__body p {
+    font-size: 0.9rem;
+    color: var(--c-ink-soft);
+    margin: 0;
+    flex: 1;
+    line-height: 1.6;
+  }
+  .plt-route-card__body .button {
+    align-self: stretch;
+    justify-content: center;
+    margin-top: 0.5rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.78rem;
+  }
+
+  /* ── Gallery ─────────────────────────────────────────────────── */
+  .plt-gallery {
+    background: var(--c-spruce);
+    color: #fff;
+  }
+  .plt-gallery__heading {
+    font-size: clamp(1.3rem, 2.5vw + 0.5rem, 2rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0 0 2rem;
+    color: #fff;
+  }
+  .plt-gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 0.75rem;
+  }
+  @media (max-width: 600px) {
+    .plt-gallery__grid { grid-template-columns: 1fr 1fr; }
+    .plt-gallery__item--tall { grid-row: span 1; }
+    .plt-gallery__item--wide { grid-column: span 2; }
+  }
+  .plt-gallery__item {
+    overflow: hidden;
+    border-radius: 10px;
+    aspect-ratio: 4 / 3;
+  }
+  .plt-gallery__item--tall {
+    grid-row: span 2;
+    aspect-ratio: auto;
+  }
+  .plt-gallery__item--wide {
+    grid-column: span 2;
+  }
+  .plt-gallery__item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .plt-gallery__item:hover img { transform: scale(1.04); }
+
+  /* ── Details ─────────────────────────────────────────────────── */
+  .plt-details { background: var(--c-paper-soft); }
+  .plt-details__heading {
+    font-size: clamp(1.4rem, 2.5vw + 0.5rem, 2rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    text-align: center;
+    margin: 0 0 2.5rem;
+  }
+  .plt-details__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+  }
+  .plt-detail {
+    background: #fff;
+    border: 1px solid var(--c-fog);
+    border-radius: 14px;
+    padding: 1.75rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .plt-detail__icon { color: var(--c-ember); margin-bottom: 0.25rem; }
+  .plt-detail h3 {
+    font-size: 1rem;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .plt-detail p { margin: 0; font-size: 0.9rem; color: var(--c-ink-soft); line-height: 1.65; }
+
+  /* ── Larger Parties ──────────────────────────────────────────── */
+  .plt-larger {
+    background: var(--c-ember);
+    color: #fff;
+  }
+  .plt-larger__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+  .plt-larger h2 {
+    font-size: clamp(1.6rem, 3vw + 0.5rem, 2.5rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0;
+    color: #fff;
+  }
+  .plt-larger p {
+    max-width: 58ch;
+    margin: 0;
+    opacity: 0.9;
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+  .plt-larger .button--dark {
+    margin-top: 0.5rem;
+  }
+
+  /* ── Book CTA ────────────────────────────────────────────────── */
+  .plt-book { background: #fff; }
+  .plt-book__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  @media (max-width: 760px) {
+    .plt-book__grid { grid-template-columns: 1fr; gap: 2rem; }
+    .plt-book__img { order: -1; }
+  }
+  .plt-book__img img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 16px;
+    display: block;
+  }
+  .plt-book__text h2 {
+    font-size: clamp(1.3rem, 2vw + 0.5rem, 1.9rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin: 0 0 0.75rem;
+    line-height: 1.15;
+  }
+  .plt-book__text p {
+    color: var(--c-ink-soft);
+    font-size: 0.98rem;
+    margin: 0 0 1.5rem;
+    line-height: 1.65;
+  }
+  .plt-book__ctas {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .plt-book__ctas .button { font-size: 0.82rem; }
+</style>
