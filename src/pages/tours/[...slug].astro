@@ -1,7 +1,6 @@
 ---
 import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import BookButton from "../../components/BookButton.astro";
 import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
@@ -92,13 +91,13 @@ const d = tour.data;
             {d.price_child && <li><span>Children (2–11)</span><strong>${d.price_child}</strong></li>}
             {(d.price_from || d.price_child) && <li><span>Infants under 2</span><strong>Free</strong></li>}
           </ul>
-          <BookButton itemId={d.fareharbor_item_id} flow={d.fareharbor_flow} label="Book now" fullWidth />
           <p class="booking-card__note">
             A valid passport is required — this tour crosses into Canada.
           </p>
         </div>
         {d.fareharbor_item_id && (
-          <div class="calendar-embed">
+          <div class="booking-card calendar-embed">
+            <h3>Availability</h3>
             <script
               is:inline
               src={`https://fareharbor.com/embeds/script/calendar/skagway/items/${d.fareharbor_item_id}/?fallback=simple&full-items=yes&flow=${d.fareharbor_flow ?? "no"}`}
@@ -197,6 +196,10 @@ const d = tour.data;
     box-shadow: 0 10px 30px -12px rgba(41, 37, 70,0.15);
   }
   .booking-card h3 { margin-top: 0; }
+  .calendar-embed {
+    position: static;
+    margin-top: 1.5rem;
+  }
   .booking-card__prices {
     list-style: none;
     margin: 0 0 1.25rem;
