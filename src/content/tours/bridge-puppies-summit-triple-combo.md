@@ -4,7 +4,6 @@ summary: Our highest-rated day out — one shared story told in three chapters. 
 price_from: 149
 price_child: 139
 duration_hours: 5.25
-difficulty: Easy
 order: 50
 available_for_private_13pax: false
 fareharbor_item_id: ""

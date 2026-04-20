@@ -4,7 +4,6 @@ summary: A 3.5-hour Klondike Highway tour that carries you over the White Pass a
 price_from: 119
 price_child: 109
 duration_hours: 3.5
-difficulty: Easy
 order: 20
 available_for_private_13pax: false
 fareharbor_item_id: ""

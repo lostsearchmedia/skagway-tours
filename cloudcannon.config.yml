@@ -273,10 +273,6 @@ _inputs:
     comment: "Child price (ages 2-11). Infants under 2 ride free."
   duration_hours:
     type: number
-  difficulty:
-    type: select
-    options:
-      values: _select_data.difficulties
   available_for_private_13pax:
     type: switch
     comment: "Show the Private 13-pax option for this tour."
@@ -550,8 +546,3 @@ _structures:
           subtext:
             - key: href
 
-_select_data:
-  difficulties:
-    - Easy
-    - Moderate
-    - Strenuous

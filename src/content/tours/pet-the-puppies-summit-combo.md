@@ -4,7 +4,6 @@ summary: A 4.5-hour family favorite — cross the White Pass into Canada, then s
 price_from: 109
 price_child: 99
 duration_hours: 4.5
-difficulty: Easy
 order: 30
 available_for_private_13pax: false
 fareharbor_item_id: ""

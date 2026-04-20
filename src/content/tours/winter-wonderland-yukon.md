@@ -4,7 +4,6 @@ summary: A 3.5-hour shoulder-season tour across the White Pass when snow still c
 price_from: 99
 price_child: 89
 duration_hours: 3.5
-difficulty: Easy
 order: 70
 available_for_private_13pax: false
 fareharbor_item_id: ""

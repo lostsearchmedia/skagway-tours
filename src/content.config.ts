@@ -27,7 +27,6 @@ const tours = defineCollection({
       price_from: z.number().optional(),
       price_child: z.number().optional(),
       duration_hours: z.number().optional(),
-      difficulty: z.enum(["Easy", "Moderate", "Strenuous"]).optional(),
       highlights: z.array(z.string()).optional(),
       fareharbor_item_id: z.string().optional(),
       fareharbor_flow: z.string().optional(),

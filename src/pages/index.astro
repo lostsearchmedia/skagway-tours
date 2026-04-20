@@ -62,12 +62,33 @@ const toursSection = d.tours_section;
                 summary={tour.data.summary}
                 image={tour.data.featured_image}
                 duration={tour.data.duration_hours}
-                difficulty={tour.data.difficulty}
                 priceFrom={tour.data.price_from}
                 videoUrl={tour.data.video_url}
                 fareharborItemId={tour.data.fareharbor_item_id}
               />
             ))}
+
+            <TourCard
+              href="/group-sales/"
+              eyebrow="Groups of 14+"
+              title="Group Tours"
+              summary="Private tours and charters for groups up to 160. Choose from tailored buses, custom itineraries, and narrated adventures along the Klondike Highway."
+              imageSrc="https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_webp,p_h/skagway.tours/wp-content/uploads/2025/09/buses_2.jpg"
+              priceLabel="Call for"
+              priceValue="Quote"
+              inquiry
+            />
+
+            <TourCard
+              href="/private-luxury-tour/"
+              eyebrow="Groups of 6–13"
+              title="Private Luxury Tour"
+              summary="Claim your own slice of the Klondike. Your vehicle, your guide, your day — a private small-group adventure designed just for you."
+              imageSrc="https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_webp,p_h/skagway.tours/wp-content/uploads/2026/03/Limo.jpg"
+              priceLabel="Call for"
+              priceValue="Quote"
+              inquiry
+            />
           </div>
         )
       }

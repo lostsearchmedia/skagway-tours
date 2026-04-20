@@ -4,7 +4,6 @@ summary: A 4.5-hour adventure across the White Pass to a remote Yukon sled dog c
 price_from: 175
 price_child: 165
 duration_hours: 4.5
-difficulty: Easy
 order: 40
 available_for_private_13pax: false
 fareharbor_item_id: ""

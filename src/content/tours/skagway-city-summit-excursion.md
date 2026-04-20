@@ -4,7 +4,6 @@ summary: A narrated 2.75-hour bus tour through historic Skagway and up the Klond
 price_from: 69
 price_child: 59
 duration_hours: 2.75
-difficulty: Easy
 order: 10
 available_for_private_13pax: false
 fareharbor_item_id: "407484"

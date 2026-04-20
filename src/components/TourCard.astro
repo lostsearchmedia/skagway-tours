@@ -3,15 +3,20 @@ import { Image } from "astro:assets";
 import BookButton from "./BookButton.astro";
 
 interface Props {
-  slug: string;
+  slug?: string;
   title: string;
   summary: string;
   image?: ImageMetadata;
+  imageSrc?: string;
   duration?: number;
-  difficulty?: string;
   priceFrom?: number;
+  priceLabel?: string;
+  priceValue?: string;
   videoUrl?: string;
   fareharborItemId?: string;
+  href?: string;
+  eyebrow?: string;
+  inquiry?: boolean;
 }
 
 const {
@@ -19,14 +24,19 @@ const {
   title,
   summary,
   image,
+  imageSrc,
   duration,
-  difficulty,
   priceFrom,
+  priceLabel = "From",
+  priceValue,
   videoUrl,
   fareharborItemId,
+  href,
+  eyebrow = "Skagway tour",
+  inquiry = false,
 } = Astro.props;
 
-const detailHref = `/tours/${slug}/`;
+const detailHref = href ?? (slug ? `/tours/${slug}/` : "#");
 ---
 
 <article class="tour-card">
@@ -40,7 +50,7 @@ const detailHref = `/tours/${slug}/`;
     {!image && (
       <img
         class="tour-card__media-fallback"
-        src="https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_webp,p_h/skagway.tours/wp-content/uploads/2024/02/st_wide.jpg"
+        src={imageSrc ?? "https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_webp,p_h/skagway.tours/wp-content/uploads/2024/02/st_wide.jpg"}
         alt=""
         loading="lazy"
       />
@@ -74,7 +84,7 @@ const detailHref = `/tours/${slug}/`;
   </a>
 
   <div class="tour-card__body">
-    <span class="tour-card__eyebrow script script--accent">Skagway tour</span>
+    <span class="tour-card__eyebrow script script--accent">{eyebrow}</span>
     <h3 class="tour-card__title">
       <a href={detailHref} data-passport-interstitial>{title}</a>
     </h3>
@@ -82,15 +92,28 @@ const detailHref = `/tours/${slug}/`;
 
     <div class="tour-card__footer">
       <div class="tour-card__price">
-        {priceFrom && (
+        {priceValue ? (
           <>
-            <span class="tour-card__price-label">From</span>
+            <span class="tour-card__price-label">{priceLabel}</span>
+            <span class="tour-card__price-value">{priceValue}</span>
+          </>
+        ) : priceFrom ? (
+          <>
+            <span class="tour-card__price-label">{priceLabel}</span>
             <span class="tour-card__price-value">${priceFrom}</span>
           </>
-        )}
-        {difficulty && <span class="tour-card__difficulty">{difficulty}</span>}
+        ) : null}
       </div>
-      <BookButton itemId={fareharborItemId} label="Book" />
+      <div class="tour-card__actions">
+        <a
+          href={detailHref}
+          class={inquiry ? "button" : "button button--ghost tour-card__details"}
+          data-passport-interstitial={inquiry ? undefined : true}
+        >
+          Details
+        </a>
+        {!inquiry && <BookButton itemId={fareharborItemId} label="Book" />}
+      </div>
     </div>
   </div>
 </article>
@@ -232,16 +255,13 @@ const detailHref = `/tours/${slug}/`;
     font-weight: 800;
     color: var(--c-ink);
   }
-  .tour-card__difficulty {
-    font-family: var(--font-display);
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--c-ink-soft);
-    margin-top: 0.2rem;
+  .tour-card__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
 
-  /* Book button override — smaller, tighter for card use. */
+  /* Button override — smaller, tighter for card use. */
   .tour-card__footer :global(.button) {
     padding: 0.55rem 1.15rem;
     font-size: 0.78rem;

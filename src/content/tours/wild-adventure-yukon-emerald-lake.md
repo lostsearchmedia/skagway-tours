@@ -4,7 +4,6 @@ summary: Our farthest tour — 6.5 hours tracing 4,000 years of Klondike history
 price_from: 152
 price_child: 142
 duration_hours: 6.5
-difficulty: Easy
 order: 60
 available_for_private_13pax: false
 fareharbor_item_id: ""
