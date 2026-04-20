@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="FareHarbor test"
+  description="FareHarbor item grid embed test page."
+  seo={{ noindex: true }}
+>
+  <section class="section">
+    <div class="container">
+      <h1>FareHarbor item grid</h1>
+      <p class="muted">Embed of flow <code>815525</code> — test page, not linked from the nav.</p>
+
+      <div class="fh-embed">
+        <!-- FareHarbor item grid of flow #815525 -->
+        <script is:inline src="https://fareharbor.com/embeds/script/items/skagway/?full-items=yes&fallback=simple&flow=815525"></script>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .muted { color: var(--c-ink-soft); }
+  .fh-embed { margin-top: 2rem; }
+</style>
