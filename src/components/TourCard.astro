@@ -1,6 +1,5 @@
 ---
 import { Image } from "astro:assets";
-import BookButton from "./BookButton.astro";
 
 interface Props {
   slug: string;
@@ -8,7 +7,6 @@ interface Props {
   summary: string;
   image?: ImageMetadata;
   duration?: number;
-  difficulty?: string;
   priceFrom?: number;
   videoUrl?: string;
   fareharborItemId?: string;
@@ -20,7 +18,6 @@ const {
   summary,
   image,
   duration,
-  difficulty,
   priceFrom,
   videoUrl,
   fareharborItemId,
@@ -74,7 +71,6 @@ const detailHref = `/tours/${slug}/`;
   </a>
 
   <div class="tour-card__body">
-    <span class="tour-card__eyebrow script script--accent">Skagway tour</span>
     <h3 class="tour-card__title">
       <a href={detailHref} data-passport-interstitial>{title}</a>
     </h3>
@@ -88,9 +84,11 @@ const detailHref = `/tours/${slug}/`;
             <span class="tour-card__price-value">${priceFrom}</span>
           </>
         )}
-        {difficulty && <span class="tour-card__difficulty">{difficulty}</span>}
       </div>
-      <BookButton itemId={fareharborItemId} label="Book" />
+      <div class="tour-card__actions">
+        <a href={detailHref} class="button button--dark" data-passport-interstitial>Details</a>
+        <a href={detailHref} class="button" data-passport-interstitial>Book</a>
+      </div>
     </div>
   </div>
 </article>
@@ -177,10 +175,6 @@ const detailHref = `/tours/${slug}/`;
     gap: 0.5rem;
     flex: 1;
   }
-  .tour-card__eyebrow {
-    font-size: 1.25rem;
-    margin-bottom: -0.25rem;
-  }
   .tour-card__title {
     margin: 0;
     font-size: 1.2rem;
@@ -232,16 +226,14 @@ const detailHref = `/tours/${slug}/`;
     font-weight: 800;
     color: var(--c-ink);
   }
-  .tour-card__difficulty {
-    font-family: var(--font-display);
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--c-ink-soft);
-    margin-top: 0.2rem;
+  .tour-card__actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-shrink: 0;
   }
 
-  /* Book button override — smaller, tighter for card use. */
+  /* Button override — smaller, tighter for card use. */
   .tour-card__footer :global(.button) {
     padding: 0.55rem 1.15rem;
     font-size: 0.78rem;
