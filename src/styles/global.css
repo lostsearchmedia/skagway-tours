@@ -52,6 +52,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+@media (max-width: 880px) {
+  body { padding-bottom: 64px; }
+}
+
 img,
 svg,
 video {
