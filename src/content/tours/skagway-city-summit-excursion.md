@@ -7,7 +7,8 @@ duration_hours: 2.75
 difficulty: Easy
 order: 10
 available_for_private_13pax: false
-fareharbor_item_id: ""
+fareharbor_item_id: "407484"
+fareharbor_flow: "815525"
 highlights:
   - Local guide who knows the Klondike Highway and loves telling the stories
   - Scenic climb past the snow line to the 3,292-foot summit

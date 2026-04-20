@@ -30,6 +30,7 @@ const tours = defineCollection({
       difficulty: z.enum(["Easy", "Moderate", "Strenuous"]).optional(),
       highlights: z.array(z.string()).optional(),
       fareharbor_item_id: z.string().optional(),
+      fareharbor_flow: z.string().optional(),
       available_for_private_13pax: z.boolean().default(false),
       draft: z.boolean().default(false),
       order: z.number().default(100),

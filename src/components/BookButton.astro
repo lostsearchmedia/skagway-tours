@@ -6,20 +6,22 @@ import { getEntry } from "astro:content";
 
 interface Props {
   itemId?: string;
+  flow?: string;
   label?: string;
   variant?: "primary" | "ghost" | "dark";
   fullWidth?: boolean;
 }
-const { itemId, label = "Book Now", variant = "primary", fullWidth = false } = Astro.props;
+const { itemId, flow, label = "Book Now", variant = "primary", fullWidth = false } = Astro.props;
 
 const site = await getEntry("site", "default");
 const shortname = site?.data.fareharbor_shortname;
 const fallback = site?.data.booking_url;
 
+const flowParam = flow ? flow : "no";
 const href = shortname
   ? itemId
-    ? `https://fareharbor.com/embeds/book/${shortname}/items/${itemId}/?full-items=yes&flow=no`
-    : `https://fareharbor.com/embeds/book/${shortname}/?full-items=yes&flow=no`
+    ? `https://fareharbor.com/embeds/book/${shortname}/items/${itemId}/?full-items=yes&flow=${flowParam}`
+    : `https://fareharbor.com/embeds/book/${shortname}/?full-items=yes&flow=${flowParam}`
   : fallback || "#";
 
 const classList = [
