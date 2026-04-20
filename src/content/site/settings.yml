@@ -12,7 +12,7 @@
   # FareHarbor short-name (the part after /embeds/book/ in your widget URL).
   # Example: if your embed URL is https://fareharbor.com/embeds/book/skagwaytours/
   # then fareharbor_shortname = "skagwaytours"
-  fareharbor_shortname: example
+  fareharbor_shortname: skagway
   # Fallback FareHarbor URL used if fareharbor_shortname is empty.
   booking_url: ""
   hero:

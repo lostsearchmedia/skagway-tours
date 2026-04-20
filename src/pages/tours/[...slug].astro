@@ -92,11 +92,19 @@ const d = tour.data;
             {d.price_child && <li><span>Children (2–11)</span><strong>${d.price_child}</strong></li>}
             {(d.price_from || d.price_child) && <li><span>Infants under 2</span><strong>Free</strong></li>}
           </ul>
-          <BookButton itemId={d.fareharbor_item_id} label="Book now" fullWidth />
+          <BookButton itemId={d.fareharbor_item_id} flow={d.fareharbor_flow} label="Book now" fullWidth />
           <p class="booking-card__note">
             A valid passport is required — this tour crosses into Canada.
           </p>
         </div>
+        {d.fareharbor_item_id && (
+          <div class="calendar-embed">
+            <script
+              is:inline
+              src={`https://fareharbor.com/embeds/script/calendar/skagway/items/${d.fareharbor_item_id}/?fallback=simple&full-items=yes&flow=${d.fareharbor_flow ?? "no"}`}
+            />
+          </div>
+        )}
       </aside>
     </div>
   </article>
