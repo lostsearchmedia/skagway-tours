@@ -7,7 +7,8 @@ duration_hours: 6.5
 difficulty: Easy
 order: 60
 available_for_private_13pax: false
-fareharbor_item_id: ""
+fareharbor_item_id: "412254"
+fareharbor_flow: "874183"
 highlights:
   - Our furthest destination — trace 4,000 years of history in one day
   - Carcross Desert — the smallest desert in the world

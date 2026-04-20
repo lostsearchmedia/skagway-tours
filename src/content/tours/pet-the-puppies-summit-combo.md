@@ -7,7 +7,8 @@ duration_hours: 4.5
 difficulty: Easy
 order: 30
 available_for_private_13pax: false
-fareharbor_item_id: ""
+fareharbor_item_id: "417647"
+fareharbor_flow: "815525"
 highlights:
   - 45+ minutes of unhurried play time with Alaskan Husky puppies and sled dogs
   - Cuddle future athletes while they practice being calm, social, and curious

@@ -7,7 +7,8 @@ duration_hours: 4.5
 difficulty: Easy
 order: 40
 available_for_private_13pax: false
-fareharbor_item_id: ""
+fareharbor_item_id: "407490"
+fareharbor_flow: "815525"
 highlights:
   - 15–20 minute cart ride pulled by real working sled dogs
   - Meet mushers training teams for the Yukon Quest and Iditarod

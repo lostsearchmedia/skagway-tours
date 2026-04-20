@@ -7,7 +7,8 @@ duration_hours: 3.5
 difficulty: Easy
 order: 20
 available_for_private_13pax: false
-fareharbor_item_id: ""
+fareharbor_item_id: "419983"
+fareharbor_flow: "815525"
 highlights:
   - Walk the Yukon Suspension Bridge over the Tutshi River
   - Solid railings and enclosed design — comfortable even if heights make you uneasy

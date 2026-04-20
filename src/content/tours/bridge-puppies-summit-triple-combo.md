@@ -7,7 +7,8 @@ duration_hours: 5.25
 difficulty: Easy
 order: 50
 available_for_private_13pax: false
-fareharbor_item_id: ""
+fareharbor_item_id: "590739"
+fareharbor_flow: "no"
 highlights:
   - Exclusive to Skagway Tours — no other operator offers this triple combo
   - Three experiences in one — sled dog camp, Yukon Suspension Bridge, and Summit highlights
