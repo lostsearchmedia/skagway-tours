@@ -1,26 +1,319 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import PageHero from "../components/PageHero.astro";
-import { getEntry, render } from "astro:content";
+import { getEntry } from "astro:content";
 
 const entry = await getEntry("pages", "employment");
-if (!entry || entry.data._schema !== "page") {
-  throw new Error("src/content/pages/employment.md is missing or has the wrong _schema");
-}
-const d = entry.data;
-const { Content } = await render(entry);
+const d = entry?.data;
+
+const FALLBACK = "https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_webp,p_h/skagway.tours/wp-content/uploads/2024/02/st_wide.jpg";
+
+const jobGroups = [
+  {
+    category: "Summer Season",
+    title: "Job Opportunities",
+    jobs: [
+      {
+        icon: "wheel",
+        title: "Driver-Guide",
+        body: "Reliable CDL drivers with passenger endorsement and air brakes.",
+      },
+      {
+        icon: "smile",
+        title: "Dock Rep / Experience Rep",
+        body: "Talented people who know how to smile all day long, get guests on the right tour, and help our driver-guides.",
+      },
+    ],
+  },
+  {
+    category: "Miscellaneous",
+    title: "Employment Roles",
+    jobs: [
+      {
+        icon: "phone",
+        title: "Experience Reps",
+        body: "Office-based, telephone and customer service oriented positions to help our guests book the BEST tours in Skagway.",
+      },
+      {
+        icon: "wrench",
+        title: "Mechanic / Detailer",
+        body: "Keep our busses the prettiest & cleanest in Skagway, as well as purrin under the hood.",
+      },
+    ],
+  },
+];
 ---
 
-<BaseLayout title={d.title} description={d.description} seo={d.seo}>
-  <PageHero
-    eyebrow={d.hero_eyebrow}
-    title={d.hero_title ?? d.title}
-    lead={d.hero_lead}
-  />
+<BaseLayout title={d?.title ?? "Job Opportunities"} description={d?.description} seo={d?.seo}>
 
-  <section class="section">
-    <div class="container prose" data-editable="text" data-type="block" data-prop="@content">
-      <Content />
+  <!-- ── Hero ─────────────────────────────────────────────────── -->
+  <section class="emp-hero">
+    <div class="emp-hero__media" aria-hidden="true">
+      <img src={FALLBACK} alt="" />
+      <div class="emp-hero__shade"></div>
+    </div>
+    <div class="emp-hero__inner container">
+      <span class="emp-eyebrow emp-eyebrow--light">Join the Crew</span>
+      <h1 class="emp-hero__title">Job Opportunities</h1>
+      <p class="emp-hero__lead">No premiere tour company in the sublime business of Alaska tourism springs from just one individual. It takes an entire team united behind something big.</p>
+    </div>
+  </section>
+
+  <!-- ── Intro paragraph ──────────────────────────────────────── -->
+  <section class="emp-section emp-intro">
+    <div class="container emp-intro__inner">
+      <p>Together, at <a href="/">Skagway Tours</a>, we work hard, we laugh a lot, we brainstorm nonstop, and we give the best high-fives in town. All of which we feel is testament to why we have the highest quality personnel in our employ, enjoy the <a href="https://www.tripadvisor.com/Attraction_Review-g31020-d2471672-Reviews-Juneau_Whale_Watch-Juneau_Alaska.html" target="_blank" rel="noopener noreferrer nofollow">number ONE ranking</a> on Trip Advisor and possess must-experience tours in our offering.</p>
+      <p class="emp-intro__cta">See our vacancies available below.</p>
+    </div>
+  </section>
+
+  <!-- ── Champion Our Mission (dark) ──────────────────────────── -->
+  <section class="emp-section emp-mission">
+    <div class="container">
+      <div class="emp-section-head">
+        <span class="emp-eyebrow emp-eyebrow--light">Our Culture</span>
+        <h2 class="emp-section-head__title">Champion Our Mission</h2>
+      </div>
+      <div class="emp-mission__grid">
+        <p>While you are working your hardest on opportunities that will define your career, Skagway Tours ensures your working environment provides for you. After being inducted into our family of great people, we market you as one of our own. Every day, throughout the season running the end of April through to October, you'll enjoy interaction with killer views and unconditional support from us.</p>
+        <p>You will do your best work, and you'll work your hardest where there is plenty of financial incentive and intrinsic reward alike. Absolutely, there is always plenty to celebrate with Skagway Tours.</p>
+        <p>We're looking for both <strong>full time &amp; part time (on call)</strong> folks who want to join our team. We offer <strong>awesome pay</strong>, <strong>end-of-season bonuses</strong>, and some positions come with <strong>housing assistance</strong>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Job openings ─────────────────────────────────────────── -->
+  <section class="emp-section emp-jobs">
+    <div class="container">
+      {jobGroups.map((group) => (
+        <div class="emp-job-group">
+          <div class="emp-job-group__head">
+            <span class="emp-eyebrow">{group.category}</span>
+            <h2>{group.title}</h2>
+          </div>
+          <div class="emp-job-grid">
+            {group.jobs.map((job) => (
+              <article class="emp-job">
+                <div class="emp-job__icon" aria-hidden="true">
+                  {job.icon === "wheel" && (
+                    <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="20" cy="20" r="14"/>
+                      <circle cx="20" cy="20" r="4"/>
+                      <path d="M20 6 V16 M20 24 V34 M6 20 H16 M24 20 H34"/>
+                    </svg>
+                  )}
+                  {job.icon === "smile" && (
+                    <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="20" cy="20" r="14"/>
+                      <circle cx="15" cy="17" r="1.5" fill="currentColor" stroke="none"/>
+                      <circle cx="25" cy="17" r="1.5" fill="currentColor" stroke="none"/>
+                      <path d="M13 24 Q16 28 20 28 Q24 28 27 24"/>
+                    </svg>
+                  )}
+                  {job.icon === "phone" && (
+                    <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M8 10 Q9 8 11.5 12 L14 17 Q14.5 18 13 19.5 L11.5 21 Q15 27 20 31 L21.5 29.5 Q23 28 24 28.5 L29 31 Q33 33 32 34 Q30 36 26 34 Q14 28 8 16 Q5 12 8 10Z"/>
+                    </svg>
+                  )}
+                  {job.icon === "wrench" && (
+                    <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M28 6 L24 10 L28 14 L22 20 L12 30 Q8 34 6 32 Q4 30 8 26 L18 16 L24 10 L26 6 Z"/>
+                      <circle cx="10" cy="30" r="1.5" fill="currentColor" stroke="none"/>
+                    </svg>
+                  )}
+                </div>
+                <h3 class="emp-job__title">{job.title}</h3>
+                <p class="emp-job__body">{job.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── How to Apply CTA ─────────────────────────────────────── -->
+  <section class="emp-section emp-apply">
+    <div class="container emp-apply__inner">
+      <span class="emp-eyebrow emp-eyebrow--light">How to Apply</span>
+      <h2>Ready to spend a summer<br />you won't forget?</h2>
+      <p>Email your resume and a cover letter referencing the job position.</p>
+      <a href="mailto:info@skagway.tours" class="button">info@skagway.tours</a>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .emp-section { padding: clamp(3.5rem, 7vw, 6rem) 0; }
+
+  .emp-eyebrow {
+    display: inline-block;
+    font-family: var(--font-accent);
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+    color: var(--c-ember);
+    margin-bottom: 0.4rem;
+  }
+  .emp-eyebrow--light { color: var(--c-ember-bright); }
+
+  .emp-section-head {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .emp-section-head__title {
+    font-size: clamp(2rem, 3.5vw + 1rem, 3rem);
+    margin: 0;
+  }
+
+  /* ── Hero ─────────────────────────────────────────────────── */
+  .emp-hero {
+    position: relative;
+    min-height: 50vh;
+    display: flex;
+    align-items: flex-end;
+    color: #fff;
+    overflow: hidden;
+    background: var(--c-spruce-deep);
+  }
+  .emp-hero__media { position: absolute; inset: 0; }
+  .emp-hero__media img { width: 100%; height: 100%; object-fit: cover; }
+  .emp-hero__shade {
+    position: absolute; inset: 0;
+    background: linear-gradient(105deg,
+      rgba(31, 28, 57, 0.88) 0%,
+      rgba(41, 37, 70, 0.65) 60%,
+      rgba(41, 37, 70, 0.25) 100%);
+  }
+  .emp-hero__inner {
+    position: relative;
+    max-width: 680px;
+    padding-top: 6rem;
+    padding-bottom: 4rem;
+  }
+  .emp-hero__title {
+    font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+    line-height: 1;
+    margin: 0 0 1.2rem;
+    color: #fff;
+  }
+  .emp-hero__lead {
+    font-size: 1.15rem;
+    line-height: 1.55;
+    opacity: 0.95;
+    max-width: 60ch;
+    margin: 0;
+  }
+
+  /* ── Intro ────────────────────────────────────────────────── */
+  .emp-intro { background: var(--c-paper); }
+  .emp-intro__inner {
+    max-width: 760px;
+    text-align: center;
+  }
+  .emp-intro__inner p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--c-ink-soft);
+  }
+  .emp-intro__cta {
+    font-weight: 700;
+    color: var(--c-ink) !important;
+    font-family: var(--font-display);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── Mission (dark) ───────────────────────────────────────── */
+  .emp-mission {
+    background: var(--c-ink);
+    color: var(--c-paper);
+  }
+  .emp-mission .emp-section-head__title { color: #fff; }
+  .emp-mission__grid {
+    max-width: 820px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .emp-mission__grid p {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: rgba(246, 241, 231, 0.88);
+    margin: 0;
+  }
+  .emp-mission__grid strong { color: var(--c-ember-bright); font-weight: 700; }
+
+  /* ── Job groups ───────────────────────────────────────────── */
+  .emp-jobs { background: var(--c-paper-soft); }
+  .emp-job-group { margin-bottom: 3.5rem; }
+  .emp-job-group:last-child { margin-bottom: 0; }
+  .emp-job-group__head {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .emp-job-group__head h2 {
+    font-size: clamp(1.75rem, 3vw + 1rem, 2.5rem);
+    margin: 0;
+  }
+  .emp-job-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  .emp-job {
+    background: #fff;
+    border: 1px solid var(--c-fog);
+    border-radius: 16px;
+    padding: 2rem 1.75rem;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 1px 2px rgba(41, 37, 70, 0.04);
+  }
+  .emp-job:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -20px rgba(41, 37, 70, 0.2);
+  }
+  .emp-job__icon {
+    width: 64px; height: 64px;
+    margin: 0 auto 1rem;
+    background: var(--c-paper-soft);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--c-ember);
+  }
+  .emp-job__title {
+    font-size: 1.25rem;
+    margin: 0 0 0.5rem;
+    color: var(--c-ink);
+  }
+  .emp-job__body {
+    margin: 0;
+    color: var(--c-ink-soft);
+    line-height: 1.6;
+  }
+
+  /* ── Apply CTA ────────────────────────────────────────────── */
+  .emp-apply {
+    background: var(--c-ink);
+    color: var(--c-paper);
+    text-align: center;
+  }
+  .emp-apply__inner {
+    max-width: 640px;
+  }
+  .emp-apply h2 {
+    color: #fff;
+    font-size: clamp(2rem, 3.5vw + 1rem, 3rem);
+    margin: 0 0 1rem;
+  }
+  .emp-apply p {
+    font-size: 1.1rem;
+    margin: 0 0 1.75rem;
+    color: rgba(246, 241, 231, 0.88);
+  }
+</style>

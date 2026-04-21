@@ -1,27 +1,12 @@
 ---
 _schema: page
-title: All our tours cross the Canadian border
-description: A valid passport or approved alternative document is required for every Skagway Tours route.
-hero_eyebrow: Border crossing
-hero_title: All our tours cross the Canadian border
+title: All Of Our Tours Cross The Canadian Border
+description: Every Skagway Tours route crosses into Canada. A valid passport or approved alternative document is required for every traveler.
+hero_eyebrow: Border Crossing
+hero_title: All Of Our Tours Cross The Canadian Border
 seo:
   meta_title: ""
   meta_description: ""
   og_image: ""
   noindex: false
 ---
-
-## Short version
-
-- Every Skagway Tours route crosses into Canada (Yukon Territory).
-- US and Canadian citizens need a valid passport, NEXUS card, or approved alternative.
-- Non-US/Canadian citizens generally need a passport plus any required visas.
-- Children under 16 follow different rules in some cases — see below.
-
-## Acceptable documents
-
-_Placeholder — client to supply revised copy with the full list of acceptable documents for each traveler type._
-
-## Common questions
-
-See also our [FAQs](/faqs/) for cancellation, pickup, weather, and more.

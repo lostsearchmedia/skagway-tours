@@ -72,3 +72,4 @@
       links:
         - { label: Reviews, href: "/reviews/" }
         - { label: Contact, href: "/contact/" }
+        - { label: Cancellation policy, href: "/cancellation-policy/" }
