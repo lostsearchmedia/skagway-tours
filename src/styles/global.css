@@ -4,21 +4,13 @@
   --c-paper: #f6f1e7;
   --c-paper-soft: #ece4d2;
   --c-fog: #d8d1c1;
-  --c-spruce: #1d3b2a;
-  --c-spruce-deep: #0f2419;
+  --c-spruce: #292546;
+  --c-spruce-deep: #1f1c39;
   --c-ember: #dd5154;
   --c-ember-bright: #e36a6d;
-  --c-glacier: #4d7a8c;
-  /* Deep forest block-color for moss-green sections (Why us, storytelling). */
-  --c-moss: #234a3a;
-  --c-moss-deep: #162f26;
-  /* Soft color-card backgrounds for feature callouts. */
-  --c-sky-soft: #d6e5ef;
-  --c-sun-soft: #e7e98f;
 
   --font-display: "Montserrat", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-body: "Montserrat", ui-sans-serif, system-ui, -apple-system, sans-serif;
-  /* Handwritten accent used for decorative callouts ("Adventures", "Wildlife"). */
   --font-accent: "Caveat", ui-serif, cursive;
 
   --container: 1200px;
@@ -35,10 +27,6 @@
 }
 
 html {
-  /* 106.25% of the browser default = 17px when the default is 16px.
-     Using a percentage (not a fixed px) keeps user zoom + accessibility
-     overrides respected; everything else in the stylesheet uses rem so
-     the whole scale bumps up ~6% automatically. */
   font-size: 106.25%;
   scroll-behavior: smooth;
 }
@@ -77,7 +65,7 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.02em;
   line-height: 1.05;
   margin: 0 0 0.5em;
@@ -104,11 +92,13 @@ p {
   margin-inline: auto;
 }
 
+/* Eyebrow label — Caveat 700, used as section category label */
 .eyebrow {
-  font-family: var(--font-display);
-  letter-spacing: 0.28em;
+  font-family: var(--font-accent);
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-size: 0.8rem;
+  font-size: 1.05rem;
   color: var(--c-ember);
 }
 
@@ -149,45 +139,36 @@ p {
   border-color: var(--c-ink);
 }
 .button--dark:hover {
-  background: var(--c-spruce);
-  border-color: var(--c-spruce);
+  background: var(--c-spruce-deep);
+  border-color: var(--c-spruce-deep);
 }
 
 .section {
   padding: clamp(3rem, 6vw, 6rem) 0;
 }
 .section--dark {
-  background: var(--c-spruce-deep);
+  background: var(--c-ink);
   color: var(--c-paper);
 }
 .section--ink {
   background: var(--c-ink);
   color: var(--c-paper);
 }
-.section--moss {
-  background: var(--c-moss);
-  color: var(--c-paper);
-}
-.section--moss .eyebrow { color: var(--c-sun-soft); }
-.section--moss a { color: var(--c-sun-soft); }
 .section--paper-soft {
   background: var(--c-paper-soft);
 }
 
-/* Handwritten accent for decorative labels and callouts. Pair with a bold
-   uppercase heading for the Wildmark-style rhythm. */
+/* Handwritten accent for decorative labels and callouts */
 .script {
   font-family: var(--font-accent);
-  font-weight: 400;
+  font-weight: 700;
   letter-spacing: 0.01em;
   text-transform: none;
   line-height: 1;
 }
 .script--accent { color: var(--c-ember); }
-.script--moss { color: var(--c-moss); }
 
-/* Oversized headline that bleeds past the container edge. Pair with
-   `overflow: hidden` on the wrapping section to clip cleanly. */
+/* Oversized headline that bleeds past the container edge */
 .splash-heading {
   font-family: var(--font-display);
   font-weight: 800;
@@ -199,7 +180,7 @@ p {
   white-space: nowrap;
 }
 
-/* Soft color-card used for callouts ("For Families", "Private Groups"). */
+/* Soft color-card used for callouts ("For Families", "Private Groups") */
 .feature-card {
   border-radius: var(--radius);
   padding: 1.75rem;
@@ -207,15 +188,21 @@ p {
   flex-direction: column;
   gap: 0.65rem;
 }
-.feature-card--sky { background: var(--c-sky-soft); }
-.feature-card--sun { background: var(--c-sun-soft); }
+.feature-card--light { background: var(--c-paper); border: 1px solid var(--c-fog); }
+.feature-card--dark  { background: var(--c-ink); color: var(--c-paper); }
+/* Legacy aliases kept for backward compat */
+.feature-card--sky { background: var(--c-paper); border: 1px solid var(--c-fog); }
+.feature-card--sun { background: var(--c-ink); color: var(--c-paper); }
+
 .feature-card__eyebrow {
-  font-family: var(--font-display);
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
+  font-family: var(--font-accent);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--c-ink-soft);
+  color: var(--c-ember);
 }
+.feature-card--dark .feature-card__eyebrow { color: var(--c-ember-bright); }
 .feature-card__title {
   margin: 0;
   font-family: var(--font-display);
