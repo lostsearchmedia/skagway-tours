@@ -67,7 +67,7 @@ const toursSection = d.tours_section;
                 videoUrl={tour.data.video_url}
                 fareharborItemId={tour.data.fareharbor_item_id}
                 featured={tour.id === "private-luxury-tours" || tour.id === "group-sales"}
-                featuredColor={tour.id === "group-sales" ? "#1f1c39" : "#292546"}
+                featuredColor={tour.id === "group-sales" ? "#DD5154" : "#292546"}
                 featuredIcon={tour.id === "group-sales" ? "group" : "luxury"}
               />
             ))}
@@ -82,45 +82,45 @@ const toursSection = d.tours_section;
     <div class="container">
       <div class="why-us__head">
         <span class="script why-us__script">Why travel with us</span>
-        <h2 class="why-us__heading">Small groups.<br />Big stories.</h2>
+        <h2 class="why-us__heading">We work hard.<br />We love our guests.</h2>
       </div>
 
       <div class="why-us__grid">
         <article class="why-us__item">
           <svg viewBox="0 0 40 40" width="40" height="40" aria-hidden="true">
-            <rect x="4" y="13" width="26" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2" />
-            <rect x="26" y="17" width="8" height="10" rx="1" fill="none" stroke="currentColor" stroke-width="2" />
-            <circle cx="10" cy="29" r="3" fill="none" stroke="currentColor" stroke-width="2" />
-            <circle cx="28" cy="29" r="3" fill="none" stroke="currentColor" stroke-width="2" />
-            <path d="M7 13 L11 16 M11 13 L15 16 M15 13 L19 16 M19 13 L23 16" stroke="currentColor" stroke-width="1.5" opacity="0.5" />
+            <circle cx="20" cy="20" r="15" fill="none" stroke="currentColor" stroke-width="2" />
+            <path d="M20 10 V20 L27 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
           </svg>
-          <h3>13-passenger vans</h3>
-          <p>No packed coach buses. You're our guest for the day, not just a seat number.</p>
+          <h3>Never missed a ship — ever</h3>
+          <p>In 13 years of business, we have never missed a ship. Every tour is scheduled to return 45+ minutes before all-aboard time. Watch the scenery, not the clock.</p>
+        </article>
+
+        <article class="why-us__item">
+          <svg viewBox="0 0 40 40" width="40" height="40" aria-hidden="true">
+            <circle cx="14" cy="14" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="26" cy="14" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="8" cy="26" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="20" cy="28" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="32" cy="26" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <h3>Every group size welcome</h3>
+          <p>Families, solo travelers, cruise charters, corporate retreats — we have tours and rates for all. Special discounts for groups of 6 or more. Pickup at your ship or in town.</p>
         </article>
 
         <article class="why-us__item">
           <svg viewBox="0 0 40 40" width="40" height="40" aria-hidden="true">
             <path d="M20 6 L24 16 L34 16 L26 22 L29 32 L20 26 L11 32 L14 22 L6 16 L16 16 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
           </svg>
-          <h3>Local guides</h3>
-          <p>Alaskan and Yukon locals who know the stories the guidebooks never got around to printing.</p>
-        </article>
-
-        <article class="why-us__item">
-          <svg viewBox="0 0 40 40" width="40" height="40" aria-hidden="true">
-            <circle cx="20" cy="20" r="15" fill="none" stroke="currentColor" stroke-width="2" />
-            <path d="M20 10 V20 L27 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-          </svg>
-          <h3>All Aboard guarantee</h3>
-          <p>We run on ship time and have never missed a departure. Watch the view, not the clock.</p>
+          <h3>Expert local guides</h3>
+          <p>Our driver-guides are dedicated to giving a fun, engaging, and informative tour every time. They know the land, the history, and exactly where to pull over for the best views.</p>
         </article>
 
         <article class="why-us__item">
           <svg viewBox="0 0 40 40" width="40" height="40" aria-hidden="true">
             <path d="M20 5 L23.5 15 L34 15 L25.5 21 L29 31 L20 25 L11 31 L14.5 21 L6 15 L16.5 15 Z" fill="currentColor" />
           </svg>
-          <h3>3,000+ five-star reviews</h3>
-          <p>Year after year, cruise guests and families keep choosing us for their Skagway day out.</p>
+          <h3>1,000+ five-star reviews</h3>
+          <p>Top rated on TripAdvisor and Google, year after year. Our guests keep coming back — and telling their friends. We give tours people never forget.</p>
         </article>
       </div>
     </div>
@@ -332,8 +332,8 @@ const toursSection = d.tours_section;
   /* --- Splash heading ----------------------------------------------- */
   .splash-section {
     background-image:
-      linear-gradient(rgba(41,37,70,0.68), rgba(41,37,70,0.68)),
-      url('https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_webp/skagway.tours/wp-content/uploads/2026/02/skagway-bg.jpg');
+      linear-gradient(rgba(41,37,70,0.72), rgba(41,37,70,0.72)),
+      url('https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_webp,p_h/skagway.tours/wp-content/uploads/2024/02/st_wide.jpg');
     background-size: cover;
     background-position: center;
     overflow: hidden;

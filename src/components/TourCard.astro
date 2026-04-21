@@ -37,6 +37,7 @@ const candidatePrices = [priceFrom, priceChild].filter(
 const displayPrice = candidatePrices.length ? Math.min(...candidatePrices) : undefined;
 
 const detailHref = `/tours/${slug}/`;
+const FALLBACK = "https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_webp,p_h/skagway.tours/wp-content/uploads/2024/02/st_wide.jpg";
 ---
 
 <article class:list={["tour-card", featured && "tour-card--featured"]}>
@@ -45,40 +46,39 @@ const detailHref = `/tours/${slug}/`;
   <div
     class:list={["tour-card__media", videoUrl && "tour-card__media--playable"]}
     data-video-src={videoUrl || undefined}
-    style={featured ? `background: ${featuredColor};` : undefined}
+    style={featured ? `--featured-color: ${featuredColor};` : undefined}
     role={videoUrl ? "button" : undefined}
     tabindex={videoUrl ? 0 : undefined}
     aria-label={videoUrl ? `Watch ${title} video` : undefined}
   >
     {!featured && image && <Image src={image} alt={title} widths={[400, 600, 800]} sizes="(max-width: 700px) 100vw, 33vw" />}
-    {!featured && !image && (
-      <img
-        class="tour-card__media-fallback"
-        src="https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_webp,p_h/skagway.tours/wp-content/uploads/2024/02/st_wide.jpg"
-        alt=""
-        loading="lazy"
-      />
+    {(!featured && !image) && (
+      <img class="tour-card__media-fallback" src={FALLBACK} alt="" loading="lazy" />
     )}
 
     {featured && (
-      <div class="tour-card__featured-art">
-        <div class="tour-card__featured-rings" aria-hidden="true"></div>
-        {featuredIcon === "group" ? (
-          <svg viewBox="0 0 64 64" width="64" height="64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="22" cy="20" r="9"/>
-            <circle cx="42" cy="20" r="9"/>
-            <path d="M4 54 Q6 40 22 40 Q30 40 32 44 Q34 40 42 40 Q58 40 60 54"/>
-          </svg>
-        ) : (
-          <svg viewBox="0 0 64 64" width="64" height="64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M32 8 L38 24 L56 24 L42 34 L48 50 L32 40 L16 50 L22 34 L8 24 L26 24 Z"/>
-            <circle cx="32" cy="32" r="28" stroke-opacity="0.2"/>
-          </svg>
-        )}
-        <span class="tour-card__featured-label">
-          {featuredIcon === "group" ? "Group Tours" : "Private & Exclusive"}
-        </span>
-      </div>
+      <>
+        <img class="tour-card__media-fallback" src={FALLBACK} alt="" loading="lazy" />
+        <div class="tour-card__media-overlay"></div>
+        <div class="tour-card__featured-art">
+          <div class="tour-card__featured-rings" aria-hidden="true"></div>
+          {featuredIcon === "group" ? (
+            <svg viewBox="0 0 64 64" width="64" height="64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="22" cy="20" r="9"/>
+              <circle cx="42" cy="20" r="9"/>
+              <path d="M4 54 Q6 40 22 40 Q30 40 32 44 Q34 40 42 40 Q58 40 60 54"/>
+            </svg>
+          ) : (
+            <svg viewBox="0 0 64 64" width="64" height="64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M32 8 L38 24 L56 24 L42 34 L48 50 L32 40 L16 50 L22 34 L8 24 L26 24 Z"/>
+              <circle cx="32" cy="32" r="28" stroke-opacity="0.2"/>
+            </svg>
+          )}
+          <span class="tour-card__featured-label">
+            {featuredIcon === "group" ? "Group Tours" : "Private & Exclusive"}
+          </span>
+        </div>
+      </>
     )}
 
     {!featured && duration && (
@@ -91,7 +91,7 @@ const detailHref = `/tours/${slug}/`;
       </span>
     )}
 
-    {!featured && videoUrl && (
+    {videoUrl && (
       <div class="tour-card__play" aria-hidden="true">
         <svg viewBox="0 0 24 24" width="22" height="22">
           <path d="M7 4 L20 12 L7 20 Z" fill="currentColor" />
@@ -171,6 +171,17 @@ const detailHref = `/tours/${slug}/`;
     width: 100%; height: 100%;
     object-fit: cover;
   }
+
+  /* Color overlay for featured cards (sits above photo, below art) */
+  .tour-card__media-overlay {
+    position: absolute; inset: 0;
+    background: var(--featured-color, #1f1c39);
+    opacity: 0.78;
+    z-index: 1;
+  }
+  .tour-card__featured-art { z-index: 2; }
+  .tour-card__play { z-index: 3; }
+  .tour-card__badge { z-index: 3; }
 
   /* ── Play button ────────────────────────────────────────────── */
   .tour-card__play {
