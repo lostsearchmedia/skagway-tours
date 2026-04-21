@@ -7,7 +7,6 @@ const videoSrc = hero?.video_src;
 const poster = hero?.video_poster;
 const ctaLabel = hero?.primary_cta_label ?? "Book a Tour";
 const ctaHref = hero?.primary_cta_href ?? "#tours";
-const stat = hero?.review_stat;
 ---
 
 <section class="hero">
@@ -32,14 +31,10 @@ const stat = hero?.review_stat;
   </div>
 
   <div class="hero__content container">
-    {
-      stat && (
-        <div class="hero__badge" aria-label={stat}>
-          <span class="hero__stars" aria-hidden="true">★★★★★</span>
-          <span class="hero__stat">{stat}</span>
-        </div>
-      )
-    }
+    <div class="hero__reviews" aria-label="Guest reviews">
+      <script src="https://elfsightcdn.com/platform.js" async is:inline></script>
+      <div class="elfsight-app-cef6aa1d-9689-489a-a453-893dde2e56a8" data-elfsight-app-lazy></div>
+    </div>
     <a href={ctaHref} class="button hero__cta">{ctaLabel}</a>
   </div>
 </section>
@@ -87,25 +82,15 @@ const stat = hero?.review_stat;
     font-size: 1.05rem;
     padding: 1.1rem 2rem;
   }
-  .hero__badge {
-    display: inline-flex;
-    flex-direction: column;
-    gap: 0.3rem;
-    background: rgba(41, 37, 70, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    padding: 0.9rem 1.25rem;
-    border-radius: 6px;
-    backdrop-filter: blur(3px);
+  /* Elfsight reviews widget wrapper — keep the card compact in the hero */
+  .hero__reviews {
+    width: 100%;
+    max-width: 260px;
   }
-  .hero__stars {
-    color: #ffd15c;
-    letter-spacing: 0.3rem;
-    font-size: 1.05rem;
+  .hero__reviews :global(.elfsight-app-cef6aa1d-9689-489a-a453-893dde2e56a8) {
+    display: block;
   }
-  .hero__stat {
-    font-family: var(--font-display);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-size: 1rem;
+  @media (max-width: 640px) {
+    .hero__reviews { max-width: 220px; }
   }
 </style>
