@@ -77,7 +77,7 @@ const toursSection = d.tours_section;
   </section>
 
   <!-- Why travel with us — moss-green block -->
-  <section class="section section--moss why-us">
+  <section class="section why-us">
     <div class="container">
       <div class="why-us__head">
         <span class="script why-us__script">Why travel with us</span>
@@ -233,7 +233,7 @@ const toursSection = d.tours_section;
   }
   .why-us__script {
     font-size: 2rem;
-    color: var(--c-sun-soft);
+    color: var(--c-ember);
     display: block;
     margin-bottom: 0.5rem;
   }
@@ -242,7 +242,10 @@ const toursSection = d.tours_section;
     letter-spacing: -0.01em;
     text-transform: uppercase;
     margin: 0;
-    color: var(--c-paper);
+    color: var(--c-ink);
+  }
+  .why-us {
+    background: var(--c-paper-soft);
   }
   .why-us__grid {
     display: grid;
@@ -255,22 +258,26 @@ const toursSection = d.tours_section;
     gap: 0.75rem;
   }
   .why-us__item svg {
-    color: var(--c-sun-soft);
+    color: var(--c-ember);
   }
   .why-us__item h3 {
     font-size: 1.1rem;
     margin: 0;
-    color: var(--c-paper);
+    color: var(--c-ink);
   }
   .why-us__item p {
     margin: 0;
     font-size: 0.95rem;
-    opacity: 0.85;
+    color: var(--c-ink-soft);
   }
 
   /* --- Tours section ------------------------------------------------ */
   .tours-section {
-    background: #eaf1f4;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)),
+      url('https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_webp/skagway.tours/wp-content/uploads/2026/02/skagway-bg.jpg');
+    background-size: cover;
+    background-position: center;
     border-top: 1px solid #d6e1e6;
   }
   .section__head {
