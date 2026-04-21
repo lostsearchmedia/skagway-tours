@@ -112,6 +112,7 @@ p {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   font-size: 0.95rem;
+  font-weight: 500;
   background: var(--c-ember);
   color: #fff;
   border: 2px solid var(--c-ember);

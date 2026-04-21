@@ -210,10 +210,13 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
     border-bottom: 1px solid rgba(255,255,255,0.08);
   }
   .site-header.transparent {
-    background: transparent;
-    border-bottom: none;
     position: absolute;
     left: 0; right: 0;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(18px) saturate(1.6);
+    -webkit-backdrop-filter: blur(18px) saturate(1.6);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 2px 24px rgba(0, 0, 0, 0.08);
   }
 
   /* ── Top bar ────────────────────────────────────────────────── */
@@ -300,7 +303,7 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
     letter-spacing: 0.15em;
     text-transform: uppercase;
     font-size: 0.9rem;
-    font-weight: inherit;
+    font-weight: 500;
     line-height: 1;
     background: transparent;
     border: none;
