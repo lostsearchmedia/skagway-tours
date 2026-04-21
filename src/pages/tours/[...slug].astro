@@ -128,37 +128,25 @@ const d = tour.data;
           <Content />
         </div>
 
-        <aside class="tour__before">
-          <h3>Before your tour</h3>
-          <ul>
-            <li><a href="/find-us/">Dock pickup details</a> — we pick up at all three cruise docks in Skagway.</li>
-            <li><a href="/passport-requirements/">Passport requirements</a> — every tour crosses into Canada.</li>
-            <li><a href="/faqs/">FAQs, accessibility, and our All Aboard guarantee</a>.</li>
-          </ul>
-        </aside>
       </section>
 
       <aside class="tour__sidebar">
-        <div class="booking-card">
-          <h3>Ready to go?</h3>
-          <ul class="booking-card__prices">
-            {d.price_from && <li><span>Adults (13+)</span><strong>${d.price_from}</strong></li>}
-            {d.price_child && <li><span>Children (2–11)</span><strong>${d.price_child}</strong></li>}
-            {(d.price_from || d.price_child) && <li><span>Infants under 2</span><strong>Free</strong></li>}
-          </ul>
-          <p class="booking-card__note">
-            A valid passport is required — this tour crosses into Canada.
-          </p>
-        </div>
         {d.fareharbor_item_id && (
           <div id="tour-calendar" class="booking-card calendar-embed">
-            <h3>Availability</h3>
             <script
               is:inline
               src={`https://fareharbor.com/embeds/script/calendar/skagway/items/${d.fareharbor_item_id}/?fallback=simple&full-items=yes&flow=${d.fareharbor_flow ?? "no"}`}
             />
           </div>
         )}
+        <div class="tour__before">
+          <h3>Before your tour</h3>
+          <ul>
+            <li><a href="/find-us/">Dock pickup details</a> — we pick up at all three cruise docks in Skagway.</li>
+            <li><a href="/passport-requirements/">Passport requirements</a> — every tour crosses into Canada.</li>
+            <li><a href="/faqs/">FAQs, accessibility, and our All Aboard guarantee</a>.</li>
+          </ul>
+        </div>
       </aside>
     </div>
 
@@ -276,10 +264,8 @@ const d = tour.data;
   .booking-card h3 { margin-top: 0; }
   .calendar-embed {
     position: static;
-    margin-top: 1.5rem;
-    padding-left: 0;
-    padding-right: 0;
-    padding-bottom: 0;
+    padding: 0;
+    overflow: hidden;
   }
   @media (max-width: 880px) {
     .booking-card { position: static; }
@@ -319,25 +305,6 @@ const d = tour.data;
     text-decoration: none;
     border-radius: 10px;
     letter-spacing: 0.02em;
-  }
-  .booking-card__prices {
-    list-style: none;
-    margin: 0 0 1.25rem;
-    padding: 0;
-    display: grid;
-    gap: 0.35rem;
-    font-size: 0.95rem;
-  }
-  .booking-card__prices li {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-  }
-  .booking-card__prices span { color: var(--c-ink-soft); }
-  .booking-card__note {
-    margin: 1rem 0 0;
-    font-size: 0.85rem;
-    color: var(--c-ink-soft);
   }
 
   /* ── Stats row ───────────────────────────────────────────────── */
@@ -447,16 +414,17 @@ const d = tour.data;
     color: rgba(255,255,255,0.9);
   }
 
-  /* ── Before your tour ────────────────────────────────────────── */
+  /* ── Before your tour (sidebar) ─────────────────────────────── */
   .tour__before {
-    margin-top: 2.5rem;
-    padding: 1.25rem 1.5rem;
-    background: var(--c-paper-soft);
+    background: #fff;
+    border: 1px solid var(--c-fog);
     border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 30px -12px rgba(41, 37, 70,0.15);
   }
   .tour__before h3 { margin-top: 0; }
   .tour__before ul { margin: 0; padding-left: 1.1rem; }
-  .tour__before li { margin-bottom: 0.4rem; }
+  .tour__before li { margin-bottom: 0.5rem; font-size: 0.92rem; }
 
   /* Accordion treatment for #tour-body — JS below transforms each <h2> +
      following content into a <details>. Progressive enhancement: content
