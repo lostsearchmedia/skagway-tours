@@ -35,28 +35,6 @@ const values = [
   },
 ];
 
-const testimonials = [
-  {
-    quote: "I can say with absolute conviction that this is the best tour I have ever, ever been on. Skagway Tours, you are simply amazing. Thank you for helping me/us to make the most unforgettable, wonderful, magical lifelong memories.",
-    name: "Cathy Clements",
-    location: "Liverpool, England",
-  },
-  {
-    quote: "We had Noah as our driver on the White Pass and Yukon Suspension Bridge tour, and it was beyond worth it.",
-    name: "Reiland E",
-    location: "Google Review",
-  },
-  {
-    quote: "My family LOVED this excursion. Our tour guide, Epaul, was incredible. We were debating between this and the train, but the bus tour let us get out and take pictures — and it's way cheaper!",
-    name: "Joell Tam",
-    location: "Google Review",
-  },
-  {
-    quote: "We had a group of 17 who really enjoyed our tour with Daniel! He knew we loved to take photos and knew exactly where to stop. Planning and booking was easy thanks to Jessica.",
-    name: "Szymon Krasucki",
-    location: "Google Review",
-  },
-];
 
 const expectations = [
   {
@@ -194,20 +172,9 @@ const expectations = [
         <span class="ab-eyebrow ab-eyebrow--ember">What our guests say</span>
         <h2 class="ab-section-head__title">Stories From the Road</h2>
       </div>
-      <div class="ab-reviews__grid">
-        {testimonials.map((t) => (
-          <blockquote class="ab-review">
-            <svg class="ab-review__mark" aria-hidden="true" viewBox="0 0 32 24" width="32" height="24" fill="currentColor">
-              <path d="M0 24 L0 14 Q0 4 12 0 L14 4 Q8 6 8 14 L14 14 L14 24 Z"/>
-              <path d="M18 24 L18 14 Q18 4 30 0 L32 4 Q26 6 26 14 L32 14 L32 24 Z"/>
-            </svg>
-            <p class="ab-review__text">{t.quote}</p>
-            <footer class="ab-review__footer">
-              <span class="ab-review__name">{t.name}</span>
-              <span class="ab-review__location">{t.location}</span>
-            </footer>
-          </blockquote>
-        ))}
+      <div class="ab-reviews__widget">
+        <script src="https://elfsightcdn.com/platform.js" async is:inline></script>
+        <div class="elfsight-app-be8882ad-c2f2-4122-a216-f1f1f2793578" data-elfsight-app-lazy></div>
       </div>
       <div class="ab-reviews__cta">
         <a href="/reviews/" class="button button--dark">Read all reviews</a>
@@ -452,52 +419,7 @@ const expectations = [
   /* ── Reviews ─────────────────────────────────────────────────── */
   .ab-reviews { background: var(--c-spruce); color: #fff; }
   .ab-reviews .ab-section-head__title { color: #fff; }
-  .ab-reviews__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-  }
-  .ab-review {
-    background: rgba(255, 255, 255, 0.07);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 14px;
-    padding: 1.75rem 1.5rem 1.5rem;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .ab-review__mark {
-    color: var(--c-ember-bright);
-    opacity: 0.6;
-    flex-shrink: 0;
-  }
-  .ab-review__text {
-    font-size: 0.95rem;
-    line-height: 1.7;
-    color: rgba(255, 255, 255, 0.88);
-    margin: 0;
-    flex: 1;
-  }
-  .ab-review__footer {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
-    padding-top: 0.9rem;
-  }
-  .ab-review__name {
-    font-family: var(--font-display);
-    font-size: 0.82rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #fff;
-  }
-  .ab-review__location {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.5);
-  }
+  .ab-reviews__widget { width: 100%; }
   .ab-reviews__cta {
     text-align: center;
     margin-top: 2.5rem;
