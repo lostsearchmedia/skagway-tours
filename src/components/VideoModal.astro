@@ -91,9 +91,17 @@
     overflow: hidden;
     box-shadow: var(--shadow-lg);
   }
-  .vm__frame, .vm__frame iframe, .vm__frame video {
-    width: 100%; height: 100%;
+  .vm__frame {
+    position: absolute;
+    inset: 0;
+  }
+  .vm__frame iframe, .vm__frame video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     border: 0;
+    display: block;
   }
   .vm__close {
     position: absolute;
