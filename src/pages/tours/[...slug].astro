@@ -47,11 +47,67 @@ const d = tour.data;
 
     <div class="container tour__layout">
       <section class="tour__content prose">
-        <div class="meta-row">
-          {d.duration_hours && <span><strong>{d.duration_hours}h</strong> duration</span>}
-          {d.price_from && <span>adults from <strong>${d.price_from}</strong></span>}
-          {d.price_child && <span>kids from <strong>${d.price_child}</strong></span>}
+
+        <!-- Stats row -->
+        <div class="tour-stats">
+          {d.duration_hours && (
+            <div class="tour-stat">
+              <span class="tour-stat__label">Duration</span>
+              <span class="tour-stat__value">{d.duration_hours}h</span>
+            </div>
+          )}
+          {d.price_from && (
+            <div class="tour-stat">
+              <span class="tour-stat__label">Adults (13+) from</span>
+              <span class="tour-stat__value">${d.price_from}</span>
+            </div>
+          )}
+          {d.price_child && (
+            <div class="tour-stat">
+              <span class="tour-stat__label">Kids (2–11) from</span>
+              <span class="tour-stat__value">${d.price_child}</span>
+            </div>
+          )}
+          {(d.price_from || d.price_child) && (
+            <div class="tour-stat">
+              <span class="tour-stat__label">Infants under 2</span>
+              <span class="tour-stat__value">Free</span>
+            </div>
+          )}
         </div>
+
+        <!-- Passport notice -->
+        <div class="tour-passport">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" flex-shrink="0">
+            <rect x="5" y="3" width="14" height="18" rx="2" fill="#dd5154" />
+            <circle cx="12" cy="10" r="3" fill="#fff" />
+            <rect x="8" y="15" width="8" height="1.5" fill="#fff" />
+            <rect x="8" y="17" width="8" height="1.5" fill="#fff" />
+          </svg>
+          <p>
+            <strong>Passport required.</strong> Every tour crosses into Canada — a valid passport or approved WHTI document is required for all passengers. <a href="/passport-requirements/">Passport requirements →</a>
+          </p>
+        </div>
+
+        <!-- Video player (if tour has a video) -->
+        {d.video_url && (
+          <div class="tour-video" data-video-src={d.video_url} role="button" tabindex="0" aria-label={`Watch ${d.title} video`}>
+            <div class="tour-video__thumb">
+              {d.featured_image
+                ? <Image src={d.featured_image} alt="" widths={[800]} sizes="100vw" />
+                : <img src="https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_webp,p_h/skagway.tours/wp-content/uploads/2024/02/st_wide.jpg" alt="" loading="lazy" />
+              }
+              <div class="tour-video__overlay">
+                <div class="tour-video__play">
+                  <svg viewBox="0 0 24 24" width="28" height="28">
+                    <path d="M7 4 L20 12 L7 20 Z" fill="currentColor" />
+                  </svg>
+                </div>
+                <span class="tour-video__label">Watch the tour video</span>
+              </div>
+            </div>
+          </div>
+        )}
 
         {
           d.highlights && d.highlights.length > 0 && (
@@ -284,6 +340,114 @@ const d = tour.data;
     color: var(--c-ink-soft);
   }
 
+  /* ── Stats row ───────────────────────────────────────────────── */
+  .tour-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+  .tour-stat {
+    background: var(--c-paper-soft);
+    border: 1px solid var(--c-fog);
+    border-radius: 10px;
+    padding: 0.65rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 100px;
+  }
+  .tour-stat__label {
+    font-family: var(--font-display);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--c-ink-soft);
+  }
+  .tour-stat__value {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 900;
+    color: var(--c-ink);
+    line-height: 1;
+  }
+
+  /* ── Passport notice ─────────────────────────────────────────── */
+  .tour-passport {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    background: #fef2f2;
+    border: 1px solid #fca5a5;
+    border-radius: 10px;
+    padding: 0.9rem 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .tour-passport svg { flex-shrink: 0; margin-top: 1px; }
+  .tour-passport p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #7f1d1d;
+  }
+  .tour-passport a { color: #991b1b; font-weight: 600; }
+
+  /* ── Video block ─────────────────────────────────────────────── */
+  .tour-video {
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+  .tour-video__thumb {
+    position: relative;
+    aspect-ratio: 16 / 9;
+  }
+  .tour-video__thumb img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .tour-video:hover .tour-video__thumb img { transform: scale(1.03); }
+  .tour-video__overlay {
+    position: absolute; inset: 0;
+    background: rgba(15, 10, 30, 0.42);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    transition: background 0.2s ease;
+  }
+  .tour-video:hover .tour-video__overlay { background: rgba(15, 10, 30, 0.55); }
+  .tour-video__play {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.7);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .tour-video__play svg { transform: translateX(2px); }
+  .tour-video:hover .tour-video__play {
+    background: var(--c-ember);
+    border-color: var(--c-ember);
+    transform: scale(1.1);
+  }
+  .tour-video__label {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.9);
+  }
+
+  /* ── Before your tour ────────────────────────────────────────── */
   .tour__before {
     margin-top: 2.5rem;
     padding: 1.25rem 1.5rem;

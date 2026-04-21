@@ -33,12 +33,15 @@ const detailHref = `/tours/${slug}/`;
 ---
 
 <article class:list={["tour-card", featured && "tour-card--featured"]}>
-  <a
-    class="tour-card__media"
-    href={detailHref}
-    data-passport-interstitial
-    aria-label={`See ${title} details`}
+
+  <!-- Media: opens video lightbox if video exists, otherwise inert -->
+  <div
+    class:list={["tour-card__media", videoUrl && "tour-card__media--playable"]}
+    data-video-src={videoUrl || undefined}
     style={featured ? `background: ${featuredColor};` : undefined}
+    role={videoUrl ? "button" : undefined}
+    tabindex={videoUrl ? 0 : undefined}
+    aria-label={videoUrl ? `Watch ${title} video` : undefined}
   >
     {!featured && image && <Image src={image} alt={title} widths={[400, 600, 800]} sizes="(max-width: 700px) 100vw, 33vw" />}
     {!featured && !image && (
@@ -82,19 +85,13 @@ const detailHref = `/tours/${slug}/`;
     )}
 
     {!featured && videoUrl && (
-      <button
-        class="tour-card__video"
-        type="button"
-        data-video-src={videoUrl}
-        aria-label={`Watch ${title} video`}
-      >
-        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-          <path d="M8 5 L19 12 L8 19 Z" fill="currentColor" />
+      <div class="tour-card__play" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22">
+          <path d="M7 4 L20 12 L7 20 Z" fill="currentColor" />
         </svg>
-        Watch
-      </button>
+      </div>
     )}
-  </a>
+  </div>
 
   <div class="tour-card__body" style={featured ? `background: ${featuredColor};` : undefined}>
     <h3 class="tour-card__title">
@@ -145,16 +142,20 @@ const detailHref = `/tours/${slug}/`;
   /* ── Media section ─────────────────────────────────────────── */
   .tour-card__media {
     position: relative;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 9;
     display: block;
     overflow: hidden;
     background: var(--c-fog);
   }
-  .tour-card__media:hover { text-decoration: none; }
   .tour-card__media img {
     width: 100%; height: 100%;
     object-fit: cover;
     transition: transform 0.45s ease;
+    display: block;
+  }
+  .tour-card--playable,
+  .tour-card__media--playable {
+    cursor: pointer;
   }
   .tour-card:hover .tour-card__media img { transform: scale(1.05); }
 
@@ -162,6 +163,32 @@ const detailHref = `/tours/${slug}/`;
     position: absolute; inset: 0;
     width: 100%; height: 100%;
     object-fit: cover;
+  }
+
+  /* ── Play button ────────────────────────────────────────────── */
+  .tour-card__play {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(15, 10, 30, 0.55);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    pointer-events: none;
+  }
+  .tour-card__play svg {
+    transform: translateX(1px);
+  }
+  .tour-card__media--playable:hover .tour-card__play {
+    background: var(--c-ember);
+    transform: scale(1.15);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.35);
   }
 
   /* ── Featured art area ─────────────────────────────────────── */
@@ -194,7 +221,7 @@ const detailHref = `/tours/${slug}/`;
     opacity: 0.75;
   }
 
-  /* ── Badges / overlays ─────────────────────────────────────── */
+  /* ── Duration badge ─────────────────────────────────────────── */
   .tour-card__badge {
     position: absolute;
     top: 0.75rem;
@@ -211,27 +238,6 @@ const detailHref = `/tours/${slug}/`;
     font-weight: 700;
     box-shadow: 0 4px 12px -4px rgba(41, 37, 70, 0.2);
   }
-
-  .tour-card__video {
-    position: absolute;
-    bottom: 0.75rem;
-    left: 0.75rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    padding: 0.4rem 0.75rem;
-    background: rgba(41, 37, 70, 0.85);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius-pill);
-    font-family: var(--font-display);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    font-size: 0.7rem;
-    cursor: pointer;
-    transition: background 0.15s ease;
-  }
-  .tour-card__video:hover { background: var(--c-ember); }
 
   /* ── Body ──────────────────────────────────────────────────── */
   .tour-card__body {
@@ -324,7 +330,6 @@ const detailHref = `/tours/${slug}/`;
     letter-spacing: 0.15em;
   }
 
-  /* Ghost button for featured dark cards */
   .tour-card__footer :global(.button--ghost-light) {
     background: transparent;
     color: #fff;
@@ -337,7 +342,6 @@ const detailHref = `/tours/${slug}/`;
     transform: translateY(-1px);
   }
 
-  /* White-fill button for featured dark cards */
   .tour-card__footer :global(.button--white) {
     background: #fff;
     color: var(--c-ink);
