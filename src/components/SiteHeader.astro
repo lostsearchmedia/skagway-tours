@@ -231,7 +231,7 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
   /* ── Brand ──────────────────────────────────────────────────── */
   .brand { display: inline-flex; align-items: center; color: inherit; }
   .brand:hover { text-decoration: none; }
-  .brand__logo { height: 40px; width: auto; display: block; filter: brightness(0) invert(1); }
+  .brand__logo { width: 150px; height: auto; display: block; filter: brightness(0) invert(1); }
 
   /* ── Promo bar ──────────────────────────────────────────────── */
   .promo-bar {
@@ -252,8 +252,7 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
     cursor: pointer;
     transition: background 0.2s ease;
     white-space: nowrap;
-    overflow: hidden;
-    max-width: 320px;
+    max-width: min(100%, 480px);
   }
   .promo-bar:hover { background: var(--c-ember-bright); }
   .promo-bar__dot {
