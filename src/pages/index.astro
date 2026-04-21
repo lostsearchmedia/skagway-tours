@@ -167,7 +167,9 @@ const galleryTrack = galleryImages.length
 
         <article class="why-us__item">
           <svg viewBox="0 0 40 40" width="40" height="40" aria-hidden="true">
-            <path d="M20 6 L24 16 L34 16 L26 22 L29 32 L20 26 L11 32 L14 22 L6 16 L16 16 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+            <path d="M6 10 L14 8 L22 12 L30 8 L34 10 L34 30 L30 32 L22 28 L14 32 L6 30 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M14 8 V32 M22 12 V34" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" opacity="0.5"/>
+            <path d="M22 20 L26 16 L26 22 L22 20 Z" fill="currentColor"/>
           </svg>
           <h3>Expert local guides</h3>
           <p>Our driver-guides are dedicated to giving a fun, engaging, and informative tour every time. They know the land, the history, and exactly where to pull over for the best views.</p>
@@ -180,6 +182,20 @@ const galleryTrack = galleryImages.length
           <h3>1,000+ five-star reviews</h3>
           <p>Top rated on TripAdvisor and Google, year after year. Our guests keep coming back — and telling their friends. We give tours people never forget.</p>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Guest reviews (Elfsight Google Reviews) -->
+  <section class="section home-reviews section--paper-soft">
+    <div class="container">
+      <div class="section__head">
+        <span class="script script--accent section__script">What guests say</span>
+        <h2>Real stories from the road.</h2>
+      </div>
+      <div class="home-reviews__widget">
+        <script src="https://elfsightcdn.com/platform.js" async is:inline></script>
+        <div class="elfsight-app-be8882ad-c2f2-4122-a216-f1f1f2793578" data-elfsight-app-lazy></div>
       </div>
     </div>
   </section>
@@ -455,6 +471,11 @@ const galleryTrack = galleryImages.length
   .why-us__item svg { color: var(--c-ember); }
   .why-us__item h3 { font-size: 1.1rem; margin: 0; color: var(--c-ink); }
   .why-us__item p { margin: 0; font-size: 0.95rem; color: var(--c-ink-soft); }
+
+  /* --- Home reviews widget ----------------------------------------- */
+  .home-reviews__widget {
+    width: 100%;
+  }
 
   /* --- Full-bleed image moment ------------------------------------- */
   .full-bleed {
