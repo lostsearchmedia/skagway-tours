@@ -250,6 +250,7 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
     transition: background 0.2s ease;
     white-space: nowrap;
     overflow: hidden;
+    max-width: 320px;
   }
   .promo-bar:hover { background: var(--c-ember-bright); }
   .promo-bar__dot {
@@ -397,7 +398,11 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
     }
     .site-nav { display: none; }
     .phone-cta { display: none; }
-    .nav-toggle { display: inline-flex; }
+    .nav-toggle {
+      display: inline-flex;
+      grid-column: 3;
+      grid-row: 1;
+    }
   }
 
   /* ── Mobile nav overlay ─────────────────────────────────────── */
