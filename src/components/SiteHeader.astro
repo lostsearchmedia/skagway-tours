@@ -420,8 +420,13 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
 
   /* ── Promo full-bleed on mobile ──────────────────────────────── */
   @media (max-width: 640px) {
+    .site-header__bar {
+      padding-bottom: 0;
+      row-gap: 0.75rem;
+    }
     .promo-bar {
       margin-inline: -2rem;
+      margin-bottom: 0;
       width: calc(100% + 4rem);
       max-width: none;
       border-radius: 0;
