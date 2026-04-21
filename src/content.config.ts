@@ -62,6 +62,13 @@ const pages = defineCollection({
         title: z.string(),
         description: z.string().optional(),
         cover: image().optional(),
+        intro_section: z
+          .object({
+            eyebrow: z.string().default("From Skagway, into the Yukon"),
+            title: z.string().default("The road beyond the port town."),
+            body: z.string().default(""),
+          })
+          .default({}),
         tours_section: z
           .object({
             eyebrow: z.string().default("Our tours"),
@@ -69,6 +76,23 @@ const pages = defineCollection({
             empty_message: z
               .string()
               .default("Tours will appear here once content is added in CloudCannon."),
+          })
+          .default({}),
+        gallery_section: z
+          .object({
+            eyebrow: z.string().default("Moments from the road"),
+            title: z.string().default(""),
+            images: z.array(z.string()).default([]),
+          })
+          .default({}),
+        full_bleed: z
+          .object({
+            eyebrow: z.string().default("Skagway · Yukon"),
+            title: z.string().default("Built for the Klondike"),
+            body: z.string().default(""),
+            image: z.string().default(""),
+            cta_label: z.string().optional(),
+            cta_href: z.string().optional(),
           })
           .default({}),
         callouts: z
