@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
 import TourCard from "../components/TourCard.astro";
 import NoPassportPopup from "../components/NoPassportPopup.astro";
+import { Icon } from "astro-icon/components";
 import { getCollection, getEntry } from "astro:content";
 
 const tours = (await getCollection("tours", (e) => !e.data.draft)).sort(
@@ -145,40 +146,25 @@ const galleryTrack = galleryImages.length
 
       <div class="why-us__grid">
         <article class="why-us__item">
-          <svg viewBox="0 0 40 40" width="40" height="40" aria-hidden="true">
-            <circle cx="20" cy="20" r="15" fill="none" stroke="currentColor" stroke-width="2" />
-            <path d="M20 10 V20 L27 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-          </svg>
+          <Icon name="ph:clock-fill" class="why-us__icon" aria-hidden="true" />
           <h3>Never missed a ship — ever</h3>
           <p>In 13 years of business, we have never missed a ship. Every tour is scheduled to return 45+ minutes before all-aboard time. Watch the scenery, not the clock.</p>
         </article>
 
         <article class="why-us__item">
-          <svg viewBox="0 0 40 40" width="40" height="40" aria-hidden="true">
-            <circle cx="14" cy="14" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
-            <circle cx="26" cy="14" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
-            <circle cx="8" cy="26" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
-            <circle cx="20" cy="28" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
-            <circle cx="32" cy="26" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
-          </svg>
+          <Icon name="ph:users-three-fill" class="why-us__icon" aria-hidden="true" />
           <h3>Every group size welcome</h3>
           <p>Families, solo travelers, cruise charters, corporate retreats — we have tours and rates for all. Special discounts for groups of 6 or more. Pickup at your ship or in town.</p>
         </article>
 
         <article class="why-us__item">
-          <svg viewBox="0 0 40 40" width="40" height="40" aria-hidden="true">
-            <path d="M6 10 L14 8 L22 12 L30 8 L34 10 L34 30 L30 32 L22 28 L14 32 L6 30 Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-            <path d="M14 8 V32 M22 12 V34" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" opacity="0.5"/>
-            <path d="M22 20 L26 16 L26 22 L22 20 Z" fill="currentColor"/>
-          </svg>
+          <Icon name="ph:map-trifold-fill" class="why-us__icon" aria-hidden="true" />
           <h3>Expert local guides</h3>
           <p>Our driver-guides are dedicated to giving a fun, engaging, and informative tour every time. They know the land, the history, and exactly where to pull over for the best views.</p>
         </article>
 
         <article class="why-us__item">
-          <svg viewBox="0 0 40 40" width="40" height="40" aria-hidden="true">
-            <path d="M20 5 L23.5 15 L34 15 L25.5 21 L29 31 L20 25 L11 31 L14.5 21 L6 15 L16.5 15 Z" fill="currentColor" />
-          </svg>
+          <Icon name="ph:star-fill" class="why-us__icon" aria-hidden="true" />
           <h3>1,000+ five-star reviews</h3>
           <p>Top rated on TripAdvisor and Google, year after year. Our guests keep coming back — and telling their friends. We give tours people never forget.</p>
         </article>
@@ -463,7 +449,11 @@ const galleryTrack = galleryImages.length
     flex-direction: column;
     gap: 0.75rem;
   }
-  .why-us__item svg { color: var(--c-ember); }
+  .why-us__icon {
+    width: 40px;
+    height: 40px;
+    color: var(--c-ember);
+  }
   .why-us__item h3 { font-size: 1.1rem; margin: 0; color: var(--c-ink); }
   .why-us__item p { margin: 0; font-size: 0.95rem; color: var(--c-ink-soft); }
 

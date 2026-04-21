@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { Icon } from "astro-icon/components";
 import { getEntry } from "astro:content";
 
 const entry = await getEntry("pages", "about");
@@ -9,27 +10,27 @@ const FALLBACK = "https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_we
 
 const values = [
   {
-    icon: "fun",
+    icon: "ph:smiley-fill",
     title: "Fun",
     body: "We create memorable experiences filled with joy and excitement, ensuring every moment of your tour is enjoyable.",
   },
   {
-    icon: "knowledge",
+    icon: "ph:book-open-text-fill",
     title: "Knowledgeable",
     body: "Our guides provide insightful and accurate information, enriching your understanding of Skagway's history and natural beauty.",
   },
   {
-    icon: "genuine",
+    icon: "ph:heart-fill",
     title: "Genuine",
     body: "We offer authentic and sincere experiences, connecting you with the true spirit of Alaska.",
   },
   {
-    icon: "engaging",
+    icon: "ph:hand-waving-fill",
     title: "Engaging",
     body: "Our tours are designed to be interactive and captivating, keeping you involved and entertained throughout your adventure.",
   },
   {
-    icon: "professional",
+    icon: "ph:medal-fill",
     title: "Professional",
     body: "We deliver high-quality, reliable service with a commitment to excellence and your utmost satisfaction.",
   },
@@ -38,22 +39,22 @@ const values = [
 
 const expectations = [
   {
-    icon: "guide",
+    icon: "ph:user-sound-fill",
     title: "Knowledgeable & Engaging Guides",
     body: "Our local guides know Skagway's history — particularly the 1898 Klondike Gold Rush — and have the gift of making it come alive for every passenger.",
   },
   {
-    icon: "camera",
+    icon: "ph:camera-fill",
     title: "Stunning Scenery & Photo Stops",
     body: "6–8 stops on most tours at iconic spots like the 'Welcome to Alaska' sign, Pitchfork Falls, and Tormented Valley. Shots that train tours simply can't match.",
   },
   {
-    icon: "value",
+    icon: "ph:tag-fill",
     title: "Outstanding Value",
     body: "More ground, more stops, more activities than the railroad — at a fraction of the price. Suspension bridge walks, musher camps, and BBQ lunches included on select tours.",
   },
   {
-    icon: "service",
+    icon: "ph:headset-fill",
     title: "Exceptional Service",
     body: "Direct booking, local ownership. We answer the phone, resolve issues fast, and have never missed a ship departure — that's our All Aboard guarantee.",
   },
@@ -121,42 +122,7 @@ const expectations = [
       <div class="ab-values__grid">
         {values.map((v) => (
           <article class="ab-value">
-            <div class="ab-value__icon" aria-hidden="true">
-              {v.icon === "fun" && (
-                <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="20" cy="20" r="15"/>
-                  <path d="M14 24 Q17 28 23 28 Q26 28 26 24"/>
-                  <circle cx="15" cy="17" r="1.5" fill="currentColor" stroke="none"/>
-                  <circle cx="25" cy="17" r="1.5" fill="currentColor" stroke="none"/>
-                </svg>
-              )}
-              {v.icon === "knowledge" && (
-                <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M8 10 Q20 6 32 10 L32 28 Q20 24 8 28 Z"/>
-                  <path d="M20 6 V34"/>
-                  <path d="M26 13 Q29 14 32 13"/>
-                  <path d="M26 18 Q29 19 32 18"/>
-                </svg>
-              )}
-              {v.icon === "genuine" && (
-                <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20 34 C20 34 6 26 6 16 C6 11 10 8 14 8 C16.5 8 18.5 9 20 11 C21.5 9 23.5 8 26 8 C30 8 34 11 34 16 C34 26 20 34 20 34Z"/>
-                </svg>
-              )}
-              {v.icon === "engaging" && (
-                <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="20" cy="14" r="6"/>
-                  <path d="M8 34 Q10 26 20 26 Q30 26 32 34"/>
-                  <path d="M30 12 C32 10 36 12 34 16 C33 18 30 18 29 17"/>
-                  <path d="M10 12 C8 10 4 12 6 16 C7 18 10 18 11 17"/>
-                </svg>
-              )}
-              {v.icon === "professional" && (
-                <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20 6 L24 16 L36 16 L26 22 L30 32 L20 26 L10 32 L14 22 L4 16 L16 16 Z"/>
-                </svg>
-              )}
-            </div>
+            <Icon name={v.icon} class="ab-value__icon" aria-hidden="true" />
             <h3 class="ab-value__title">{v.title}</h3>
             <p class="ab-value__body">{v.body}</p>
           </article>
@@ -192,35 +158,7 @@ const expectations = [
       <div class="ab-expect__grid">
         {expectations.map((e) => (
           <article class="ab-expect-item">
-            <div class="ab-expect-item__icon" aria-hidden="true">
-              {e.icon === "guide" && (
-                <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="20" cy="14" r="6"/>
-                  <path d="M8 36 Q10 26 20 26 Q30 26 32 36"/>
-                  <path d="M26 10 L34 6 M26 14 L34 18" opacity="0.5"/>
-                </svg>
-              )}
-              {e.icon === "camera" && (
-                <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M6 14 Q6 12 8 12 L14 12 L16 8 L24 8 L26 12 L32 12 Q34 12 34 14 L34 32 Q34 34 32 34 L8 34 Q6 34 6 32 Z"/>
-                  <circle cx="20" cy="23" r="6"/>
-                  <circle cx="20" cy="23" r="2.5" fill="currentColor" stroke="none" opacity="0.4"/>
-                </svg>
-              )}
-              {e.icon === "value" && (
-                <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="20" cy="20" r="15"/>
-                  <path d="M20 10 V13 M20 27 V30"/>
-                  <path d="M15 15 Q15 12 20 12 Q25 12 25 16 Q25 20 20 20 Q25 20 25 24 Q25 28 20 28 Q15 28 15 25"/>
-                </svg>
-              )}
-              {e.icon === "service" && (
-                <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M6 10 Q7 8 9.5 12 L12 17 Q12.5 18 11 19.5 L9.5 21 Q13 27 18 31 L19.5 29.5 Q21 28 22 28.5 L27 31 Q31 33 30 34 Q28 36 24 34 Q12 28 6 16 Q3 12 6 10Z"/>
-                  <path d="M24 8 Q30 8 34 14 Q34 20 28 22 M28 26 L28 22 M28 8 V12" opacity="0.5"/>
-                </svg>
-              )}
-            </div>
+            <Icon name={e.icon} class="ab-expect-item__icon" aria-hidden="true" />
             <div class="ab-expect-item__text">
               <h3 class="ab-expect-item__title">{e.title}</h3>
               <p class="ab-expect-item__body">{e.body}</p>
@@ -401,7 +339,12 @@ const expectations = [
     background: rgba(255, 255, 255, 0.08);
     transform: translateY(-3px);
   }
-  .ab-value__icon { color: var(--c-ember-bright); margin-bottom: 0.25rem; }
+  .ab-value__icon {
+    width: 36px;
+    height: 36px;
+    color: var(--c-ember-bright);
+    margin-bottom: 0.25rem;
+  }
   .ab-value__title {
     font-size: 1rem;
     margin: 0;
@@ -442,6 +385,8 @@ const expectations = [
     align-items: flex-start;
   }
   .ab-expect-item__icon {
+    width: 36px;
+    height: 36px;
     color: var(--c-ember);
     flex-shrink: 0;
     margin-top: 0.1rem;

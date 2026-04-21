@@ -1,4 +1,5 @@
 ---
+import { Icon } from "astro-icon/components";
 import { getEntry } from "astro:content";
 
 interface Props {
@@ -39,9 +40,7 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
             <li class="has-dropdown">
               <button type="button" aria-haspopup="true" aria-expanded="false">
                 {item.label}
-                <svg aria-hidden="true" width="10" height="10" viewBox="0 0 10 10">
-                  <path d="M1 3 L5 7 L9 3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" />
-                </svg>
+                <Icon name="ph:caret-down-fill" class="nav-caret" aria-hidden="true" />
               </button>
               <ul class="dropdown" role="menu">
                 {item.children.map((c) => (
@@ -64,9 +63,7 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
     )}
 
     <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
-        <path d="M4 7h16M4 12h16M4 17h16"/>
-      </svg>
+      <Icon name="ph:list-fill" class="nav-toggle__icon" aria-hidden="true" />
     </button>
   </div>
 </header>
@@ -81,9 +78,7 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
           alt={s?.site_name ?? "Skagway Tours"} width="160" height="43" />
       </a>
       <button class="mobile-nav__close" type="button" aria-label="Close menu">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
-          <path d="M5 5L19 19M19 5L5 19"/>
-        </svg>
+        <Icon name="ph:x-bold" class="mobile-nav__close-icon" aria-hidden="true" />
       </button>
     </div>
 
@@ -94,9 +89,7 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
             <li class="mn-item mn-has-sub">
               <button class="mn-link mn-toggle" type="button" aria-expanded="false">
                 {item.label}
-                <svg class="mn-chevron" aria-hidden="true" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                  <path d="M4 7L9 12L14 7"/>
-                </svg>
+                <Icon name="ph:caret-down-fill" class="mn-chevron" aria-hidden="true" />
               </button>
               <ul class="mn-sub">
                 {item.children.map((c) => (
@@ -116,9 +109,7 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
     {phone && (
       <div class="mobile-nav__foot">
         <a href={`tel:${telNum}`} class="mobile-nav__phone">
-          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="currentColor">
-            <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.58.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.01L6.6 10.8z"/>
-          </svg>
+          <Icon name="ph:phone-fill" class="mobile-nav__phone-icon" aria-hidden="true" />
           {phone}
         </a>
       </div>
@@ -375,6 +366,8 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
     transition: background 0.15s ease;
   }
   .nav-toggle:hover { background: rgba(255,255,255,0.08); }
+  .nav-toggle__icon { width: 22px; height: 22px; }
+  .nav-caret { width: 10px; height: 10px; }
 
   /* ── Menu → hamburger at ≤1300px (phone + promo stay) ────────── */
   @media (max-width: 1300px) {
@@ -477,6 +470,7 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
     transition: background 0.15s ease;
   }
   .mobile-nav__close:hover { background: rgba(255,255,255,0.16); }
+  .mobile-nav__close-icon { width: 20px; height: 20px; }
 
   .mobile-nav__links { flex: 1; }
   .mobile-nav__links > ul {
@@ -505,6 +499,8 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
   }
   .mn-link:hover { color: var(--c-ember); text-decoration: none; }
   .mn-chevron {
+    width: 18px;
+    height: 18px;
     transition: transform 0.25s ease;
     flex-shrink: 0;
     opacity: 0.55;
@@ -549,4 +545,5 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
     text-decoration: none;
   }
   .mobile-nav__phone:hover { color: var(--c-ember-bright); text-decoration: underline; }
+  .mobile-nav__phone-icon { width: 22px; height: 22px; }
 </style>

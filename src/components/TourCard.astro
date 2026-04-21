@@ -1,5 +1,6 @@
 ---
 import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
 
 interface Props {
   slug: string;
@@ -62,19 +63,14 @@ const FALLBACK = "https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_we
 
     {!featured && duration && (
       <span class="tour-card__badge" aria-label={`${duration} hour tour`}>
-        <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true">
-          <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2" />
-          <path d="M12 7 V12 L15 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-        </svg>
+        <Icon name="ph:clock-fill" class="tour-card__badge-icon" aria-hidden="true" />
         {duration}h
       </span>
     )}
 
     {videoUrl && (
       <div class="tour-card__play" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="22" height="22">
-          <path d="M7 4 L20 12 L7 20 Z" fill="currentColor" />
-        </svg>
+        <Icon name="ph:play-fill" class="tour-card__play-icon" aria-hidden="true" />
       </div>
     )}
   </div>
@@ -171,9 +167,12 @@ const FALLBACK = "https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_we
     transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
     pointer-events: none;
   }
-  .tour-card__play svg {
+  .tour-card__play-icon {
+    width: 22px;
+    height: 22px;
     transform: translateX(1px);
   }
+  .tour-card__badge-icon { width: 12px; height: 12px; }
   .tour-card__media--playable:hover .tour-card__play {
     background: var(--c-ember);
     transform: scale(1.15);

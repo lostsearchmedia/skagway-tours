@@ -1,4 +1,5 @@
 ---
+import { Icon } from "astro-icon/components";
 import { getEntry } from "astro:content";
 
 const site = await getEntry("site", "default");
@@ -10,34 +11,22 @@ const telNum = rawPhone.replace(/[^\d+]/g, "");
 
 <nav class="mob-bar" aria-label="Quick contact">
   <a href={`tel:${telNum}`} class="mob-bar__item">
-    <!-- Phone fill -->
-    <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-      <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.58.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.01L6.6 10.8z"/>
-    </svg>
+    <Icon name="ph:phone-fill" class="mob-bar__icon" aria-hidden="true" />
     <span>Call</span>
   </a>
 
   <a href={`sms:${telNum}`} class="mob-bar__item">
-    <!-- Chat bubble fill -->
-    <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-      <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
-    </svg>
+    <Icon name="ph:chat-circle-text-fill" class="mob-bar__icon" aria-hidden="true" />
     <span>Text</span>
   </a>
 
   <a href={`mailto:${email}`} class="mob-bar__item">
-    <!-- Envelope fill -->
-    <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-      <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-    </svg>
+    <Icon name="ph:envelope-fill" class="mob-bar__icon" aria-hidden="true" />
     <span>Email</span>
   </a>
 
   <a href="/find-us/" class="mob-bar__item">
-    <!-- Location pin fill -->
-    <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-    </svg>
+    <Icon name="ph:map-pin-fill" class="mob-bar__icon" aria-hidden="true" />
     <span>Find Us</span>
   </a>
 </nav>
@@ -86,5 +75,5 @@ const telNum = rawPhone.replace(/[^\d+]/g, "");
     background: var(--c-paper-soft);
     text-decoration: none;
   }
-  .mob-bar__item svg { flex-shrink: 0; }
+  .mob-bar__icon { width: 22px; height: 22px; flex-shrink: 0; }
 </style>

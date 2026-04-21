@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { Icon } from "astro-icon/components";
 import { getEntry } from "astro:content";
 
 const entry = await getEntry("pages", "cancellation-policy");
@@ -10,32 +11,32 @@ const KPP_EXAMPLE = "https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s
 
 const policyPoints = [
   {
-    icon: "calendar",
+    icon: "ph:calendar-fill",
     title: "14-Day Window",
     body: "All tours are nonrefundable within 14 days of travel. Purchase our Klondike Prospector Protection at booking for refunds up to tour departure.",
   },
   {
-    icon: "swap",
+    icon: "ph:arrows-left-right-fill",
     title: "Changes & Date Swaps",
     body: "Time changes or date changes are permitted with a 20% penalty for all independent bookings.",
   },
   {
-    icon: "ship",
+    icon: "ph:boat-fill",
     title: "Ship No-Shows",
     body: "A full refund is processed for ALL tours if your ship doesn't arrive in port — or arrives too late for us to accommodate you on a later departure.",
   },
   {
-    icon: "link",
+    icon: "ph:link-fill",
     title: "Third-Party Bookings",
     body: "Tours booked through a third party are subject to the rules and policies set by that operator.",
   },
   {
-    icon: "id",
+    icon: "ph:identification-card-fill",
     title: "Border ID",
     body: "All tours require proper ORIGINAL government identification. Failure to bring the correct ID will result in a forfeit of your funds paid.",
   },
   {
-    icon: "lock",
+    icon: "ph:lock-fill",
     title: "Custom & Private Tours",
     body: "Custom or Private tour sales are final. Tour price is forfeited if canceled for any reason other than your ship not arriving or arriving too late.",
   },
@@ -82,24 +83,7 @@ const refundProcess = [
         {policyPoints.map((point) => (
           <article class="cnl-policy-card">
             <div class="cnl-policy-card__icon" aria-hidden="true">
-              {point.icon === "calendar" && (
-                <svg viewBox="0 0 40 40" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="10" width="28" height="24" rx="2"/><path d="M6 18 H34 M14 6 V14 M26 6 V14"/><circle cx="14" cy="26" r="1.5" fill="currentColor" stroke="none"/></svg>
-              )}
-              {point.icon === "swap" && (
-                <svg viewBox="0 0 40 40" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 14 H30 L26 10 M32 26 H10 L14 30"/></svg>
-              )}
-              {point.icon === "ship" && (
-                <svg viewBox="0 0 40 40" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 26 Q20 32 32 26 L34 20 H6 Z"/><path d="M20 20 V10 M14 14 H26"/></svg>
-              )}
-              {point.icon === "link" && (
-                <svg viewBox="0 0 40 40" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 24 L24 16"/><path d="M20 12 L24 8 Q30 6 32 12 Q34 16 30 20 L28 22"/><path d="M20 28 L16 32 Q10 34 8 28 Q6 24 10 20 L12 18"/></svg>
-              )}
-              {point.icon === "id" && (
-                <svg viewBox="0 0 40 40" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="10" width="28" height="20" rx="2"/><circle cx="14" cy="20" r="3"/><path d="M22 18 H30 M22 24 H28"/></svg>
-              )}
-              {point.icon === "lock" && (
-                <svg viewBox="0 0 40 40" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="18" width="20" height="16" rx="2"/><path d="M14 18 V13 Q14 7 20 7 Q26 7 26 13 V18"/></svg>
-              )}
+              <Icon name={point.icon} class="cnl-policy-card__icon-svg" aria-hidden="true" />
             </div>
             <h3>{point.title}</h3>
             <p>{point.body}</p>
@@ -284,6 +268,7 @@ const refundProcess = [
     justify-content: center;
     margin-bottom: 1rem;
   }
+  .cnl-policy-card__icon-svg { width: 28px; height: 28px; }
   .cnl-policy-card h3 {
     font-size: 1.2rem;
     margin: 0 0 0.5rem;

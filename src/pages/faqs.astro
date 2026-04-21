@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
+import { Icon } from "astro-icon/components";
 import { getCollection, render } from "astro:content";
 
 const all = await getCollection("faqs");
@@ -47,9 +48,7 @@ const renderedMap = new Map(rendered.map(({ faq, Content }) => [faq.id, Content]
                 <details class="faq">
                   <summary>
                     <span>{faq.data.question}</span>
-                    <svg aria-hidden="true" viewBox="0 0 20 20" width="18" height="18">
-                      <path d="M5 8 L10 13 L15 8" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" />
-                    </svg>
+                    <Icon name="ph:caret-down-fill" class="faq__chevron" aria-hidden="true" />
                   </summary>
                   <div class="faq__body prose">
                     <Content />
@@ -91,8 +90,13 @@ const renderedMap = new Map(rendered.map(({ faq, Content }) => [faq.id, Content]
     color: var(--c-ink);
   }
   .faq summary::-webkit-details-marker { display: none; }
-  .faq[open] summary svg { transform: rotate(180deg); }
-  .faq summary svg { transition: transform 0.2s ease; color: var(--c-ember); }
+  .faq__chevron {
+    width: 18px;
+    height: 18px;
+    color: var(--c-ember);
+    transition: transform 0.2s ease;
+  }
+  .faq[open] summary .faq__chevron { transform: rotate(180deg); }
   .faq__body {
     padding: 0 1.25rem 1.25rem;
     color: var(--c-ink-soft);
