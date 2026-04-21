@@ -186,12 +186,15 @@ const galleryTrack = galleryImages.length
     </div>
   </section>
 
-  <!-- Guest reviews (Elfsight Google Reviews) -->
-  <section class="section home-reviews section--paper-soft">
+  <!-- Guest reviews (Elfsight Google Reviews) - immersive dark overlay -->
+  <section
+    class="section home-reviews"
+    style={`background-image: linear-gradient(rgba(31,28,57,0.82), rgba(41,37,70,0.86)), url('https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_webp,p_h/skagway.tours/wp-content/uploads/2024/02/st_wide.jpg');`}
+  >
     <div class="container">
       <div class="section__head">
         <span class="script script--accent section__script">What guests say</span>
-        <h2>Real stories from the road.</h2>
+        <h2 class="home-reviews__heading">Real stories from the road.</h2>
       </div>
       <div class="home-reviews__widget">
         <script src="https://elfsightcdn.com/platform.js" async is:inline></script>
@@ -200,17 +203,14 @@ const galleryTrack = galleryImages.length
     </div>
   </section>
 
-  <!-- Full-screen image moment -->
+  <!-- Klondike callout — white section with image-filled headline -->
   {
     fullBleed && fullBleed.image && (
-      <section
-        class="full-bleed"
-        style={`background-image: linear-gradient(rgba(41,37,70,0.55), rgba(41,37,70,0.72)), url('${fullBleed.image}');`}
-      >
-        <div class="container full-bleed__inner">
+      <section class="section klondike">
+        <div class="container klondike__inner">
           {fullBleed.eyebrow && (
             <span
-              class="script script--accent full-bleed__script"
+              class="script script--accent klondike__script"
               data-editable="text"
               data-prop="full_bleed.eyebrow"
             >
@@ -219,7 +219,8 @@ const galleryTrack = galleryImages.length
           )}
           {fullBleed.title && (
             <p
-              class="splash-heading full-bleed__heading"
+              class="splash-heading klondike__heading"
+              style={`background-image: url('${fullBleed.image}');`}
               data-editable="text"
               data-prop="full_bleed.title"
             >
@@ -228,7 +229,7 @@ const galleryTrack = galleryImages.length
           )}
           {fullBleed.body && (
             <p
-              class="full-bleed__lead"
+              class="klondike__lead"
               data-editable="text"
               data-prop="full_bleed.body"
             >
@@ -236,16 +237,10 @@ const galleryTrack = galleryImages.length
             </p>
           )}
           {fullBleed.cta_label && fullBleed.cta_href && (
-            <a href={fullBleed.cta_href} class="button button--white full-bleed__cta">
+            <a href={fullBleed.cta_href} class="button button--dark klondike__cta">
               {fullBleed.cta_label}
             </a>
           )}
-        </div>
-        <div class="full-bleed__scroll" aria-hidden="true">
-          <span>Keep going</span>
-          <svg viewBox="0 0 24 24" width="18" height="18">
-            <path d="M6 9 L12 15 L18 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
         </div>
       </section>
     )
@@ -472,74 +467,58 @@ const galleryTrack = galleryImages.length
   .why-us__item h3 { font-size: 1.1rem; margin: 0; color: var(--c-ink); }
   .why-us__item p { margin: 0; font-size: 0.95rem; color: var(--c-ink-soft); }
 
-  /* --- Home reviews widget ----------------------------------------- */
-  .home-reviews__widget {
-    width: 100%;
-  }
-
-  /* --- Full-bleed image moment ------------------------------------- */
-  .full-bleed {
-    position: relative;
-    min-height: 100vh;
-    min-height: 100svh;
-    display: grid;
-    place-items: center;
+  /* --- Home reviews (immersive dark overlay) ----------------------- */
+  .home-reviews {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     color: var(--c-paper);
-    padding: clamp(4rem, 10vh, 8rem) 1.25rem;
-    overflow: hidden;
   }
-  .full-bleed__inner {
+  .home-reviews__heading {
+    color: var(--c-paper);
+  }
+  .home-reviews__widget {
+    width: 100%;
+  }
+
+  /* --- Klondike callout (white, image-filled headline) ------------- */
+  .klondike {
+    background: #fff;
+  }
+  .klondike__inner {
     text-align: center;
-    max-width: 52ch;
+    max-width: 900px;
+    margin-inline: auto;
   }
-  .full-bleed__script {
+  .klondike__script {
     display: block;
     font-size: clamp(2rem, 3vw + 1rem, 2.75rem);
-    color: var(--c-ember-bright, #ff8a5b);
+    color: var(--c-ember);
     margin-bottom: 0.25rem;
   }
-  .full-bleed__heading {
+  .klondike__heading {
     white-space: normal;
-    color: var(--c-paper);
     margin: 0;
     font-size: clamp(3rem, 8vw + 1rem, 7rem);
     line-height: 0.95;
     letter-spacing: -0.02em;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
-  .full-bleed__lead {
-    margin: 1.75rem auto 0;
-    color: rgba(246,241,231,0.9);
+  .klondike__lead {
+    margin: 1.5rem auto 0;
+    color: var(--c-ink-soft);
     font-size: 1.1rem;
     line-height: 1.6;
+    max-width: 52ch;
   }
-  .full-bleed__cta {
-    margin-top: 2rem;
-  }
-  .full-bleed__scroll {
-    position: absolute;
-    bottom: 1.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.4rem;
-    color: rgba(246,241,231,0.75);
-    font-family: var(--font-display);
-    font-size: 0.7rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    animation: full-bleed-bounce 2.4s ease-in-out infinite;
-  }
-  @keyframes full-bleed-bounce {
-    0%, 100% { transform: translate(-50%, 0); opacity: 0.75; }
-    50%      { transform: translate(-50%, 6px); opacity: 1; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .full-bleed__scroll { animation: none; }
+  .klondike__cta {
+    margin-top: 1.75rem;
   }
 
   /* --- Callouts ---------------------------------------------------- */
