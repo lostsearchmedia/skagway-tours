@@ -67,7 +67,7 @@ const toursSection = d.tours_section;
                 videoUrl={tour.data.video_url}
                 fareharborItemId={tour.data.fareharbor_item_id}
                 featured={tour.id === "private-luxury-tours" || tour.id === "group-sales"}
-                featuredColor={tour.id === "group-sales" ? "#234a3a" : "#292546"}
+                featuredColor={tour.id === "group-sales" ? "#1f1c39" : "#292546"}
                 featuredIcon={tour.id === "group-sales" ? "group" : "luxury"}
               />
             ))}
@@ -226,6 +226,14 @@ const toursSection = d.tours_section;
     flex-wrap: wrap;
   }
   .passport-note p { margin: 0; flex: 1; min-width: 0; }
+  @media (max-width: 640px) {
+    .passport-note__inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .passport-note__inner svg { display: none; }
+  }
 
   /* --- Why us (moss-green block) ----------------------------------- */
   .why-us__head {
@@ -323,7 +331,11 @@ const toursSection = d.tours_section;
 
   /* --- Splash heading ----------------------------------------------- */
   .splash-section {
-    background: var(--c-paper);
+    background-image:
+      linear-gradient(rgba(41,37,70,0.68), rgba(41,37,70,0.68)),
+      url('https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_webp/skagway.tours/wp-content/uploads/2026/02/skagway-bg.jpg');
+    background-size: cover;
+    background-position: center;
     overflow: hidden;
     padding-block: clamp(4rem, 8vw, 8rem);
   }
@@ -339,13 +351,13 @@ const toursSection = d.tours_section;
   }
   .splash-section__heading {
     white-space: normal;
-    color: var(--c-ink);
+    color: var(--c-paper);
     margin: 0;
   }
   .splash-section__lead {
     max-width: 48ch;
     margin: 1.5rem auto 0;
-    color: var(--c-ink-soft);
+    color: rgba(246,241,231,0.82);
     font-size: 1.1rem;
   }
 
