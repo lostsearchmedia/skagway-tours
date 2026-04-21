@@ -11,8 +11,9 @@ tours_section:
   title: A story you'll tell forever.
   empty_message: Tours will appear here once content is added in CloudCannon.
 gallery_section:
-  eyebrow: Moments from the road
-  title: ""
+  eyebrow: From Skagway, into the Yukon
+  title: "The road beyond the port town."
+  body: Leave the cruise ship behind and climb the South Klondike Highway. Glacial air sharp against your face, black spruce rolling past the window, and stories that start where the pavement runs out. This is the Alaska most visitors never see — and you are an hour away from the heart of it.
   images:
     - https://picsum.photos/seed/skagway-yukon-01/800/800
     - https://picsum.photos/seed/skagway-yukon-02/800/800
@@ -34,12 +35,6 @@ full_bleed:
   cta_label: Browse tours
   cta_href: /#tours
 callouts:
-  - variant: primary
-    eyebrow: The road less traveled
-    title: "Beyond the port town — into the real Yukon."
-    body: Leaving Skagway and heading up the South Klondike Highway is unlike anything else in Southeast Alaska. Beyond the Inside Passage ports, the wild Yukon frontier opens up. You have to see it to believe it.
-    cta_label: Browse tours
-    cta_href: /#tours
   - variant: default
     eyebrow: Travel agents
     title: Plan Skagway itineraries for your clients.

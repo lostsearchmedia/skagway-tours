@@ -48,39 +48,6 @@ const galleryTrack = galleryImages.length
     )
   }
 
-  <!-- Intro: sensory brand promise -->
-  {
-    intro && (
-      <section class="section intro">
-        <div class="container intro__inner">
-          <span
-            class="script script--accent intro__script"
-            data-editable="text"
-            data-prop="intro_section.eyebrow"
-          >
-            {intro.eyebrow}
-          </span>
-          <h2
-            class="intro__title"
-            data-editable="text"
-            data-prop="intro_section.title"
-          >
-            {intro.title}
-          </h2>
-          {intro.body && (
-            <p
-              class="intro__body"
-              data-editable="text"
-              data-prop="intro_section.body"
-            >
-              {intro.body}
-            </p>
-          )}
-        </div>
-      </section>
-    )
-  }
-
   <!-- Tours section -->
   <section id="tours" class="section tours-section">
     <div class="container">
@@ -122,8 +89,8 @@ const galleryTrack = galleryImages.length
   {
     galleryTrack.length > 0 && (
       <section class="gallery-marquee" aria-label="Tour photo gallery">
-        {gallery.eyebrow && (
-          <div class="gallery-marquee__head container">
+        <div class="gallery-marquee__head container">
+          {gallery.eyebrow && (
             <span
               class="script script--accent gallery-marquee__script"
               data-editable="text"
@@ -131,17 +98,26 @@ const galleryTrack = galleryImages.length
             >
               {gallery.eyebrow}
             </span>
-            {gallery.title && (
-              <h2
-                class="gallery-marquee__title"
-                data-editable="text"
-                data-prop="gallery_section.title"
-              >
-                {gallery.title}
-              </h2>
-            )}
-          </div>
-        )}
+          )}
+          {gallery.title && (
+            <h2
+              class="gallery-marquee__title"
+              data-editable="text"
+              data-prop="gallery_section.title"
+            >
+              {gallery.title}
+            </h2>
+          )}
+          {gallery.body && (
+            <p
+              class="gallery-marquee__body"
+              data-editable="text"
+              data-prop="gallery_section.body"
+            >
+              {gallery.body}
+            </p>
+          )}
+        </div>
 
         <div class="gallery-marquee__viewport">
           <div class="gallery-marquee__track">
@@ -339,35 +315,6 @@ const galleryTrack = galleryImages.length
     .passport-note__inner svg { display: none; }
   }
 
-  /* --- Intro section ----------------------------------------------- */
-  .intro {
-    background: #fff;
-    padding-block: clamp(3rem, 6vw, 5rem);
-  }
-  .intro__inner {
-    max-width: 62ch;
-    text-align: center;
-  }
-  .intro__script {
-    display: block;
-    font-size: 2rem;
-    color: var(--c-ember);
-    margin-bottom: 0.25rem;
-  }
-  .intro__title {
-    font-size: clamp(1.75rem, 3vw + 1rem, 2.75rem);
-    letter-spacing: -0.01em;
-    text-transform: uppercase;
-    margin: 0 0 1.25rem;
-    color: var(--c-ink);
-  }
-  .intro__body {
-    margin: 0;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: var(--c-ink-soft);
-  }
-
   /* --- Tours section ----------------------------------------------- */
   .tours-section {
     background-image:
@@ -407,6 +354,13 @@ const galleryTrack = galleryImages.length
     margin: 0.25rem 0 0;
     font-size: clamp(1.5rem, 2.5vw + 0.5rem, 2.25rem);
     text-transform: uppercase;
+  }
+  .gallery-marquee__body {
+    margin: 0.75rem auto 0;
+    max-width: 56ch;
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--c-ink-soft);
   }
   .gallery-marquee__viewport {
     width: 100%;
@@ -570,10 +524,10 @@ const galleryTrack = galleryImages.length
   /* --- Callouts ---------------------------------------------------- */
   .callouts__grid {
     display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
   }
-  @media (max-width: 880px) {
+  @media (max-width: 700px) {
     .callouts__grid { grid-template-columns: 1fr; }
   }
   .callout {

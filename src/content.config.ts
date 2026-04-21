@@ -80,8 +80,9 @@ const pages = defineCollection({
           .default({}),
         gallery_section: z
           .object({
-            eyebrow: z.string().default("Moments from the road"),
+            eyebrow: z.string().default("From Skagway, into the Yukon"),
             title: z.string().default(""),
+            body: z.string().default(""),
             images: z.array(z.string()).default([]),
           })
           .default({}),
