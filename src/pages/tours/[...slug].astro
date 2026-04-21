@@ -57,19 +57,22 @@ const d = tour.data;
           )}
           {d.price_from && (
             <div class="tour-stat">
-              <span class="tour-stat__label">Adults (13+) from</span>
+              <span class="tour-stat__label">Adults</span>
+              <span class="tour-stat__sublabel">Ages 12+</span>
               <span class="tour-stat__value">${d.price_from}</span>
             </div>
           )}
           {d.price_child && (
             <div class="tour-stat">
-              <span class="tour-stat__label">Kids (2–11) from</span>
+              <span class="tour-stat__label">Children</span>
+              <span class="tour-stat__sublabel">Ages 2–11</span>
               <span class="tour-stat__value">${d.price_child}</span>
             </div>
           )}
           {(d.price_from || d.price_child) && (
             <div class="tour-stat">
-              <span class="tour-stat__label">Infants under 2</span>
+              <span class="tour-stat__label">Lap Child</span>
+              <span class="tour-stat__sublabel">Under 2 years old</span>
               <span class="tour-stat__value">Free</span>
             </div>
           )}
@@ -248,10 +251,10 @@ const d = tour.data;
     display: grid;
     grid-template-columns: 1fr 400px;
     gap: 3rem;
-    padding: 3rem 0 1rem;
+    padding: 3rem 0 clamp(3rem, 6vw, 5rem);
   }
   @media (max-width: 880px) {
-    .tour__layout { grid-template-columns: 1fr; padding-bottom: 5rem; }
+    .tour__layout { grid-template-columns: 1fr; padding-bottom: 7rem; }
   }
 
   .booking-card {
@@ -333,6 +336,15 @@ const d = tour.data;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--c-ink-soft);
+  }
+  .tour-stat__sublabel {
+    font-family: var(--font-display);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-ink-soft);
+    opacity: 0.7;
+    margin-top: -0.1rem;
   }
   .tour-stat__value {
     font-family: var(--font-display);
