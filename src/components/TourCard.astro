@@ -46,7 +46,7 @@ const FALLBACK = "https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_we
   <div
     class:list={["tour-card__media", videoUrl && "tour-card__media--playable"]}
     data-video-src={videoUrl || undefined}
-    style={featured ? `--featured-color: ${featuredColor};` : undefined}
+    style={undefined}
     role={videoUrl ? "button" : undefined}
     tabindex={videoUrl ? 0 : undefined}
     aria-label={videoUrl ? `Watch ${title} video` : undefined}
@@ -57,28 +57,7 @@ const FALLBACK = "https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_we
     )}
 
     {featured && (
-      <>
-        <img class="tour-card__media-fallback" src={FALLBACK} alt="" loading="lazy" />
-        <div class="tour-card__media-overlay"></div>
-        <div class="tour-card__featured-art">
-          <div class="tour-card__featured-rings" aria-hidden="true"></div>
-          {featuredIcon === "group" ? (
-            <svg viewBox="0 0 64 64" width="64" height="64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="22" cy="20" r="9"/>
-              <circle cx="42" cy="20" r="9"/>
-              <path d="M4 54 Q6 40 22 40 Q30 40 32 44 Q34 40 42 40 Q58 40 60 54"/>
-            </svg>
-          ) : (
-            <svg viewBox="0 0 64 64" width="64" height="64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M32 8 L38 24 L56 24 L42 34 L48 50 L32 40 L16 50 L22 34 L8 24 L26 24 Z"/>
-              <circle cx="32" cy="32" r="28" stroke-opacity="0.2"/>
-            </svg>
-          )}
-          <span class="tour-card__featured-label">
-            {featuredIcon === "group" ? "Group Tours" : "Private & Exclusive"}
-          </span>
-        </div>
-      </>
+      <img class="tour-card__media-fallback" src={FALLBACK} alt="" loading="lazy" />
     )}
 
     {!featured && duration && (
@@ -172,16 +151,8 @@ const FALLBACK = "https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_we
     object-fit: cover;
   }
 
-  /* Color overlay for featured cards (sits above photo, below art) */
-  .tour-card__media-overlay {
-    position: absolute; inset: 0;
-    background: var(--featured-color, #1f1c39);
-    opacity: 0.78;
-    z-index: 1;
-  }
-  .tour-card__featured-art { z-index: 2; }
-  .tour-card__play { z-index: 3; }
-  .tour-card__badge { z-index: 3; }
+  .tour-card__play { z-index: 2; }
+  .tour-card__badge { z-index: 2; }
 
   /* ── Play button ────────────────────────────────────────────── */
   .tour-card__play {
@@ -207,36 +178,6 @@ const FALLBACK = "https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_we
     background: var(--c-ember);
     transform: scale(1.15);
     box-shadow: 0 4px 16px rgba(0,0,0,0.35);
-  }
-
-  /* ── Featured art area ─────────────────────────────────────── */
-  .tour-card__featured-art {
-    position: absolute; inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    color: rgba(255, 255, 255, 0.9);
-  }
-  .tour-card__featured-rings {
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(circle at 50% 50%, rgba(255,255,255,0.06) 30%, transparent 70%),
-      radial-gradient(circle at 20% 80%, rgba(255,255,255,0.04) 20%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(255,255,255,0.04) 20%, transparent 50%);
-  }
-  .tour-card__featured-art svg {
-    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.25));
-    opacity: 0.9;
-  }
-  .tour-card__featured-label {
-    font-family: var(--font-display);
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    opacity: 0.75;
   }
 
   /* ── Duration badge ─────────────────────────────────────────── */
