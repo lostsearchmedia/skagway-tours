@@ -9,15 +9,29 @@ const year = new Date().getFullYear();
 <footer class="site-footer">
   <div class="container site-footer__inner">
     <div class="site-footer__brand">
-      <a href="/" class="brand brand--footer">
-        <span class="brand__mark">ST</span>
-        <span class="brand__name">{s?.site_name ?? "Skagway Tours"}</span>
+      <a href="/" class="site-footer__logo-link" aria-label="Skagway Tours home">
+        <img
+          src="https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_webp/skagway.tours/wp-content/uploads/2024/02/skagwaytours_logo.svg"
+          alt={s?.site_name ?? "Skagway Tours"}
+          width="160"
+          height="48"
+          loading="lazy"
+          class="site-footer__logo"
+        />
       </a>
       <p class="site-footer__tagline">{s?.tagline}</p>
       {
+        s?.address && (
+          <p class="site-footer__contact site-footer__address">
+            {s.address.split("\n").map((line, i) => (
+              <>{line}{i < s.address!.split("\n").length - 1 && <br />}</>
+            ))}
+          </p>
+        )
+      }
+      {
         s?.phone && (
           <p class="site-footer__contact">
-            <strong>{s.phone_label ?? "Call"}:</strong>{" "}
             <a href={`tel:${s.phone.replace(/[^+\d]/g, "")}`}>{s.phone}</a>
           </p>
         )
@@ -25,7 +39,7 @@ const year = new Date().getFullYear();
       {
         s?.email && (
           <p class="site-footer__contact">
-            <strong>Email:</strong> <a href={`mailto:${s.email}`}>{s.email}</a>
+            <a href={`mailto:${s.email}`}>{s.email}</a>
           </p>
         )
       }
@@ -69,10 +83,20 @@ const year = new Date().getFullYear();
   @media (max-width: 780px) {
     .site-footer__inner { grid-template-columns: 1fr; gap: 2rem; }
   }
-  .site-footer__tagline { opacity: 0.8; max-width: 38ch; }
-  .site-footer__contact { margin: 0.25rem 0; }
+  .site-footer__logo-link { display: inline-block; margin-bottom: 1rem; }
+  .site-footer__logo {
+    display: block;
+    height: 44px;
+    width: auto;
+    /* Invert dark logo to white for the dark footer background */
+    filter: brightness(0) invert(1);
+    opacity: 0.92;
+  }
+  .site-footer__tagline { opacity: 0.8; max-width: 38ch; margin-bottom: 0.75rem; }
+  .site-footer__contact { margin: 0.2rem 0; font-size: 0.92rem; opacity: 0.85; }
+  .site-footer__address { line-height: 1.5; }
   .site-footer__contact a { color: var(--c-paper); }
-  .site-footer__contact a:hover { color: var(--c-ember-bright); }
+  .site-footer__contact a:hover { color: var(--c-ember-bright); opacity: 1; }
 
   .site-footer__groups {
     display: grid;

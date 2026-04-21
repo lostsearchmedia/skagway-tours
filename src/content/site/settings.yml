@@ -8,7 +8,8 @@
   default_og_image: ""
   phone: "+1-907-000-0000"
   phone_label: "Call or text"
-  email: hello@skagway.tours
+  email: info@skagway.tours
+  address: "401 5th Avenue\nSkagway AK 99840"
   # FareHarbor short-name (the part after /embeds/book/ in your widget URL).
   # Example: if your embed URL is https://fareharbor.com/embeds/book/skagwaytours/
   # then fareharbor_shortname = "skagwaytours"

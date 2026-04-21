@@ -181,6 +181,7 @@ const site = defineCollection({
     phone: z.string().optional(),
     phone_label: z.string().default("Call"),
     email: z.string().optional(),
+    address: z.string().optional(),
     fareharbor_shortname: z.string().optional(),
     booking_url: z.string().optional(),
     hero: z
