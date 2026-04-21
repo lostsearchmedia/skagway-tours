@@ -97,7 +97,6 @@ p {
   font-family: var(--font-accent);
   font-weight: 700;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
   font-size: 1.05rem;
   color: var(--c-ember);
 }
@@ -199,7 +198,6 @@ p {
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
   color: var(--c-ember);
 }
 .feature-card--dark .feature-card__eyebrow { color: var(--c-ember-bright); }
