@@ -8,6 +8,7 @@ interface Props {
   image?: ImageMetadata;
   duration?: number;
   priceFrom?: number;
+  priceChild?: number;
   videoUrl?: string;
   fareharborItemId?: string;
   featured?: boolean;
@@ -22,12 +23,18 @@ const {
   image,
   duration,
   priceFrom,
+  priceChild,
   videoUrl,
   fareharborItemId,
   featured = false,
   featuredColor = "#234a3a",
   featuredIcon = "group",
 } = Astro.props;
+
+const candidatePrices = [priceFrom, priceChild].filter(
+  (p): p is number => typeof p === "number" && p > 0
+);
+const displayPrice = candidatePrices.length ? Math.min(...candidatePrices) : undefined;
 
 const detailHref = `/tours/${slug}/`;
 ---
@@ -101,10 +108,10 @@ const detailHref = `/tours/${slug}/`;
 
     <div class="tour-card__footer">
       <div class="tour-card__price">
-        {priceFrom && (
+        {displayPrice && (
           <>
             <span class="tour-card__price-label">From</span>
-            <span class="tour-card__price-value">${priceFrom}</span>
+            <span class="tour-card__price-value">${displayPrice}</span>
           </>
         )}
       </div>

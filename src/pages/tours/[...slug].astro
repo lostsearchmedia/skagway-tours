@@ -132,11 +132,14 @@ const d = tour.data;
 
       <aside class="tour__sidebar">
         {d.fareharbor_item_id && (
-          <div id="tour-calendar" class="booking-card calendar-embed">
-            <script
-              is:inline
-              src={`https://fareharbor.com/embeds/script/calendar/skagway/items/${d.fareharbor_item_id}/?fallback=simple&full-items=yes&flow=${d.fareharbor_flow ?? "no"}`}
-            />
+          <div class="booking-block">
+            <h3 class="booking-block__heading">Ready to Book</h3>
+            <div id="tour-calendar" class="booking-card calendar-embed">
+              <script
+                is:inline
+                src={`https://fareharbor.com/embeds/script/calendar/skagway/items/${d.fareharbor_item_id}/?fallback=simple&full-items=yes&flow=${d.fareharbor_flow ?? "no"}`}
+              />
+            </div>
           </div>
         )}
         <div class="tour__before">
@@ -414,17 +417,50 @@ const d = tour.data;
     color: rgba(255,255,255,0.9);
   }
 
+  /* ── Sidebar stacking ───────────────────────────────────────── */
+  .tour__sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  /* ── Booking block (heading + calendar) ─────────────────────── */
+  .booking-block__heading {
+    margin: 0 0 0.75rem;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--c-ink);
+  }
+
   /* ── Before your tour (sidebar) ─────────────────────────────── */
   .tour__before {
-    background: #fff;
-    border: 1px solid var(--c-fog);
+    background: var(--c-ink);
+    color: var(--c-paper);
+    border: 1px solid var(--c-ink);
     border-radius: 16px;
     padding: 1.5rem;
     box-shadow: 0 10px 30px -12px rgba(41, 37, 70,0.15);
   }
-  .tour__before h3 { margin-top: 0; }
+  .tour__before h3 {
+    margin-top: 0;
+    color: var(--c-paper);
+  }
   .tour__before ul { margin: 0; padding-left: 1.1rem; }
-  .tour__before li { margin-bottom: 0.5rem; font-size: 0.92rem; }
+  .tour__before li {
+    margin-bottom: 0.5rem;
+    font-size: 0.92rem;
+    color: rgba(246, 241, 231, 0.88);
+  }
+  .tour__before a {
+    color: var(--c-ember-bright, #ff6b6b);
+    text-decoration: underline;
+  }
+  .tour__before a:hover {
+    color: #fff;
+  }
 
   /* Accordion treatment for #tour-body — JS below transforms each <h2> +
      following content into a <details>. Progressive enhancement: content
