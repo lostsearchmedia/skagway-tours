@@ -1,5 +1,6 @@
 ---
 title: Pet the Puppies & Summit Combo
+video_url: "https://www.youtube.com/watch?v=NMymm80o0u8"
 summary: A 4.5-hour family favorite — cross the White Pass into Canada, then spend unhurried time at a remote sled dog camp cuddling Alaskan Husky puppies and hearing how future race champions are raised.
 price_from: 109
 price_child: 99

@@ -1,5 +1,6 @@
 ---
 title: Bridge, Puppies & Summit Triple Combo
+video_url: "https://www.youtube.com/watch?v=azr1CihlbxQ"
 summary: Our highest-rated day out — one shared story told in three chapters. The White Pass Summit, Alaskan Husky puppies at a remote sled dog camp, and the Yukon Suspension Bridge, all in 5.25 hours.
 price_from: 149
 price_child: 139

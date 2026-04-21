@@ -1,5 +1,6 @@
 ---
 title: Private Luxury Tours
+video_url: "https://www.youtube.com/watch?v=EpMs2c2_qVE"
 summary: Charter an entire 13-passenger van exclusively for your party. Your route, your pace, your guide — no strangers, no compromises. The ultimate Skagway experience tailored entirely to you.
 highlights:
   - Exclusive use of a 13-passenger van — no shared seating

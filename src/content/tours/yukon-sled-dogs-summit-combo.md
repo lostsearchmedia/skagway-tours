@@ -1,5 +1,6 @@
 ---
 title: Yukon Sled Dogs & Summit Combo
+video_url: "https://www.youtube.com/watch?v=5h8yY6m3TgY"
 summary: A 4.5-hour adventure across the White Pass to a remote Yukon sled dog camp — complete with a 15–20 minute cart ride pulled by real working sled dogs training for the Iditarod and Yukon Quest.
 price_from: 175
 price_child: 165

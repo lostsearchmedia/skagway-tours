@@ -1,5 +1,6 @@
 ---
 title: Wild Adventure Yukon & Emerald Lake
+video_url: "https://www.youtube.com/watch?v=TCCbJVpxu-g"
 summary: Our farthest tour — 6.5 hours tracing 4,000 years of Klondike history from the Tlingit trading trails to the Gold Rush, the railroad, and the Alcan. Carcross Desert, Emerald Lake, and a family-style BBQ lunch included.
 price_from: 152
 price_child: 142

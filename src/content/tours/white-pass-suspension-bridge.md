@@ -1,5 +1,6 @@
 ---
 title: White Pass Summit & Yukon Suspension Bridge
+video_url: "https://www.youtube.com/watch?v=OzblpTeAiDg"
 summary: A 3.5-hour Klondike Highway tour that carries you over the White Pass and across the Yukon Suspension Bridge — with time to walk, read the interpretive signs, and sip a hot drink over swift river rapids.
 price_from: 119
 price_child: 109
