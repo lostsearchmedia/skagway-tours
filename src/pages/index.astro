@@ -23,9 +23,8 @@ const gallery = d.gallery_section;
 const fullBleed = d.full_bleed;
 
 const GALLERY_FALLBACK = "https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_webp,p_h/skagway.tours/wp-content/uploads/2024/02/st_wide.jpg";
-const galleryImages = gallery?.images ?? [];
-const displayImages = galleryImages.length ? galleryImages : Array.from({ length: 9 }, () => GALLERY_FALLBACK);
-const galleryTrack = [...displayImages, ...displayImages];
+// 20 identical copies — animating exactly 1 item width per loop makes the reset invisible
+const galleryTrack = Array.from({ length: 20 }, () => GALLERY_FALLBACK);
 ---
 
 <BaseLayout transparentHeader title={d.title} description={d.description} seo={d.seo}>
@@ -125,11 +124,10 @@ const galleryTrack = [...displayImages, ...displayImages];
             {galleryTrack.map((src, i) => (
               <div
                 class="gallery-marquee__item"
-                data-gallery-index={i % displayImages.length}
-                role={i < displayImages.length ? "button" : undefined}
-                tabindex={i < displayImages.length ? 0 : -1}
-                aria-hidden={i >= displayImages.length ? "true" : undefined}
-                aria-label={i < displayImages.length ? `Open photo ${i + 1}` : undefined}
+                data-gallery-index={i}
+                role="button"
+                tabindex="0"
+                aria-label={`Open photo ${i + 1}`}
               >
                 <img src={src} alt="" loading="eager" />
               </div>
@@ -402,11 +400,20 @@ const galleryTrack = [...displayImages, ...displayImages];
       transparent
     );
   }
+  /* --gal-item = one item's total footprint (width + gap).
+     Animating exactly this distance per loop makes the reset invisible
+     because every frame looks identical when all images are the same. */
+  :root {
+    --gal-item: calc((100vw - 5rem) / 9 + 0.5rem);
+  }
+  @media (max-width: 760px) {
+    :root { --gal-item: calc((100vw - 2rem) / 3 + 0.5rem); }
+  }
   .gallery-marquee__track {
     display: flex;
     gap: 0;
     width: max-content;
-    animation: gallery-marquee 60s linear infinite;
+    animation: gallery-scroll 4s linear infinite;
     will-change: transform;
   }
   @media (hover: hover) {
@@ -414,12 +421,15 @@ const galleryTrack = [...displayImages, ...displayImages];
       animation-play-state: paused;
     }
   }
-  @keyframes gallery-marquee {
-    from { transform: translate3d(0, 0, 0); }
-    to { transform: translate3d(-50%, 0, 0); }
+  @keyframes gallery-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(calc(-1 * var(--gal-item))); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .gallery-marquee__track { animation: none; }
   }
   .gallery-marquee__item {
-    flex: 0 0 calc((100vw - 5rem) / 9);
+    flex: 0 0 calc(var(--gal-item) - 0.5rem);
     aspect-ratio: 1 / 1;
     border-radius: 14px;
     overflow: hidden;
@@ -514,13 +524,7 @@ const galleryTrack = [...displayImages, ...displayImages];
     .lb__img-wrap { max-width: calc(100vw - 100px); }
   }
   @media (max-width: 760px) {
-    .gallery-marquee__item {
-      flex: 0 0 calc((100vw - 2rem) / 3);
-      border-radius: 10px;
-    }
-    .gallery-marquee__track {
-      animation-duration: 180s;
-    }
+    .gallery-marquee__item { border-radius: 10px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .gallery-marquee__track { animation: none; }
@@ -670,9 +674,8 @@ const galleryTrack = [...displayImages, ...displayImages];
 </style>
 
 <script>
-  const realItems = document.querySelectorAll<HTMLElement>('.gallery-marquee__item[role="button"]');
   const allItems = document.querySelectorAll<HTMLElement>('.gallery-marquee__item');
-  const srcs = Array.from(realItems).map(el => (el.querySelector('img') as HTMLImageElement).src);
+  const srcs = [...new Set(Array.from(allItems).map(el => (el.querySelector('img') as HTMLImageElement).src))];
 
   const lb = document.getElementById('gallery-lightbox') as HTMLElement;
   const lbImg = document.getElementById('lb-img') as HTMLImageElement;
