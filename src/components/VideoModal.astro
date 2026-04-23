@@ -19,14 +19,30 @@
   const toEmbed = (src: string): string => {
     try {
       const url = new URL(src);
-      if (/(?:^|\.)youtube\.com$/.test(url.hostname) && url.searchParams.get("v")) {
-        return `https://www.youtube.com/embed/${url.searchParams.get("v")}?autoplay=1&rel=0`;
+      if (/(?:^|\.)youtube\.com$/.test(url.hostname)) {
+        // Standard /watch?v=ID
+        const v = url.searchParams.get("v");
+        if (v) {
+          return `https://www.youtube.com/embed/${v}?autoplay=1&rel=0&playsinline=1`;
+        }
+        // Shorts: /shorts/ID
+        const shorts = url.pathname.match(/^\/shorts\/([^/?#]+)/);
+        if (shorts) {
+          return `https://www.youtube.com/embed/${shorts[1]}?autoplay=1&rel=0&playsinline=1`;
+        }
+        // Embed: /embed/ID — just add params if missing
+        const embed = url.pathname.match(/^\/embed\/([^/?#]+)/);
+        if (embed) {
+          return `https://www.youtube.com/embed/${embed[1]}?autoplay=1&rel=0&playsinline=1`;
+        }
       }
       if (url.hostname === "youtu.be") {
-        return `https://www.youtube.com/embed/${url.pathname.slice(1)}?autoplay=1&rel=0`;
+        const id = url.pathname.slice(1).split(/[/?#]/)[0];
+        if (id) return `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&playsinline=1`;
       }
       if (/(?:^|\.)vimeo\.com$/.test(url.hostname)) {
-        return `https://player.vimeo.com/video/${url.pathname.split("/").filter(Boolean).pop()}?autoplay=1`;
+        const id = url.pathname.split("/").filter(Boolean).pop();
+        if (id) return `https://player.vimeo.com/video/${id}?autoplay=1&playsinline=1`;
       }
     } catch {}
     return src;
@@ -36,7 +52,6 @@
     lastFocus = document.activeElement as HTMLElement;
     modal.hidden = false;
     document.body.style.overflow = "hidden";
-    (modal.querySelector(".vm__panel") as HTMLElement)?.focus();
 
     frame.innerHTML = "";
     const isFile = /\.(mp4|webm|mov)(\?|$)/i.test(src);
@@ -46,16 +61,19 @@
       video.setAttribute("controls", "");
       video.setAttribute("autoplay", "");
       video.setAttribute("playsinline", "");
-      video.style.cssText = "position:absolute;inset:0;width:100%;height:100%;border:0;display:block";
+      video.muted = true;
       frame.appendChild(video);
     } else {
       const iframe = document.createElement("iframe");
       iframe.setAttribute("src", toEmbed(src));
       iframe.setAttribute("allow", "autoplay; fullscreen; picture-in-picture");
       iframe.setAttribute("allowfullscreen", "");
-      iframe.style.cssText = "position:absolute;inset:0;width:100%;height:100%;border:0;display:block";
       frame.appendChild(iframe);
     }
+
+    requestAnimationFrame(() => {
+      (modal.querySelector(".vm__panel") as HTMLElement)?.focus();
+    });
   };
 
   const close = () => {
@@ -140,5 +158,39 @@
   .vm__close:hover {
     background: var(--c-ember);
     border-color: var(--c-ember);
+  }
+
+  /* ── Mobile: fill the viewport so the video is actually watchable ─── */
+  @media (max-width: 640px) {
+    .vm {
+      padding: 0;
+      place-items: stretch;
+    }
+    .vm__panel {
+      width: 100%;
+      max-width: none;
+      height: 100svh;
+      aspect-ratio: auto;
+      border-radius: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .vm__frame {
+      position: relative;
+      inset: auto;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      max-height: 100%;
+    }
+    .vm__close {
+      top: max(0.75rem, env(safe-area-inset-top));
+      right: max(0.75rem, env(safe-area-inset-right));
+      width: 44px;
+      height: 44px;
+      font-size: 1.6rem;
+      background: rgba(0, 0, 0, 0.6);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
   }
 </style>
