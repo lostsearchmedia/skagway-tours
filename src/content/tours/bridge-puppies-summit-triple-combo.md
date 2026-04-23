@@ -44,7 +44,7 @@ At a remote sled dog camp, the mood shifts to pure "awww" as you meet Alaskan Hu
 
 ## What's not included
 
-Lunch isn't included, but you're welcome to bring food and drinks to enjoy on the bus — or grab something from the café at the bridge.
+Lunch isn't included, but you're welcome to bring food and drinks to enjoy on the bus — or grab something from the café at the bridge!
 
 ## Itinerary
 
