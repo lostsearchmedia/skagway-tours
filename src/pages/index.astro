@@ -311,11 +311,15 @@ const galleryTrack = [...displayImages, ...displayImages];
 <style>
   /* --- Passport strip ---------------------------------------------- */
   .passport-note {
-    background: var(--c-paper-soft);
-    border-top: 1px solid var(--c-fog);
-    border-bottom: 1px solid var(--c-fog);
+    background: var(--c-ink);
+    border-top: none;
+    border-bottom: none;
     padding: 0.9rem 0;
+    color: var(--c-paper);
   }
+  .passport-note__inner svg { color: var(--c-ember); }
+  .passport-note a { color: var(--c-ember-bright); }
+  .passport-note a:hover { color: #fff; }
   .passport-note__inner {
     display: flex;
     align-items: center;
