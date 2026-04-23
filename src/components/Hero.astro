@@ -76,10 +76,6 @@ const ctaHref = hero?.primary_cta_href ?? "#tours";
     flex-wrap: wrap;
     width: 100%;
   }
-  .hero__cta {
-    font-size: 1.05rem;
-    padding: 1.1rem 2rem;
-  }
   /* Elfsight reviews widget wrapper — keep the card compact in the hero */
   .hero__reviews {
     width: 100%;
@@ -90,5 +86,11 @@ const ctaHref = hero?.primary_cta_href ?? "#tours";
   }
   @media (max-width: 640px) {
     .hero__reviews { max-width: 220px; }
+    .hero__content {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      flex-direction: column;
+    }
   }
 </style>

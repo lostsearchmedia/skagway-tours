@@ -52,9 +52,9 @@ const galleryTrack = Array.from({ length: 20 }, () => GALLERY_FALLBACK);
   <section id="tours" class="section tours-section">
     <div class="container">
       <div class="section__head">
-        <span class="script script--accent section__script" data-editable="text" data-prop="tours_section.eyebrow">
+        <h1 class="script script--accent section__script" data-editable="text" data-prop="tours_section.eyebrow">
           {toursSection.eyebrow}
-        </span>
+        </h1>
         <h2 data-editable="text" data-prop="tours_section.title">{toursSection.title}</h2>
       </div>
 
@@ -351,6 +351,11 @@ const galleryTrack = Array.from({ length: 20 }, () => GALLERY_FALLBACK);
     display: block;
     font-size: 2rem;
     margin-bottom: -0.25rem;
+  }
+  h1.section__script {
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
   }
   .muted { color: var(--c-ink-soft); text-align: center; }
 

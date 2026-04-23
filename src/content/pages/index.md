@@ -7,7 +7,7 @@ intro_section:
   title: "The road beyond the port town."
   body: Leave the cruise ship behind and climb the South Klondike Highway. Glacial air sharp against your face, black spruce rolling past the window, and stories that start where the pavement runs out. This is the Alaska most visitors never see — and you are an hour away from the heart of it.
 tours_section:
-  eyebrow: Our tours
+  eyebrow: Skagway Tours
   title: A story you'll tell forever.
   empty_message: Tours will appear here once content is added in CloudCannon.
 gallery_section:
