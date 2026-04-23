@@ -82,6 +82,13 @@ const galleryImages = Array.from({ length: 6 }, () => GALLERY_PLACEHOLDER);
           )}
         </div>
 
+        <!-- Jump to gallery -->
+        <a href="#tour-gallery" class="gallery-jump">
+          <Icon name="ph:images-fill" class="gallery-jump__icon" aria-hidden="true" />
+          <span>Image Gallery</span>
+          <Icon name="ph:arrow-down-fill" class="gallery-jump__arrow" aria-hidden="true" />
+        </a>
+
         <!-- Passport notice -->
         <div class="tour-passport">
           <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" flex-shrink="0">
@@ -158,7 +165,7 @@ const galleryImages = Array.from({ length: 6 }, () => GALLERY_PLACEHOLDER);
     </div>
 
     <!-- Photo gallery -->
-    <section class="tour-gallery" aria-label="Tour photos">
+    <section id="tour-gallery" class="tour-gallery" aria-label="Tour photos">
       <div class="container">
         <div class="tour-gallery__head">
           <span class="script script--accent tour-gallery__script">Photos</span>
@@ -371,6 +378,42 @@ const galleryImages = Array.from({ length: 6 }, () => GALLERY_PLACEHOLDER);
     font-weight: 900;
     color: var(--c-ink);
     line-height: 1;
+  }
+
+  /* ── Jump-to-gallery button ─────────────────────────────────── */
+  .gallery-jump {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.7rem 1.1rem;
+    margin-bottom: 1.25rem;
+    background: var(--c-ink);
+    color: var(--c-paper);
+    border-radius: var(--radius-pill, 999px);
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .gallery-jump:hover {
+    background: var(--c-ember);
+    transform: translateY(-1px);
+    text-decoration: none;
+    color: var(--c-paper);
+  }
+  .gallery-jump__icon { width: 18px; height: 18px; }
+  .gallery-jump__arrow {
+    width: 12px;
+    height: 12px;
+    opacity: 0.7;
+    transition: transform 0.2s ease;
+  }
+  .gallery-jump:hover .gallery-jump__arrow {
+    transform: translateY(2px);
+    opacity: 1;
   }
 
   /* ── Passport notice ─────────────────────────────────────────── */
