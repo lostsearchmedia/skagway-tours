@@ -1,9 +1,16 @@
 ---
+import { Icon } from "astro-icon/components";
 import { getEntry } from "astro:content";
 
 const site = await getEntry("site", "default");
 const s = site?.data;
 const year = new Date().getFullYear();
+
+const socials = [
+  { href: "https://www.facebook.com/skagwaytours", icon: "ph:facebook-logo-fill", label: "Facebook" },
+  { href: "https://www.instagram.com/skagwaytours/", icon: "ph:instagram-logo-fill", label: "Instagram" },
+  { href: "https://www.youtube.com/@SkagwayTours", icon: "ph:youtube-logo-fill", label: "YouTube" },
+];
 ---
 
 <footer class="site-footer">
@@ -43,6 +50,14 @@ const year = new Date().getFullYear();
           </p>
         )
       }
+
+      <div class="site-footer__socials" aria-label="Follow us">
+        {socials.map((s) => (
+          <a href={s.href} class="social-icon" aria-label={s.label} target="_blank" rel="noopener noreferrer">
+            <Icon name={s.icon} aria-hidden="true" />
+          </a>
+        ))}
+      </div>
     </div>
 
     <nav class="site-footer__groups" aria-label="Footer">
@@ -65,14 +80,14 @@ const year = new Date().getFullYear();
 
   <div class="site-footer__base container">
     <small>© {year} {s?.site_name ?? "Skagway Tours"}. All rights reserved.</small>
-    <small>Built with Astro · Edited in CloudCannon</small>
   </div>
 </footer>
 
 <style>
   .site-footer {
-    background: var(--c-spruce-deep);
-    color: var(--c-paper);
+    background: #fff;
+    color: var(--c-ink);
+    border-top: 1px solid var(--c-fog);
     padding: 4rem 0 1.5rem;
   }
   .site-footer__inner {
@@ -88,15 +103,36 @@ const year = new Date().getFullYear();
     display: block;
     height: 44px;
     width: auto;
-    /* Invert dark logo to white for the dark footer background */
-    filter: brightness(0) invert(1);
-    opacity: 0.92;
   }
-  .site-footer__tagline { opacity: 0.8; max-width: 38ch; margin-bottom: 0.75rem; }
-  .site-footer__contact { margin: 0.2rem 0; font-size: 0.92rem; opacity: 0.85; }
+  .site-footer__tagline { color: var(--c-ink-soft); max-width: 38ch; margin-bottom: 0.75rem; }
+  .site-footer__contact { margin: 0.2rem 0; font-size: 0.92rem; color: var(--c-ink-soft); }
   .site-footer__address { line-height: 1.5; }
-  .site-footer__contact a { color: var(--c-paper); }
-  .site-footer__contact a:hover { color: var(--c-ember-bright); opacity: 1; }
+  .site-footer__contact a { color: var(--c-ink-soft); }
+  .site-footer__contact a:hover { color: var(--c-ember); }
+
+  .site-footer__socials {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+  .social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--c-fog);
+    color: var(--c-ink-soft);
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  }
+  .social-icon svg { width: 18px; height: 18px; }
+  .social-icon:hover {
+    color: var(--c-ember);
+    border-color: var(--c-ember);
+    background: rgba(221,81,84,0.06);
+    text-decoration: none;
+  }
 
   .site-footer__groups {
     display: grid;
@@ -106,8 +142,10 @@ const year = new Date().getFullYear();
   .footer-group h4 {
     font-size: 0.85rem;
     letter-spacing: 0.22em;
-    color: var(--c-ember-bright);
+    text-transform: uppercase;
+    color: var(--c-ember);
     margin-bottom: 0.75rem;
+    font-weight: 700;
   }
   .footer-group ul {
     list-style: none;
@@ -118,10 +156,10 @@ const year = new Date().getFullYear();
     gap: 0.4rem;
   }
   .footer-group a {
-    color: var(--c-paper);
-    opacity: 0.85;
+    color: var(--c-ink-soft);
+    font-size: 0.95rem;
   }
-  .footer-group a:hover { opacity: 1; color: var(--c-ember-bright); }
+  .footer-group a:hover { color: var(--c-ember); }
 
   .site-footer__base {
     display: flex;
@@ -130,9 +168,8 @@ const year = new Date().getFullYear();
     flex-wrap: wrap;
     margin-top: 3rem;
     padding-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    opacity: 0.65;
+    border-top: 1px solid var(--c-fog);
+    color: var(--c-ink-soft);
     font-size: 0.85rem;
   }
-  .brand--footer .brand__name { color: var(--c-paper); }
 </style>
