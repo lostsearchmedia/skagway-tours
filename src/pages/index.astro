@@ -409,8 +409,10 @@ const galleryTrack = [...displayImages, ...displayImages];
     animation: gallery-marquee 60s linear infinite;
     will-change: transform;
   }
-  .gallery-marquee__viewport:hover .gallery-marquee__track {
-    animation-play-state: paused;
+  @media (hover: hover) {
+    .gallery-marquee__viewport:hover .gallery-marquee__track {
+      animation-play-state: paused;
+    }
   }
   @keyframes gallery-marquee {
     from { transform: translate3d(0, 0, 0); }
@@ -516,7 +518,7 @@ const galleryTrack = [...displayImages, ...displayImages];
       border-radius: 10px;
     }
     .gallery-marquee__track {
-      animation-duration: 45s;
+      animation-duration: 180s;
     }
   }
   @media (prefers-reduced-motion: reduce) {
