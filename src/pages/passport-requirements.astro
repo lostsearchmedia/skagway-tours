@@ -6,14 +6,28 @@ import { getEntry } from "astro:content";
 const entry = await getEntry("pages", "passport-requirements");
 const d = entry?.data;
 
-const FALLBACK = "https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_webp,p_h/skagway.tours/wp-content/uploads/2024/02/st_wide.jpg";
-const PASSPORT_IMG = "https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_webp/skagway.tours/wp-content/uploads/2025/09/Passport_Requirements-scaled.png";
+const passportPoints = [
+  "A valid passport is required for all travel between the US and Canada.",
+  "Must be valid for the entire duration of your trip.",
+  "Photocopies or digital copies are not accepted.",
+];
 
-const notAllowed = [
-  "Photocopies or digital copies of Passports or IDs",
-  "Expired passports",
-  "Other forms of ID: Global Entry Card, Nexus Card, Student IDs, Cruise Ship IDs, etc.",
-  "REAL ID (unless used in conjunction with an original Birth Certificate)",
+const visaPoints = [
+  "If your nationality requires a visa for the US or Canada, bring it with you.",
+  "You may be asked to show your visa at the border.",
+];
+
+const usAlternatives = [
+  "US Passport Card",
+  "Original birth certificate (not a copy) + government-issued ID",
+  "Enhanced Driver's License (Michigan, Minnesota, New York, Vermont, Washington) — must say \"ENHANCED\" in bold",
+  "Green Card",
+  "Children under 16: Original birth certificate only",
+  "Ages 16+: Birth certificate + government-issued ID",
+];
+
+const canadianAlternatives = [
+  "Original birth certificate (not a copy) + government-issued ID",
 ];
 ---
 
@@ -21,150 +35,84 @@ const notAllowed = [
 
   <!-- ── Hero ─────────────────────────────────────────────────── -->
   <section class="psp-hero">
-    <div class="psp-hero__media" aria-hidden="true">
-      <img src={FALLBACK} alt="" />
-      <div class="psp-hero__shade"></div>
-    </div>
     <div class="psp-hero__inner container">
-      <span class="psp-eyebrow psp-eyebrow--light">Border Crossing</span>
-      <h1 class="psp-hero__title">All Of Our Tours Cross The Canadian Border</h1>
-      <p class="psp-hero__lead">Every Skagway Tours route crosses into the Yukon Territory. A valid passport or approved alternative document is required for every traveler — no exceptions.</p>
+      <span class="psp-eyebrow">Border Crossing</span>
+      <h1 class="psp-hero__title">Skagway Passport Requirements</h1>
+      <p class="psp-hero__lead">Every Skagway Tours route crosses into Canada. A valid passport — or an approved alternative for US &amp; Canadian residents — is required for every traveler.</p>
     </div>
   </section>
 
-  <!-- ── Bold statement band ──────────────────────────────────── -->
-  <section class="psp-section psp-alert">
-    <div class="container psp-alert__inner">
-      <Icon name="ph:warning-fill" class="psp-alert__icon" aria-hidden="true" />
-      <p class="psp-alert__text">Passports are <strong>required</strong> for <strong>all travel</strong> into Canada and the United States <strong>for all passengers</strong>, <strong>all the time</strong>.</p>
-    </div>
-  </section>
+  <!-- ── Key requirements ─────────────────────────────────────── -->
+  <section class="psp-section psp-main">
+    <div class="container psp-main__inner">
 
-  <!-- ── Passport image feature ───────────────────────────────── -->
-  <section class="psp-section psp-image">
-    <div class="container psp-image__inner">
-      <span class="psp-eyebrow">At a Glance</span>
-      <h2>Passport Requirements Reference</h2>
-      <p>A quick visual breakdown of what's accepted at the Canadian border — pin it, save it, send it to your travel group.</p>
-      <figure class="psp-image__figure">
-        <img src={PASSPORT_IMG} alt="Passport requirements visual reference" loading="lazy" />
-      </figure>
-    </div>
-  </section>
-
-  <!-- ── Visas section ────────────────────────────────────────── -->
-  <section class="psp-section psp-visas">
-    <div class="container psp-visas__inner">
-      <div class="psp-section-head">
-        <span class="psp-eyebrow">Visas</span>
-        <h2>International Travelers</h2>
-      </div>
-      <p>Passengers required to have visas for travel into the US or Canada <em>may also</em> be required to present their visas at the border.</p>
-      <p class="psp-visas__exceptions"><strong>Exceptions apply for US and Canadian residents only</strong> — see below.</p>
-    </div>
-  </section>
-
-  <!-- ── US Residents ─────────────────────────────────────────── -->
-  <section class="psp-section psp-residents">
-    <div class="container">
-      <div class="psp-section-head">
-        <span class="psp-eyebrow">United States</span>
-        <h2>US Residents</h2>
-        <p class="psp-section-head__lead">The following forms of ID for travel into Canada and the US are acceptable for US Residents:</p>
-      </div>
-
-      <div class="psp-residents__grid">
-        <article class="psp-req">
-          <div class="psp-req__icon" aria-hidden="true">
-            <Icon name="ph:identification-badge-fill" class="psp-req__icon-svg" aria-hidden="true" />
+      <article class="psp-card">
+        <div class="psp-card__head">
+          <div class="psp-card__icon" aria-hidden="true">
+            <Icon name="ph:identification-card-fill" class="psp-card__icon-svg" />
           </div>
-          <h3>US Passport Card</h3>
-          <p>A federally issued passport card is accepted at land and sea border crossings between the US and Canada.</p>
-        </article>
+          <h2>Passports</h2>
+        </div>
+        <ul class="psp-list">
+          {passportPoints.map((p) => (
+            <li>{p}</li>
+          ))}
+        </ul>
+      </article>
 
-        <article class="psp-req">
-          <div class="psp-req__icon" aria-hidden="true">
-            <Icon name="ph:file-text-fill" class="psp-req__icon-svg" aria-hidden="true" />
+      <article class="psp-card">
+        <div class="psp-card__head">
+          <div class="psp-card__icon" aria-hidden="true">
+            <Icon name="ph:globe-hemisphere-west-fill" class="psp-card__icon-svg" />
           </div>
-          <h3>Birth Certificate + Gov ID</h3>
-          <p><strong>Original</strong> birth certificate (not a photocopy) paired with a government issued photo ID.</p>
-        </article>
+          <h2>Visas</h2>
+        </div>
+        <ul class="psp-list">
+          {visaPoints.map((p) => (
+            <li>{p}</li>
+          ))}
+        </ul>
+      </article>
 
-        <article class="psp-req psp-req--wide">
-          <div class="psp-req__icon" aria-hidden="true">
-            <Icon name="ph:identification-card-fill" class="psp-req__icon-svg" aria-hidden="true" />
+      <article class="psp-card psp-card--wide">
+        <div class="psp-card__head">
+          <div class="psp-card__icon" aria-hidden="true">
+            <Icon name="ph:check-circle-fill" class="psp-card__icon-svg" />
           </div>
-          <h3>Enhanced Driver's License (EDL)</h3>
-          <p>Only issued by <em>Michigan, Minnesota, New York, Vermont,</em> and <em>Washington</em>. No other states offer them.</p>
-          <ul class="psp-sublist">
-            <li>Must have the word <strong>ENHANCED</strong> in bold letters across the top.</li>
-            <li>A Real ID is <strong>not</strong> the same thing — Real ID has a star at the top and is <strong>not valid</strong> for Canada unless accompanied by an original birth certificate.</li>
-          </ul>
-        </article>
+          <div>
+            <h2>Acceptable ID Alternatives</h2>
+            <p class="psp-card__sub">Only for US &amp; Canadian residents.</p>
+          </div>
+        </div>
 
-        <article class="psp-req">
-          <div class="psp-req__icon" aria-hidden="true">
-            <Icon name="ph:seal-check-fill" class="psp-req__icon-svg" aria-hidden="true" />
+        <div class="psp-alts">
+          <div class="psp-alt">
+            <h3>For US Residents</h3>
+            <ul class="psp-list">
+              {usAlternatives.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
           </div>
-          <h3>Green Card</h3>
-          <p>US Permanent Resident Cards are accepted for legal residents traveling across the border.</p>
-        </article>
+          <div class="psp-alt">
+            <h3>For Canadian Residents</h3>
+            <ul class="psp-list">
+              {canadianAlternatives.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </article>
 
-        <article class="psp-req psp-req--wide">
-          <div class="psp-req__icon" aria-hidden="true">
-            <Icon name="ph:users-three-fill" class="psp-req__icon-svg" aria-hidden="true" />
-          </div>
-          <h3>Children Traveling With Parent(s)</h3>
-          <ul class="psp-sublist">
-            <li><strong>Up to age 16</strong> when accompanied by a parent or legal guardian: original Birth Certificate (not a photocopy).</li>
-            <li><strong>16 and older:</strong> original Birth Certificate (not a photocopy) <em>and</em> a government issued ID.</li>
-            <li><em>Note:</em> Single parents or legal guardians traveling with children are <strong>not</strong> required to have a letter of permission from the other parent or guardian while on one of our tours.</li>
-          </ul>
-        </article>
-      </div>
     </div>
   </section>
 
-  <!-- ── Canadian Residents ───────────────────────────────────── -->
-  <section class="psp-section psp-canadian">
-    <div class="container psp-canadian__inner">
-      <div class="psp-canadian__icon" aria-hidden="true">
-        <Icon name="ph:leaf-fill" class="psp-canadian__icon-svg" aria-hidden="true" />
-      </div>
-      <div class="psp-canadian__copy">
-        <span class="psp-eyebrow">Canada</span>
-        <h2>Canadian Residents</h2>
-        <p>An <strong>original</strong> Birth Certificate (not a photocopy) with a government issued ID is acceptable for Canadian citizens traveling into the US and Canada.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Not allowed (dark warning) ───────────────────────────── -->
-  <section class="psp-section psp-denied">
-    <div class="container psp-denied__inner">
-      <div class="psp-section-head">
-        <span class="psp-eyebrow psp-eyebrow--light">Heads Up</span>
-        <h2>Not Allowed — Ever</h2>
-        <p class="psp-denied__lead">These documents <strong>will not</strong> get you across the border. Please don't show up with one of these as your only ID.</p>
-      </div>
-      <ul class="psp-denied__list">
-        {notAllowed.map((item) => (
-          <li>
-            <Icon name="ph:prohibit-fill" class="psp-denied__icon" aria-hidden="true" />
-            <span set:html={item}></span>
-          </li>
-        ))}
-      </ul>
-      <p class="psp-denied__note"><em>REAL ID is NOT an ENHANCED ID. Enhanced IDs have the word "ENHANCED" written across the top. Real ID has a star at the top.</em></p>
-    </div>
-  </section>
-
-  <!-- ── Still have questions ─────────────────────────────────── -->
+  <!-- ── Help CTA ─────────────────────────────────────────────── -->
   <section class="psp-section psp-help">
     <div class="container psp-help__inner">
-      <span class="psp-eyebrow psp-eyebrow--light">Still Unsure?</span>
-      <h2>Reach Out Before You Travel</h2>
-      <p>We'd rather clear up any confusion ahead of time than have you miss your tour. Get in touch and we'll walk you through what you need.</p>
+      <h2>Still unsure what you need?</h2>
+      <p>We'd rather clear up any confusion ahead of time than have you miss your tour. Get in touch and we'll walk you through it.</p>
       <div class="psp-help__actions">
         <a href="mailto:info@skagway.tours" class="button">Email Us</a>
         <a href="/faqs/" class="button button--ghost-light">View FAQs</a>
@@ -174,7 +122,7 @@ const notAllowed = [
 </BaseLayout>
 
 <style>
-  .psp-section { padding: clamp(3.5rem, 7vw, 6rem) 0; }
+  .psp-section { padding: clamp(3rem, 6vw, 5rem) 0; }
 
   .psp-eyebrow {
     display: inline-block;
@@ -183,309 +131,145 @@ const notAllowed = [
     font-weight: 700;
     letter-spacing: 0.04em;
     line-height: 1.1;
-    color: var(--c-ember);
+    color: var(--c-ember-bright);
     margin-bottom: 0.4rem;
-  }
-  .psp-eyebrow--light { color: var(--c-ember-bright); }
-
-  .psp-section-head {
-    text-align: center;
-    margin-bottom: 2.5rem;
-    max-width: 720px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .psp-section-head h2 {
-    font-size: clamp(2rem, 3.5vw + 1rem, 3rem);
-    margin: 0;
-  }
-  .psp-section-head__lead {
-    margin: 1rem 0 0;
-    color: var(--c-ink-soft);
-    font-size: 1.05rem;
-    line-height: 1.6;
   }
 
   /* ── Hero ─────────────────────────────────────────────────── */
   .psp-hero {
-    position: relative;
-    min-height: 52vh;
-    display: flex;
-    align-items: flex-end;
+    background: linear-gradient(135deg, #1f1c39 0%, #292546 55%, #3d3870 100%);
     color: #fff;
-    overflow: hidden;
-    background: var(--c-spruce-deep);
-  }
-  .psp-hero__media { position: absolute; inset: 0; }
-  .psp-hero__media img { width: 100%; height: 100%; object-fit: cover; }
-  .psp-hero__shade {
-    position: absolute; inset: 0;
-    background: linear-gradient(105deg,
-      rgba(31, 28, 57, 0.9) 0%,
-      rgba(41, 37, 70, 0.65) 60%,
-      rgba(41, 37, 70, 0.25) 100%);
+    padding: clamp(4rem, 8vw, 6rem) 0 clamp(3rem, 6vw, 4.5rem);
   }
   .psp-hero__inner {
-    position: relative;
     max-width: 780px;
-    padding-top: 6rem;
-    padding-bottom: 4rem;
   }
   .psp-hero__title {
-    font-size: clamp(2.2rem, 4.5vw + 1rem, 4rem);
-    line-height: 1.05;
-    margin: 0 0 1.2rem;
+    font-size: clamp(2.2rem, 4vw + 1rem, 3.4rem);
+    line-height: 1.1;
+    margin: 0 0 1rem;
     color: #fff;
   }
   .psp-hero__lead {
-    font-size: 1.15rem;
-    line-height: 1.55;
-    opacity: 0.95;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    opacity: 0.9;
     max-width: 62ch;
     margin: 0;
   }
 
-  /* ── Alert band ───────────────────────────────────────────── */
-  .psp-alert {
-    background: var(--c-ember);
-    color: #fff;
-    padding: 2.5rem 0;
-  }
-  .psp-alert__inner {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    max-width: 960px;
-  }
-  .psp-alert__icon { flex-shrink: 0; color: #fff; width: 48px; height: 48px; }
-  .psp-alert__text {
-    margin: 0;
-    font-size: 1.15rem;
-    line-height: 1.55;
-  }
-  .psp-alert__text strong { font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
-  @media (max-width: 640px) {
-    .psp-alert__inner { flex-direction: column; text-align: center; gap: 1rem; }
-  }
-
-  /* ── Passport image feature ───────────────────────────────── */
-  .psp-image { background: var(--c-paper); }
-  .psp-image__inner { text-align: center; max-width: 820px; }
-  .psp-image__inner h2 {
-    font-size: clamp(1.75rem, 2.5vw + 1rem, 2.5rem);
-    margin: 0 0 0.75rem;
-  }
-  .psp-image__inner > p {
-    color: var(--c-ink-soft);
-    font-size: 1.05rem;
-    margin: 0 0 2rem;
-  }
-  .psp-image__figure {
-    margin: 0;
-    background: #fff;
-    border-radius: 16px;
-    padding: 1rem;
-    box-shadow: 0 20px 40px -20px rgba(41, 37, 70, 0.25);
-  }
-  .psp-image__figure img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    display: block;
-  }
-
-  /* ── Visas ─────────────────────────────────────────────────── */
-  .psp-visas { background: var(--c-paper-soft); }
-  .psp-visas__inner {
-    max-width: 820px;
-    text-align: center;
-  }
-  .psp-visas__inner p {
-    font-size: 1.05rem;
-    line-height: 1.75;
-    color: var(--c-ink-soft);
-    margin: 0 0 1rem;
-  }
-  .psp-visas__exceptions {
-    padding: 1rem 1.5rem;
-    background: #fff;
-    border-radius: 12px;
-    border: 1px solid var(--c-fog);
-    margin-top: 1.5rem !important;
-  }
-  .psp-visas__exceptions strong { color: var(--c-ink); }
-
-  /* ── US Residents grid ────────────────────────────────────── */
-  .psp-residents { background: #fff; }
-  .psp-residents__grid {
+  /* ── Main cards ───────────────────────────────────────────── */
+  .psp-main { background: var(--c-paper); }
+  .psp-main__inner {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
-    max-width: 960px;
-    margin: 0 auto;
+    max-width: 1000px;
   }
-  .psp-req {
-    background: var(--c-paper);
+  .psp-card {
+    background: #fff;
     border: 1px solid var(--c-fog);
     border-radius: 16px;
     padding: 1.75rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
-  .psp-req:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px -20px rgba(41, 37, 70, 0.2);
+  .psp-card--wide { grid-column: 1 / -1; }
+
+  .psp-card__head {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
   }
-  .psp-req--wide { grid-column: 1 / -1; }
-  .psp-req__icon {
-    width: 52px; height: 52px;
+  .psp-card__icon {
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
     border-radius: 12px;
-    background: var(--c-paper-soft);
-    color: var(--c-ember);
+    background: var(--c-ink);
+    color: var(--c-ember-bright);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1rem;
   }
-  .psp-req__icon-svg { width: 28px; height: 28px; }
-  .psp-req h3 {
-    font-size: 1.25rem;
-    margin: 0 0 0.5rem;
-    color: var(--c-ink);
-  }
-  .psp-req p {
+  .psp-card__icon-svg { width: 28px; height: 28px; }
+  .psp-card h2 {
+    font-size: 1.4rem;
     margin: 0;
-    color: var(--c-ink-soft);
-    line-height: 1.6;
+    color: var(--c-ink);
+    letter-spacing: 0.01em;
   }
-  .psp-sublist {
+  .psp-card__sub {
+    margin: 0.15rem 0 0;
+    font-size: 0.88rem;
+    color: var(--c-ink-soft);
+  }
+
+  .psp-list {
     list-style: none;
     padding: 0;
-    margin: 1rem 0 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
     gap: 0.65rem;
   }
-  .psp-sublist li {
+  .psp-list li {
     position: relative;
-    padding-left: 1.25rem;
-    font-size: 0.98rem;
+    padding-left: 1.4rem;
     line-height: 1.55;
-    color: var(--c-ink-soft);
+    color: var(--c-ink);
   }
-  .psp-sublist li::before {
+  .psp-list li::before {
     content: "";
     position: absolute;
-    left: 0; top: 0.65em;
-    width: 6px; height: 6px;
+    left: 0;
+    top: 0.55em;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: var(--c-ember);
   }
-  .psp-sublist strong { color: var(--c-ink); }
-  @media (max-width: 720px) {
-    .psp-residents__grid { grid-template-columns: 1fr; }
-  }
 
-  /* ── Canadian Residents ───────────────────────────────────── */
-  .psp-canadian {
-    background: var(--c-paper);
-  }
-  .psp-canadian__inner {
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-    max-width: 820px;
-  }
-  .psp-canadian__icon {
-    flex-shrink: 0;
-    width: 96px; height: 96px;
-    border-radius: 50%;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--c-ember);
-    box-shadow: 0 12px 28px -12px rgba(41, 37, 70, 0.25);
-  }
-  .psp-canadian__icon-svg { width: 56px; height: 56px; }
-  .psp-canadian__copy h2 {
-    font-size: clamp(1.75rem, 2.5vw + 1rem, 2.5rem);
-    margin: 0 0 0.5rem;
-  }
-  .psp-canadian__copy p {
-    margin: 0;
-    font-size: 1.05rem;
-    line-height: 1.7;
-    color: var(--c-ink-soft);
-  }
-  .psp-canadian__copy strong { color: var(--c-ink); }
-  @media (max-width: 640px) {
-    .psp-canadian__inner { flex-direction: column; text-align: center; gap: 1.25rem; }
-  }
-
-  /* ── Not allowed (dark) ───────────────────────────────────── */
-  .psp-denied {
-    background: var(--c-ink);
-    color: var(--c-paper);
-  }
-  .psp-denied__inner { max-width: 820px; margin: 0 auto; }
-  .psp-denied .psp-section-head h2 { color: #fff; }
-  .psp-denied__lead {
-    margin: 1rem 0 0;
-    color: rgba(246, 241, 231, 0.82);
-    line-height: 1.65;
-    font-size: 1.05rem;
-  }
-  .psp-denied__lead strong { color: var(--c-ember-bright); font-weight: 700; }
-  .psp-denied__list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  /* ── Alternatives grid (inside wide card) ─────────────────── */
+  .psp-alts {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 0.9rem;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 2rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--c-fog);
+    margin-top: 0.25rem;
+    padding: 1.5rem 0 0;
   }
-  .psp-denied__list li {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.9rem 1rem;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 10px;
-    color: rgba(246, 241, 231, 0.92);
-    font-size: 0.98rem;
-    line-height: 1.4;
+  .psp-alt h3 {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--c-ember);
+    margin: 0 0 1rem;
   }
-  .psp-denied__icon {
-    flex-shrink: 0;
-    width: 20px;
-    height: 20px;
-    color: var(--c-ember-bright);
-  }
-  .psp-denied__note {
-    margin: 1.5rem 0 0;
-    color: rgba(246, 241, 231, 0.65);
-    font-size: 0.92rem;
-    line-height: 1.6;
-    text-align: center;
+
+  @media (max-width: 760px) {
+    .psp-main__inner { grid-template-columns: 1fr; }
+    .psp-alts { grid-template-columns: 1fr; gap: 1.75rem; }
   }
 
   /* ── Help CTA ─────────────────────────────────────────────── */
   .psp-help {
-    background: var(--c-spruce-deep);
+    background: var(--c-ink);
     color: var(--c-paper);
     text-align: center;
   }
-  .psp-help__inner { max-width: 640px; }
+  .psp-help__inner { max-width: 620px; }
   .psp-help h2 {
     color: #fff;
-    font-size: clamp(2rem, 3.5vw + 1rem, 3rem);
-    margin: 0 0 1rem;
+    font-size: clamp(1.75rem, 3vw + 0.75rem, 2.5rem);
+    margin: 0 0 0.75rem;
   }
   .psp-help p {
-    font-size: 1.1rem;
-    margin: 0 0 1.75rem;
-    color: rgba(246, 241, 231, 0.88);
+    font-size: 1.05rem;
+    margin: 0 0 1.5rem;
+    color: rgba(246, 241, 231, 0.85);
+    line-height: 1.6;
   }
   .psp-help__actions {
     display: flex;
