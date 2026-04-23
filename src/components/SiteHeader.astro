@@ -358,8 +358,7 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
   .nav-toggle {
     display: none;
     background: transparent;
-    border: 1px solid rgba(41,37,70,0.2);
-    border-radius: 10px;
+    border: none;
     width: 44px; height: 44px;
     padding: 0;
     align-items: center;
@@ -367,10 +366,10 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
     cursor: pointer;
     color: var(--c-ink);
     flex-shrink: 0;
-    transition: background 0.15s ease;
+    transition: color 0.15s ease;
   }
-  .nav-toggle:hover { background: rgba(41,37,70,0.06); }
-  .nav-toggle__icon { width: 22px; height: 22px; }
+  .nav-toggle:hover { color: var(--c-ember); }
+  .nav-toggle__icon { width: 28px; height: 28px; }
   .nav-caret { width: 10px; height: 10px; }
 
   /* ── Menu → hamburger at ≤1300px (phone + promo stay) ────────── */

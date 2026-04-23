@@ -48,39 +48,46 @@ const galleryImages = Array.from({ length: 6 }, () => GALLERY_PLACEHOLDER);
       </div>
     </header>
 
+    <!-- Quick-stats bar -->
+    <div class="tour-quickbar">
+      <div class="container tour-quickbar__inner">
+        {d.duration_hours && (
+          <div class="tqs">
+            <Icon name="ph:clock-fill" class="tqs__icon" aria-hidden="true" />
+            <div class="tqs__text">
+              <span class="tqs__label">Duration</span>
+              <span class="tqs__value">{d.duration_hours} hours</span>
+            </div>
+          </div>
+        )}
+        {d.price_from && (
+          <div class="tqs">
+            <Icon name="ph:tag-fill" class="tqs__icon" aria-hidden="true" />
+            <div class="tqs__text">
+              <span class="tqs__label">From</span>
+              <span class="tqs__value">${d.price_from} per adult</span>
+            </div>
+          </div>
+        )}
+        <div class="tqs">
+          <Icon name="ph:map-pin-fill" class="tqs__icon" aria-hidden="true" />
+          <div class="tqs__text">
+            <span class="tqs__label">Pickup</span>
+            <span class="tqs__value">All Skagway cruise docks</span>
+          </div>
+        </div>
+        <div class="tqs">
+          <Icon name="ph:identification-card-fill" class="tqs__icon" aria-hidden="true" />
+          <div class="tqs__text">
+            <span class="tqs__label">Passport</span>
+            <span class="tqs__value">Required for all guests</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="container tour__layout">
       <section class="tour__content prose">
-
-        <!-- Stats row -->
-        <div class="tour-stats">
-          {d.duration_hours && (
-            <div class="tour-stat">
-              <span class="tour-stat__label">Duration</span>
-              <span class="tour-stat__value">{d.duration_hours}h</span>
-            </div>
-          )}
-          {d.price_from && (
-            <div class="tour-stat">
-              <span class="tour-stat__label">Adults</span>
-              <span class="tour-stat__sublabel">Ages 12+</span>
-              <span class="tour-stat__value">${d.price_from}</span>
-            </div>
-          )}
-          {d.price_child && (
-            <div class="tour-stat">
-              <span class="tour-stat__label">Children</span>
-              <span class="tour-stat__sublabel">Ages 2–11</span>
-              <span class="tour-stat__value">${d.price_child}</span>
-            </div>
-          )}
-          {(d.price_from || d.price_child) && (
-            <div class="tour-stat">
-              <span class="tour-stat__label">Lap Child</span>
-              <span class="tour-stat__sublabel">Under 2 years old</span>
-              <span class="tour-stat__value">Free</span>
-            </div>
-          )}
-        </div>
 
         <!-- Jump to gallery -->
         <a href="#tour-gallery" class="gallery-jump">
@@ -338,46 +345,62 @@ const galleryImages = Array.from({ length: 6 }, () => GALLERY_PLACEHOLDER);
   }
   .mobile-book-bar__icon { width: 14px; height: 14px; }
 
-  /* ── Stats row ───────────────────────────────────────────────── */
-  .tour-stats {
+  /* ── Quick-stats bar (navy strip below hero) ────────────────── */
+  .tour-quickbar {
+    background: var(--c-ink);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.06);
+  }
+  .tour-quickbar__inner {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-bottom: 1.25rem;
+    align-items: stretch;
+    justify-content: center;
   }
-  .tour-stat {
-    background: var(--c-paper-soft);
-    border: 1px solid var(--c-fog);
-    border-radius: 10px;
-    padding: 0.65rem 1rem;
+  .tqs {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.1rem 2rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    flex: 1;
+    min-width: 170px;
+  }
+  .tqs:last-child { border-right: none; }
+  .tqs__icon {
+    width: 26px;
+    height: 26px;
+    color: var(--c-ember);
+    flex-shrink: 0;
+  }
+  .tqs__text {
     display: flex;
     flex-direction: column;
-    gap: 0.15rem;
-    min-width: 100px;
+    gap: 0.2rem;
   }
-  .tour-stat__label {
-    font-family: var(--font-display);
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--c-ink-soft);
-  }
-  .tour-stat__sublabel {
+  .tqs__label {
     font-family: var(--font-display);
     font-size: 0.6rem;
-    letter-spacing: 0.1em;
+    font-weight: 700;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--c-ink-soft);
-    opacity: 0.7;
-    margin-top: -0.1rem;
-  }
-  .tour-stat__value {
-    font-family: var(--font-display);
-    font-size: 1.35rem;
-    font-weight: 900;
-    color: var(--c-ink);
+    color: rgba(255, 255, 255, 0.45);
     line-height: 1;
+  }
+  .tqs__value {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+  }
+  @media (max-width: 700px) {
+    .tqs {
+      flex: 1 1 50%;
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .tqs:nth-child(2n) { border-right: none; }
+    .tqs:nth-last-child(-n+2) { border-bottom: none; }
   }
 
   /* ── Jump-to-gallery button ─────────────────────────────────── */
