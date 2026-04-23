@@ -131,7 +131,7 @@ const galleryTrack = [...displayImages, ...displayImages];
                 aria-hidden={i >= displayImages.length ? "true" : undefined}
                 aria-label={i < displayImages.length ? `Open photo ${i + 1}` : undefined}
               >
-                <img src={src} alt="" loading="lazy" />
+                <img src={src} alt="" loading="eager" />
               </div>
             ))}
           </div>
@@ -404,7 +404,7 @@ const galleryTrack = [...displayImages, ...displayImages];
   }
   .gallery-marquee__track {
     display: flex;
-    gap: 0.5rem;
+    gap: 0;
     width: max-content;
     animation: gallery-marquee 60s linear infinite;
     will-change: transform;
@@ -426,6 +426,7 @@ const galleryTrack = [...displayImages, ...displayImages];
     background: var(--c-fog);
     position: relative;
     cursor: pointer;
+    margin-right: 0.5rem;
   }
   .gallery-marquee__item::after {
     content: '';
