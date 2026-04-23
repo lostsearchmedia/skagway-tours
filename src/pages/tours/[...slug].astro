@@ -62,25 +62,43 @@ const galleryImages = Array.from({ length: 6 }, () => GALLERY_PLACEHOLDER);
         )}
         {d.price_from && (
           <div class="tqs">
-            <Icon name="ph:tag-fill" class="tqs__icon" aria-hidden="true" />
+            <Icon name="ph:user-fill" class="tqs__icon" aria-hidden="true" />
             <div class="tqs__text">
-              <span class="tqs__label">From</span>
-              <span class="tqs__value">${d.price_from} per adult</span>
+              <span class="tqs__label">Adult · 12+</span>
+              <span class="tqs__value">${d.price_from}</span>
+            </div>
+          </div>
+        )}
+        {d.price_child && (
+          <div class="tqs">
+            <Icon name="ph:user-focus-fill" class="tqs__icon" aria-hidden="true" />
+            <div class="tqs__text">
+              <span class="tqs__label">Child · 2–11</span>
+              <span class="tqs__value">${d.price_child}</span>
+            </div>
+          </div>
+        )}
+        {(d.price_from || d.price_child) && (
+          <div class="tqs">
+            <Icon name="ph:baby-fill" class="tqs__icon" aria-hidden="true" />
+            <div class="tqs__text">
+              <span class="tqs__label">Lap Child · Under 2</span>
+              <span class="tqs__value">Free</span>
             </div>
           </div>
         )}
         <div class="tqs">
           <Icon name="ph:map-pin-fill" class="tqs__icon" aria-hidden="true" />
           <div class="tqs__text">
-            <span class="tqs__label">Pickup</span>
-            <span class="tqs__value">All Skagway cruise docks</span>
+            <span class="tqs__label">Dock Pick-Up</span>
+            <span class="tqs__value">Cruise Ship Friendly</span>
           </div>
         </div>
         <div class="tqs">
           <Icon name="ph:identification-card-fill" class="tqs__icon" aria-hidden="true" />
           <div class="tqs__text">
             <span class="tqs__label">Passport</span>
-            <span class="tqs__value">Required for all guests</span>
+            <span class="tqs__value">Required</span>
           </div>
         </div>
       </div>
@@ -359,11 +377,11 @@ const galleryImages = Array.from({ length: 6 }, () => GALLERY_PLACEHOLDER);
   .tqs {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 1.1rem 2rem;
+    gap: 0.7rem;
+    padding: 1rem 1.35rem;
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     flex: 1;
-    min-width: 170px;
+    min-width: 155px;
   }
   .tqs:last-child { border-right: none; }
   .tqs__icon {
