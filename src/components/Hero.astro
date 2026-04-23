@@ -47,6 +47,9 @@ const ctaHref = hero?.primary_cta_href ?? "#tours";
     color: #fff;
     overflow: hidden;
   }
+  @media (max-width: 640px) {
+    .hero { min-height: 520px; }
+  }
   .hero__media {
     position: absolute; inset: 0;
   }

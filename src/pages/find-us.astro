@@ -81,10 +81,12 @@ const { Content } = await render(entry);
     grid-template-columns: 1fr 1fr;
     gap: 2.5rem;
     align-items: start;
+    min-width: 0;
   }
   @media (max-width: 880px) {
     .find-us__grid { grid-template-columns: 1fr; }
   }
+  .find-us__grid > * { min-width: 0; }
   .find-us__map iframe {
     width: 100%;
     aspect-ratio: 4 / 3;
@@ -103,6 +105,7 @@ const { Content } = await render(entry);
     flex-direction: column;
     gap: 0.25rem;
     font-size: 0.9rem;
+    min-width: 0;
   }
   .pickup-form label span { font-weight: 600; }
   .pickup-form label.full { grid-column: 1 / -1; }
@@ -113,6 +116,9 @@ const { Content } = await render(entry);
     border-radius: var(--radius-sm);
     font: inherit;
     background: #fff;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
   }
   .pickup-form input:focus,
   .pickup-form textarea:focus {
