@@ -120,4 +120,8 @@ const { Content } = await render(entry);
     outline-offset: 1px;
   }
   .pickup-form button { grid-column: 1 / -1; justify-self: start; }
+  @media (max-width: 560px) {
+    .pickup-form { grid-template-columns: 1fr; }
+    .pickup-form button { justify-self: stretch; }
+  }
 </style>
