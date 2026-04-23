@@ -7,6 +7,7 @@ const entry = await getEntry("pages", "passport-requirements");
 const d = entry?.data;
 
 const FALLBACK = "https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_webp,p_h/skagway.tours/wp-content/uploads/2024/02/st_wide.jpg";
+const PASSPORT_IMG = "https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_webp/skagway.tours/wp-content/uploads/2025/09/Passport_Requirements-scaled.png";
 
 const notAllowed = [
   "Photocopies or digital copies of Passports or IDs",
@@ -46,7 +47,7 @@ const notAllowed = [
       <h2>Passport Requirements Reference</h2>
       <p>A quick visual breakdown of what's accepted at the Canadian border — pin it, save it, send it to your travel group.</p>
       <figure class="psp-image__figure">
-        <img src="/images/passports-required.png" alt="Passport requirements visual reference" loading="lazy" />
+        <img src={PASSPORT_IMG} alt="Passport requirements visual reference" loading="lazy" />
       </figure>
     </div>
   </section>

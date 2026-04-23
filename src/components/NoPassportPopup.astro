@@ -15,23 +15,7 @@
   <div class="npp__panel" tabindex="-1">
     <button class="npp__close" type="button" aria-label="Close" data-npp-close>×</button>
     <div class="npp__art" aria-hidden="true">
-      <svg viewBox="0 0 320 200" width="320" height="200">
-        <defs>
-          <linearGradient id="npp-g" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#1d3b2a" />
-            <stop offset="1" stop-color="#0f2419" />
-          </linearGradient>
-        </defs>
-        <rect width="320" height="200" fill="url(#npp-g)" rx="10" />
-        <circle cx="110" cy="105" r="50" fill="#292546" />
-        <circle cx="110" cy="96" r="32" fill="#f1d8b5" />
-        <rect x="72" y="70" width="76" height="22" fill="#292546" rx="2" />
-        <rect x="78" y="68" width="64" height="6" fill="#dd5154" />
-        <path d="M170 45 Q290 45 290 95 Q290 140 220 140 L205 170 L215 140 Q170 138 170 95 Z" fill="#fff" />
-        <text x="230" y="85" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="18" fill="#292546">NO PASSPORT,</text>
-        <text x="230" y="108" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="18" fill="#292546">NO TOUR,</text>
-        <text x="230" y="131" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="18" fill="#dd5154">NO KIDDING.</text>
-      </svg>
+      <img src="/images/passports-required.png" alt="" />
     </div>
     <p>
       All Skagway Tours cross into Canada and require a valid passport or approved
@@ -103,7 +87,7 @@
     color: var(--c-ink-soft);
   }
   .npp__art { margin: 0 auto 1rem; }
-  .npp__art svg { margin: 0 auto; max-width: 100%; height: auto; }
+  .npp__art img { margin: 0 auto; max-width: 100%; height: auto; display: block; border-radius: 8px; }
   .npp__actions {
     display: flex; gap: 0.75rem; justify-content: center; margin-top: 1rem;
     flex-wrap: wrap;
