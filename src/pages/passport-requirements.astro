@@ -326,19 +326,23 @@ const notAllowed = [
   }
 
   /* ── Help CTA ─────────────────────────────────────────────── */
-  .psp-help { background: var(--c-paper-soft); text-align: center; }
+  .psp-help {
+    background: linear-gradient(135deg, #1f1c39 0%, #292546 55%, #3d3870 100%);
+    text-align: center;
+  }
   .psp-help__inner { max-width: 560px; }
-  .psp-help h2 { color: var(--c-ink); font-size: clamp(1.5rem, 2.5vw + 0.5rem, 2rem); margin: 0 0 0.6rem; }
-  .psp-help p { font-size: 1rem; margin: 0 0 1.5rem; color: var(--c-ink-soft); }
+  .psp-help h2 { color: #fff; font-size: clamp(1.5rem, 2.5vw + 0.5rem, 2rem); margin: 0 0 0.6rem; }
+  .psp-help p { font-size: 1rem; margin: 0 0 1.5rem; color: rgba(246, 241, 231, 0.85); }
   .psp-help__actions { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
   .psp-help__actions :global(.button--ghost) {
     background: transparent;
-    color: var(--c-ink);
-    border: 2px solid var(--c-fog);
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.5);
   }
   .psp-help__actions :global(.button--ghost:hover) {
-    border-color: var(--c-ember);
-    color: var(--c-ember);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: #fff;
+    color: #fff;
     text-decoration: none;
   }
 </style>
