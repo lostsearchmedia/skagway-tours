@@ -98,13 +98,30 @@
     container.removeAttribute("tabindex");
     container.style.cursor = "default";
 
-    if (getComputedStyle(container).position === "static") {
+    const cs = getComputedStyle(container);
+    if (cs.position === "static") {
       container.style.position = "relative";
     }
+    // Fallback: guarantee a height even if aspect-ratio isn't applying
+    // because of a CSS conflict. 56.25% = 9/16 of width.
+    if (container.offsetHeight < 40) {
+      container.style.aspectRatio = "16 / 9";
+      if (container.offsetHeight < 40) {
+        container.style.height = `${Math.round(container.offsetWidth * 0.5625)}px`;
+      }
+    }
+
+    // Use explicit t/r/b/l and width/height for maximum mobile compatibility
+    const playerStyle =
+      "position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%;" +
+      "background:#000;z-index:50;overflow:hidden;border-radius:inherit";
+    const mediaStyle =
+      "position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%;" +
+      "border:0;display:block";
 
     const player = document.createElement("div");
     player.className = "inline-player";
-    player.style.cssText = "position:absolute;inset:0;background:#000;z-index:10;overflow:hidden";
+    player.setAttribute("style", playerStyle);
 
     const isFile = /\.(mp4|webm|mov)(\?|$)/i.test(src);
     if (isFile) {
@@ -114,14 +131,14 @@
       video.setAttribute("autoplay", "");
       video.setAttribute("playsinline", "");
       video.muted = true;
-      video.style.cssText = "width:100%;height:100%;border:0;display:block;object-fit:cover";
+      video.setAttribute("style", `${mediaStyle};object-fit:cover`);
       player.appendChild(video);
     } else {
       const iframe = document.createElement("iframe");
       iframe.setAttribute("src", toEmbed(src));
       iframe.setAttribute("allow", "autoplay; fullscreen; picture-in-picture");
       iframe.setAttribute("allowfullscreen", "");
-      iframe.style.cssText = "width:100%;height:100%;border:0;display:block";
+      iframe.setAttribute("style", mediaStyle);
       player.appendChild(iframe);
     }
 
