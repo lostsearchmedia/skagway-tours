@@ -196,18 +196,18 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
     position: sticky;
     top: 0;
     z-index: 50;
-    background: var(--c-ink);
-    color: var(--c-paper);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+    background: #fff;
+    color: var(--c-ink);
+    border-bottom: 1px solid var(--c-fog);
   }
   .site-header.transparent {
     position: absolute;
     left: 0; right: 0;
-    background: #292546bf;
-    backdrop-filter: blur(18px) saturate(1.6);
-    -webkit-backdrop-filter: blur(18px) saturate(1.6);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 2px 24px rgba(0, 0, 0, 0.12);
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    border-bottom: 1px solid rgba(41,37,70,0.08);
+    box-shadow: 0 2px 24px rgba(41,37,70,0.06);
   }
 
   /* ── Top bar ────────────────────────────────────────────────── */
@@ -222,7 +222,8 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
   /* ── Brand ──────────────────────────────────────────────────── */
   .brand { display: inline-flex; align-items: center; color: inherit; }
   .brand:hover { text-decoration: none; }
-  .brand__logo { width: 150px; height: auto; display: block; filter: brightness(0) invert(1); }
+  .brand__logo { width: 150px; height: auto; display: block; }
+  .mobile-nav .brand__logo { filter: brightness(0) invert(1); }
 
   /* ── Promo bar ──────────────────────────────────────────────── */
   .promo-bar {
@@ -288,7 +289,7 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
     align-items: center;
     gap: 0.35rem;
     padding: 0.55rem 0.9rem;
-    color: var(--c-paper);
+    color: var(--c-ink);
     font-family: var(--font-display);
     letter-spacing: 0.15em;
     text-transform: uppercase;
@@ -300,15 +301,15 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
     cursor: pointer;
   }
   .site-nav a:hover,
-  .site-nav button:hover { color: var(--c-ember-bright); text-decoration: none; }
+  .site-nav button:hover { color: var(--c-ember); text-decoration: none; }
 
   .has-dropdown { position: relative; }
   .dropdown {
     position: absolute;
     top: 100%; right: 0;
     min-width: 220px;
-    background: var(--c-ink-soft);
-    border: 1px solid rgba(255,255,255,0.1);
+    background: #fff;
+    border: 1px solid var(--c-fog);
     border-radius: var(--radius);
     list-style: none;
     margin: 0; padding: 0.4rem;
@@ -316,12 +317,14 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
     display: none;
     box-shadow: var(--shadow-lg);
   }
+  .dropdown a { color: var(--c-ink); }
+  .dropdown a:hover { color: var(--c-ember); }
   .has-dropdown.is-open .dropdown { display: flex; }
   @media (hover: hover) and (min-width: 961px) {
     .has-dropdown:hover .dropdown,
     .has-dropdown:focus-within .dropdown { display: flex; }
     .has-dropdown:hover > button,
-    .has-dropdown:focus-within > button { color: var(--c-ember-bright); }
+    .has-dropdown:focus-within > button { color: var(--c-ember); }
   }
   .dropdown li { width: 100%; }
   .dropdown a { display: block; padding: 0.55rem 0.75rem; width: 100%; }
@@ -334,9 +337,9 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
     color: inherit;
     text-align: right;
     padding-left: 1rem;
-    border-left: 1px solid rgba(255,255,255,0.15);
+    border-left: 1px solid rgba(41,37,70,0.15);
   }
-  .phone-cta:hover { text-decoration: none; color: var(--c-ember-bright); }
+  .phone-cta:hover { text-decoration: none; color: var(--c-ember); }
   .phone-cta__label {
     font-family: var(--font-display);
     font-size: 0.7rem;
@@ -354,18 +357,18 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
   .nav-toggle {
     display: none;
     background: transparent;
-    border: 1px solid rgba(255,255,255,0.25);
+    border: 1px solid rgba(41,37,70,0.2);
     border-radius: 10px;
     width: 44px; height: 44px;
     padding: 0;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color: var(--c-paper);
+    color: var(--c-ink);
     flex-shrink: 0;
     transition: background 0.15s ease;
   }
-  .nav-toggle:hover { background: rgba(255,255,255,0.08); }
+  .nav-toggle:hover { background: rgba(41,37,70,0.06); }
   .nav-toggle__icon { width: 22px; height: 22px; }
   .nav-caret { width: 10px; height: 10px; }
 
