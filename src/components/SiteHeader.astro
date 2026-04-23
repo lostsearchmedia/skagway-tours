@@ -63,7 +63,7 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
     )}
 
     <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
-      <Icon name="ph:list-fill" class="nav-toggle__icon" aria-hidden="true" />
+      <Icon name="ph:list" class="nav-toggle__icon" aria-hidden="true" />
     </button>
   </div>
 </header>
@@ -359,17 +359,18 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
     display: none;
     background: transparent;
     border: none;
-    width: 44px; height: 44px;
     padding: 0;
+    margin: 0;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     color: var(--c-ink);
     flex-shrink: 0;
     transition: color 0.15s ease;
+    line-height: 0;
   }
   .nav-toggle:hover { color: var(--c-ember); }
-  .nav-toggle__icon { width: 28px; height: 28px; }
+  .nav-toggle__icon { width: 32px; height: 32px; display: block; }
   .nav-caret { width: 10px; height: 10px; }
 
   /* ── Menu → hamburger at ≤1300px (phone + promo stay) ────────── */
