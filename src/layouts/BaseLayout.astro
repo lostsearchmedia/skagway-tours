@@ -79,6 +79,32 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <PassportInterstitial />
     <VideoModal />
 
+    <img
+      src="https://skagway-tours.pages.dev/images/passports-required.png"
+      alt=""
+      class="corner-passport"
+      aria-hidden="true"
+      loading="lazy"
+    />
+
+    <style>
+      .corner-passport {
+        display: none;
+      }
+      @media (min-width: 2000px) {
+        .corner-passport {
+          display: block;
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          width: 260px;
+          height: auto;
+          z-index: 40;
+          pointer-events: none;
+        }
+      }
+    </style>
+
     <script>
       // Only load CloudCannon component re-rendering inside the Visual Editor.
       if (typeof window !== "undefined" && (window as any).inEditorMode) {
