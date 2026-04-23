@@ -202,18 +202,13 @@ const telNum = phone?.replace(/[^\d+]/g, "") ?? "";
   }
   .site-header.transparent {
     position: absolute;
-    left: 1.25rem;
-    right: 1.25rem;
-    top: 1.25rem;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.88);
-    backdrop-filter: blur(20px) saturate(1.4);
-    -webkit-backdrop-filter: blur(20px) saturate(1.4);
-    border: 1px solid rgba(41,37,70,0.1);
-    box-shadow: 0 4px 40px rgba(41,37,70,0.1);
+    left: 0; right: 0;
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    border-bottom: 1px solid rgba(41,37,70,0.08);
+    box-shadow: 0 2px 24px rgba(41,37,70,0.06);
   }
-  /* Promo bar breaks the single-row pill shape — move it outside */
-  .site-header.transparent .promo-bar { display: none; }
 
   /* ── Top bar ────────────────────────────────────────────────── */
   .site-header__bar {
