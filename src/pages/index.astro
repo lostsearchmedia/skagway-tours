@@ -538,6 +538,17 @@ const galleryTrack = galleryImages.length
   .callout h3 { color: inherit; }
   .callout p { margin: 0 0 1rem; opacity: 0.9; }
   .callout a { align-self: flex-start; margin-top: auto; }
+  .callout a:not(.button) {
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 0.9rem;
+    color: var(--c-ember);
+  }
+  .callout a:not(.button):hover {
+    color: var(--c-ember-bright);
+  }
 
   /* --- Reviews CTA ------------------------------------------------- */
   .reviews-cta__inner {
