@@ -16,33 +16,31 @@
   const frame = document.getElementById("vm-frame")!;
   let lastFocus: HTMLElement | null = null;
 
-  const toEmbed = (src: string): string => {
+  // muted=true forces mute=1 in the embed URL — required on iOS Safari for
+  // autoplay to actually fire (unmuted autoplay is blocked). User can unmute
+  // with one tap on YouTube's native control.
+  const toEmbed = (src: string, muted = false): string => {
+    const yt = (id: string) =>
+      `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&playsinline=1${muted ? "&mute=1" : ""}`;
+    const vi = (id: string) =>
+      `https://player.vimeo.com/video/${id}?autoplay=1&playsinline=1${muted ? "&muted=1" : ""}`;
     try {
       const url = new URL(src);
       if (/(?:^|\.)youtube\.com$/.test(url.hostname)) {
-        // Standard /watch?v=ID
         const v = url.searchParams.get("v");
-        if (v) {
-          return `https://www.youtube.com/embed/${v}?autoplay=1&rel=0&playsinline=1`;
-        }
-        // Shorts: /shorts/ID
+        if (v) return yt(v);
         const shorts = url.pathname.match(/^\/shorts\/([^/?#]+)/);
-        if (shorts) {
-          return `https://www.youtube.com/embed/${shorts[1]}?autoplay=1&rel=0&playsinline=1`;
-        }
-        // Embed: /embed/ID — just add params if missing
+        if (shorts) return yt(shorts[1]);
         const embed = url.pathname.match(/^\/embed\/([^/?#]+)/);
-        if (embed) {
-          return `https://www.youtube.com/embed/${embed[1]}?autoplay=1&rel=0&playsinline=1`;
-        }
+        if (embed) return yt(embed[1]);
       }
       if (url.hostname === "youtu.be") {
         const id = url.pathname.slice(1).split(/[/?#]/)[0];
-        if (id) return `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&playsinline=1`;
+        if (id) return yt(id);
       }
       if (/(?:^|\.)vimeo\.com$/.test(url.hostname)) {
         const id = url.pathname.split("/").filter(Boolean).pop();
-        if (id) return `https://player.vimeo.com/video/${id}?autoplay=1&playsinline=1`;
+        if (id) return vi(id);
       }
     } catch {}
     return src;
@@ -130,7 +128,7 @@
       container.appendChild(video);
     } else {
       const iframe = document.createElement("iframe");
-      iframe.src = toEmbed(src);
+      iframe.src = toEmbed(src, true); // mobile: muted so iOS autoplay fires
       iframe.allow = "autoplay; fullscreen; picture-in-picture";
       iframe.allowFullscreen = true;
       iframe.setAttribute("style", style);
