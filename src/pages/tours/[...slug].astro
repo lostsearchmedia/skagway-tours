@@ -15,6 +15,9 @@ export async function getStaticPaths() {
 const { tour } = Astro.props;
 const { Content } = await render(tour);
 const d = tour.data;
+
+const GALLERY_PLACEHOLDER = "https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_webp,p_h/skagway.tours/wp-content/uploads/2024/02/st_wide.jpg";
+const galleryImages = Array.from({ length: 6 }, () => GALLERY_PLACEHOLDER);
 ---
 
 <BaseLayout title={d.title} description={d.summary} seo={d.seo}>
@@ -154,6 +157,23 @@ const d = tour.data;
       </aside>
     </div>
 
+    <!-- Photo gallery -->
+    <section class="tour-gallery" aria-label="Tour photos">
+      <div class="container">
+        <div class="tour-gallery__head">
+          <span class="script script--accent tour-gallery__script">Photos</span>
+          <h2 class="tour-gallery__title">Moments from the road</h2>
+        </div>
+        <div class="tour-gallery__grid">
+          {galleryImages.map((src, i) => (
+            <div class="tour-gallery__item">
+              <img src={src} alt="" loading="lazy" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
     {d.fareharbor_item_id && (
       <div class="mobile-book-bar" aria-hidden="true">
         <a href="#tour-calendar" class="mobile-book-bar__btn">
@@ -251,7 +271,8 @@ const d = tour.data;
     padding: 3rem 0 clamp(3rem, 6vw, 5rem);
   }
   @media (max-width: 880px) {
-    .tour__layout { grid-template-columns: 1fr; padding-bottom: 7rem; }
+    .tour__layout { grid-template-columns: 1fr; }
+    .tour-gallery { padding-bottom: 7rem; }
   }
 
   .booking-card {
@@ -473,6 +494,66 @@ const d = tour.data;
   }
   .tour__before a:hover {
     color: #fff;
+  }
+
+  /* ── Tour photo gallery ─────────────────────────────────────── */
+  .tour-gallery {
+    padding: clamp(3rem, 6vw, 5rem) 0;
+    background: var(--c-paper-soft);
+    border-top: 1px solid var(--c-fog);
+  }
+  .tour-gallery__head {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .tour-gallery__script {
+    display: block;
+    font-size: 2rem;
+    margin-bottom: -0.25rem;
+  }
+  .tour-gallery__title {
+    margin: 0;
+  }
+  .tour-gallery__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  .tour-gallery__item {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 12px;
+    background: var(--c-fog);
+  }
+  .tour-gallery__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.45s ease;
+  }
+  .tour-gallery__item:hover img {
+    transform: scale(1.04);
+  }
+
+  /* Mobile: horizontal snap-scroll carousel */
+  @media (max-width: 760px) {
+    .tour-gallery__grid {
+      display: flex;
+      grid-template-columns: none;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 0.75rem;
+      padding: 0.25rem 1rem 1rem;
+      margin: 0 -1rem;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .tour-gallery__grid::-webkit-scrollbar { display: none; }
+    .tour-gallery__item {
+      flex: 0 0 78%;
+      scroll-snap-align: start;
+    }
   }
 
   /* Accordion treatment for #tour-body — JS below transforms each <h2> +
