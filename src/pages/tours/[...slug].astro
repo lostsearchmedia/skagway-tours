@@ -17,7 +17,7 @@ const { Content } = await render(tour);
 const d = tour.data;
 
 const GALLERY_PLACEHOLDER = "https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_webp,p_h/skagway.tours/wp-content/uploads/2024/02/st_wide.jpg";
-const galleryImages = Array.from({ length: 6 }, () => GALLERY_PLACEHOLDER);
+const galleryImages = d.gallery?.length ? d.gallery : Array.from({ length: 6 }, () => GALLERY_PLACEHOLDER);
 ---
 
 <BaseLayout title={d.title} description={d.summary} seo={d.seo}>
