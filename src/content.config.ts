@@ -22,7 +22,7 @@ const tours = defineCollection({
       title: z.string(),
       summary: z.string(),
       featured_image: image().optional(),
-      gallery: z.array(image()).optional(),
+      gallery: z.array(z.string()).optional(),
       video_url: z.string().optional(),
       price_from: z.number().optional(),
       price_child: z.number().optional(),

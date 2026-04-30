@@ -16,6 +16,17 @@ highlights:
   - Historic downtown Skagway city tour
   - Border crossing into Canada (passport required)
   - Gold Rush Cemetery stop with tales of Soapy Smith
+gallery:
+  - /images/Skagway City & Summit Excursion_1.jpg
+  - /images/Skagway City & Summit Excursion_2.jpg
+  - /images/Skagway City & Summit Excursion_3.jpg
+  - /images/Skagway City & Summit Excursion_4.jpg
+  - /images/Skagway City & Summit Excursion_5.jpg
+  - /images/Skagway City & Summit Excursion_6.jpg
+  - /images/Skagway City & Summit Excursion_7.jpg
+  - /images/Skagway City & Summit Excursion_8.jpg
+  - /images/Skagway City & Summit Excursion_9.jpg
+  - /images/Skagway City & Summit Excursion_10.jpg
 draft: false
 seo:
   meta_title: ""
